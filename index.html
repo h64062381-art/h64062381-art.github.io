@@ -846,7 +846,16 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
             let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
       arr.unshift({rating:row.rating,text:row.comment,name:row.name,date:new Date().toISOString(),table:table||''});
       localStorage.setItem(KEY,JSON.stringify(arr.slice(0,100)));
-      text.value='';name.value='';rating=0;paint();status.textContent='شكرًا لك ❤️ تم تسجيل تقييمك.';status.style.color='#4d7356';
+      // حفظ التقييم على السحابة حتى يظهر للمدير من لوحة الإدارة
+      await kiwiDB.collection('feedback').add({
+        rating:Number(row.rating),
+        text:row.comment,
+        name:row.name,
+        table:table||'',
+        table_number:row.table_number,
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+      text.value='';name.value='';rating=0;paint();status.textContent='شكرًا لك ❤️ تم إرسال التقييم.';status.style.color='#4d7356';
       setTimeout(shut,1200);
     }catch(e){
       status.textContent='تعذر إرسال التقييم حالياً. حاول مرة ثانية.';status.style.color='#a33b2b';
@@ -864,47 +873,19 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
    const table=new URLSearchParams(location.search).get('table')||localStorage.getItem('kiwi_current_table')||null;
    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
    const items=cart.map(x=>({name:x.name,price:x.price,qty:x.qty,priceText:x.priceText}));
-
-   let msg='KIWI - طلب جديد\n';
-   msg+='الطاولة: '+(table||'غير محددة')+'\n';
-   msg+='الطلب:\n';
-   items.forEach(x=>{
-     msg+='- '+x.name+' × '+x.qty+' = '+(x.price*x.qty).toLocaleString('en-US')+' IQD\n';
-   });
-   msg+='الإجمالي: '+total.toLocaleString('en-US')+' IQD\n';
-   msg+='يرجى تأكيد الطلب من الكابتن.\n';
-
-   const waUrl='whatsapp://send?phone=9647891916733&text='+encodeURIComponent(msg);
-
-   // فتح واتساب مباشرة عند ضغط الزبون
-   window.location.href=waUrl;
-
+   const rows=cart.map(x=>`<tr><td>${String(x.name).replace(/[<>]/g,'')}</td><td>${x.qty}</td><td>${x.price.toLocaleString('en-US')} IQD</td><td>${(x.price*x.qty).toLocaleString('en-US')} IQD</td></tr>`).join('');
+   const box=document.getElementById('kiwiInvoicePrint');
+   box.innerHTML=`<div class="invoice-print-title">KIWI RESTAURANT</div><div class="invoice-meta">فاتورة رقمية • طاولة ${table||'—'} • ${new Date().toLocaleString('ar-IQ')}</div><table class="invoice-table"><tr><th>الطبق</th><th>الكمية</th><th>السعر</th><th>المجموع</th></tr>${rows}</table><div class="invoice-total">الإجمالي: ${total.toLocaleString('en-US')} IQD</div><div style="margin-top:30px;text-align:center;font-size:11px;color:#777">شكراً لاختياركم KIWI ❤️</div>`;
+   box.style.display='block';
    try{
-     const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
-     orders.unshift({created_at:new Date().toISOString(),table_number:table?Number(table):null,items:items,total:total,status:'pending'});
-     localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
-
-     const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;
-     if(d){
-       d.orders=(d.orders||0)+1;
-       d.daily=d.daily||{};
-       const day=new Date().toISOString().slice(0,10);
-       d.daily[day]=(d.daily[day]||0)+1;
-       localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d));
-     }
-
-     await kiwiDB.collection('orders').add({
-       table:table||'',
-       table_number:table?Number(table):null,
-       items:items.map(x=>({name:x.name,qty:Number(x.qty||0),price:Number(x.price||0)})),
-       total:Number(total||0),
-       status:'pending',
-       createdAt:firebase.firestore.FieldValue.serverTimestamp()
-     });
-   }catch(e){
-     console.error('KIWI order save error:',e);
-   }
-
+      const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
+      orders.unshift({created_at:new Date().toISOString(),table_number:table?Number(table):null,items:items,total:total,status:'pending'});
+      localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
+      const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;if(d){d.orders=(d.orders||0)+1;d.daily=d.daily||{};const day=new Date().toISOString().slice(0,10);d.daily[day]=(d.daily[day]||0)+1;localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d))}
+      // Send the order to the captain's Google Sheet bridge (no Supabase).
+      await kiwiDB.collection('orders').add({table:table||'',table_number:table?Number(table):null,items:items.map(x=>({name:x.name,qty:Number(x.qty||0),price:Number(x.price||0)})),total:Number(total||0),status:'pending',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+    }catch(e){console.error('KIWI local order save error:',e)}
+    window.print();setTimeout(()=>box.style.display='none',500);
  };
 })();
 </script>
