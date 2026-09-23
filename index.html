@@ -875,7 +875,10 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
    msg+='━━━━━━━━━━━━\\n';
    msg+='يرجى تأكيد الطلب من الكابتن.';
 
-   const waUrl='https://wa.me/9647891916733?text='+encodeURIComponent(msg);
+   const waUrl='whatsapp://send?phone=9647891916733&text='+encodeURIComponent(msg);
+
+   // فتح واتساب مباشرة عند ضغط الزبون
+   window.location.href=waUrl;
 
    try{
      const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
@@ -903,7 +906,6 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
      console.error('KIWI order save error:',e);
    }
 
-   window.location.href=waUrl;
  };
 })();
 </script>
