@@ -258,7 +258,7 @@ body.dark-mode .delivery{color:#f6e3ae}
 body.dark-mode .search input{background:#ffffff12}
 body.dark-mode .kiwi-modal .kiwi-sheet,body.dark-mode .cart-sheet{background:#151a16;color:#f4f0e6}
 body.dark-mode .cart-line{border-color:#394137}
-.theme-toggle{position:fixed;left:14px;bottom:82px;z-index:45;border:1px solid #c9a45b77;background:#111a14;color:#f0d58c;border-radius:999px;width:44px;height:44px;font-size:18px;box-shadow:0 10px 25px #0003;cursor:pointer}
+.theme-toggle{position:fixed;right:14px;top:14px;left:auto;bottom:auto;z-index:95;border:1px solid #c9a45b77;background:#111a14;color:#f0d58c;border-radius:999px;width:44px;height:44px;font-size:18px;box-shadow:0 10px 25px #0003;cursor:pointer}
 .smart-results{max-width:960px;margin:10px auto 0;padding:0 14px;display:none}.smart-results.show{display:block}.smart-results-box{background:#fffdf8;border:1px solid #d9ccb5;border-radius:18px;padding:12px;box-shadow:0 10px 30px #0001}.dark-mode .smart-results-box{background:#151a16;border-color:#394137}.smart-results-title{font-size:11px;font-weight:900;color:#173f2b;margin-bottom:8px}.dark-mode .smart-results-title{color:#f0d58c}.smart-result{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px dashed #ddd2bf;cursor:pointer}.smart-result:last-child{border-bottom:0}.smart-result small{color:#888}.smart-result b{font-size:11px}.smart-result .sr-price{font-weight:900;color:#6f4d12;white-space:nowrap}.dark-mode .smart-result .sr-price{color:#f0d58c}
 .invoice-btn{width:100%;margin-top:10px;padding:12px;border:1px solid #c9a45b66;background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b;border-radius:13px;font-weight:900;cursor:pointer}
 @media print{body *{visibility:hidden!important}#kiwiInvoicePrint,#kiwiInvoicePrint *{visibility:visible!important}#kiwiInvoicePrint{position:absolute;inset:0;background:#fff!important;color:#111!important;padding:30px;direction:rtl;font-family:Arial,sans-serif}.invoice-print-title{text-align:center;font-size:25px;font-weight:900;margin-bottom:5px}.invoice-meta{font-size:12px;color:#555;margin-bottom:18px}.invoice-table{width:100%;border-collapse:collapse}.invoice-table th,.invoice-table td{border-bottom:1px solid #ddd;padding:9px;text-align:right}.invoice-total{font-size:18px;font-weight:900;margin-top:18px;text-align:left}}
@@ -823,21 +823,6 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
 </div>
 
 <script id="kiwi-table-script">(function(){const n=new URLSearchParams(location.search).get('table');if(n&&/^\d{1,3}$/.test(n)){document.getElementById('kiwiTableNo').textContent=n;document.getElementById('kiwiTableBadge').classList.add('show');localStorage.setItem('kiwi_current_table',n);}})();</script>
-<script id="kiwi-supabase-config">
-window.KIWI_SUPABASE={
-  url:'https://yyevmsuymdkqkzlcclfd.supabase.co',
-  key:'sb_publishable_pPN-pZk2hTGV_rT1kczYtA_zddnJREW'
-};
-window.kiwiSupabaseFetch=async function(path,options={}){
-  const c=window.KIWI_SUPABASE;
-  const headers=Object.assign({'apikey':c.key,'Authorization':'Bearer '+c.key,'Content-Type':'application/json','Prefer':'return=minimal'},options.headers||{});
-  const r=await fetch(c.url+'/rest/v1/'+path,Object.assign({},options,{headers}));
-  if(!r.ok){let t='';try{t=await r.text()}catch(e){};throw new Error('Supabase '+r.status+' '+t)}
-  const ct=r.headers.get('content-type')||'';
-  return ct.includes('application/json')?r.json():null;
-};
-window.kiwiSupabaseInsert=async function(table,row){return window.kiwiSupabaseFetch(table,{method:'POST',body:JSON.stringify(row),headers:{'Prefer':'return=minimal','Content-Profile':'public'}})};
-</script>
 <script id="kiwi-feedback-script">
 (function(){
   const KEY='kiwi_feedback_v1';
@@ -855,8 +840,7 @@ window.kiwiSupabaseInsert=async function(table,row){return window.kiwiSupabaseFe
     const row={rating:rating,comment:text.value.trim(),name:name.value.trim()||'زائر',table_number:table?Number(table):null};
     submit.disabled=true; status.textContent='جاري إرسال التقييم…';status.style.color='#777';status.classList.add('show');
     try{
-      await window.kiwiSupabaseInsert('feedback',row);
-      let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+            let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
       arr.unshift({rating:row.rating,text:row.comment,name:row.name,date:new Date().toISOString(),table:table||''});
       localStorage.setItem(KEY,JSON.stringify(arr.slice(0,100)));
       text.value='';name.value='';rating=0;paint();status.textContent='شكرًا لك ❤️ تم تسجيل تقييمك.';status.style.color='#4d7356';
@@ -881,10 +865,16 @@ window.kiwiSupabaseInsert=async function(table,row){return window.kiwiSupabaseFe
    const box=document.getElementById('kiwiInvoicePrint');
    box.innerHTML=`<div class="invoice-print-title">KIWI RESTAURANT</div><div class="invoice-meta">فاتورة رقمية • طاولة ${table||'—'} • ${new Date().toLocaleString('ar-IQ')}</div><table class="invoice-table"><tr><th>الطبق</th><th>الكمية</th><th>السعر</th><th>المجموع</th></tr>${rows}</table><div class="invoice-total">الإجمالي: ${total.toLocaleString('en-US')} IQD</div><div style="margin-top:30px;text-align:center;font-size:11px;color:#777">شكراً لاختياركم KIWI ❤️</div>`;
    box.style.display='block';
-   try{await window.kiwiSupabaseInsert('orders',{created_at:new Date().toISOString(),table_number:table?Number(table):null,items:items,total:total,status:'pending'});
-     const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;if(d){d.orders=(d.orders||0)+1;d.daily=d.daily||{};const day=new Date().toISOString().slice(0,10);d.daily[day]=(d.daily[day]||0)+1;localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d))}
-   }catch(e){console.error('KIWI order insert error:',e);const msg=String(e&&e.message||e);alert('تعذر تسجيل الطلب في النظام حالياً. تم تجهيز الفاتورة فقط.\n\nتفاصيل الخطأ: '+msg.slice(0,500))}
-   window.print();setTimeout(()=>box.style.display='none',500);
+   try{
+      const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
+      orders.unshift({created_at:new Date().toISOString(),table_number:table?Number(table):null,items:items,total:total,status:'pending'});
+      localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
+      const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;if(d){d.orders=(d.orders||0)+1;d.daily=d.daily||{};const day=new Date().toISOString().slice(0,10);d.daily[day]=(d.daily[day]||0)+1;localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d))}
+      // Send the order to the captain's Google Sheet bridge (no Supabase).
+      const CAPTAIN_ENDPOINT='https://script.google.com/macros/s/AKfycbyQRYAvAMVPOsI_V8tjnX1B1zW-KlL31twcGCa1rkeZQhNp2cUybzvmUdxwllP_HvY/exec';
+      fetch(CAPTAIN_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({table:table||'',order:items.map(x=>`${x.name} ×${x.qty}`).join('، '),total:total})}).catch(e=>console.warn('Captain bridge:',e));
+    }catch(e){console.error('KIWI local order save error:',e)}
+    window.print();setTimeout(()=>box.style.display='none',500);
  };
 })();
 </script>
