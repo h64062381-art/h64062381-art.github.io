@@ -114,7 +114,7 @@ status.textContent='جاري تحديث الطلبات...';
 
 try{
 
-constsnap=await kiwiDB.collection('orders').where('status','==','pending').get();
+const snap=await kiwiDB.collection('orders').where('status','==','pending').get();
 rows=snap.docs.map(d=>({id:d.id,...d.data()}));
 
 render();
