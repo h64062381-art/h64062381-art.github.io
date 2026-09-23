@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 
 <html dir="rtl" lang="ar">
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig={
-apiKey:"AIzaSyAQ9WanobYNjUbozIcWQrhDBCT82-RqMMU",
-authDomain:"kiwiresturant-30ff4.firebaseapp.com",
-projectId:"kiwiresturant-30ff4",
-storageBucket:"kiwiresturant-30ff4.firebasestorage.app",
-messagingSenderId:"329950339210",
-appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73"
-};
-firebase.initializeApp(firebaseConfig);
-const kiwiDB=firebase.firestore();
-</script><head>
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>MENU | المنيو</title>
@@ -680,7 +667,7 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
     <div id="cartLines"></div>
     <div class="cart-actions">
       <button class="clear-cart" id="clearCart">مسح السلة</button>
-      <button class="invoice-btn" id="invoiceBtn" type="button" style="color:#10100f !important;">تأكيد الطلب</button>
+      <button class="invoice-btn" id="invoiceBtn" type="button">🧾 إنشاء فاتورة رقمية</button>
     </div>
   </div>
 </div>
@@ -884,14 +871,9 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
       localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
       const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;if(d){d.orders=(d.orders||0)+1;d.daily=d.daily||{};const day=new Date().toISOString().slice(0,10);d.daily[day]=(d.daily[day]||0)+1;localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d))}
       // Send the order to the captain's Google Sheet bridge (no Supabase).
-await kiwiDB.collection('orders').add({
-  table:table||'',
-  table_number:table?Number(table):null,
-  items:items,
-  total:total,
-  status:'pending',
-  createdAt:firebase.firestore.FieldValue.serverTimestamp()
-});    
+      const CAPTAIN_ENDPOINT='https://script.google.com/macros/s/AKfycbyQRYAvAMVPOsI_V8tjnX1B1zW-KlL31twcGCa1rkeZQhNp2cUybzvmUdxwllP_HvY/exec';
+      fetch(CAPTAIN_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({table:table||'',order:items.map(x=>`${x.name} ×${x.qty}`).join('، '),total:total})}).catch(e=>console.warn('Captain bridge:',e));
+    }catch(e){console.error('KIWI local order save error:',e)}
     window.print();setTimeout(()=>box.style.display='none',500);
  };
 })();
