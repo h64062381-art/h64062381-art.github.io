@@ -865,15 +865,14 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
    const items=cart.map(x=>({name:x.name,price:x.price,qty:x.qty,priceText:x.priceText}));
 
-   let msg='🍃 *KIWI — طلب جديد*\\n';
-   msg+='━━━━━━━━━━━━\\n';
-   msg+='🪑 الطاولة: '+(table||'غير محددة')+'\\n\\n';
+   let msg='KIWI - طلب جديد\n';
+   msg+='الطاولة: '+(table||'غير محددة')+'\n';
+   msg+='الطلب:\n';
    items.forEach(x=>{
-     msg+='🍽️ '+x.name+' × '+x.qty+' — '+(x.price*x.qty).toLocaleString('en-US')+' IQD\\n';
+     msg+='- '+x.name+' × '+x.qty+' = '+(x.price*x.qty).toLocaleString('en-US')+' IQD\n';
    });
-   msg+='\\n💰 *الإجمالي: '+total.toLocaleString('en-US')+' IQD*\\n';
-   msg+='━━━━━━━━━━━━\\n';
-   msg+='يرجى تأكيد الطلب من الكابتن.';
+   msg+='الإجمالي: '+total.toLocaleString('en-US')+' IQD\n';
+   msg+='يرجى تأكيد الطلب من الكابتن.\n';
 
    const waUrl='whatsapp://send?phone=9647891916733&text='+encodeURIComponent(msg);
 
