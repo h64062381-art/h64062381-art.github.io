@@ -42,17 +42,19 @@ async function dashboard(){
 const d=load(),fb=loadFeedback(),localOrders=loadOrders(),adds=entries(d.adds||{}),clicks=entries(d.clicks||{});
 let orders=localOrders;
 try{
-  const snap=await kiwiDB.collection('orders').orderBy('createdAt','desc').limit(200).get();
+  const snap=await kiwiDB.collection('orders').orderBy('createdAt','desc').limit(500).get();
   orders=snap.docs.map(x=>({id:x.id,...x.data()}));
 }catch(e){}
-const today=new Date().toISOString().slice(0,10);
+const now=new Date();
+const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Baghdad',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
 const todayOrders=orders.filter(o=>{
   const dt=o.createdAt?.toDate?o.createdAt.toDate():new Date(o.created_at||o.createdAt||0);
-  return !isNaN(dt.getTime()) && dt.toISOString().slice(0,10)===today;
+  if(isNaN(dt.getTime())) return false;
+  return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Baghdad',year:'numeric',month:'2-digit',day:'2-digit'}).format(dt)===today;
 });
 const todaySales=todayOrders.reduce((s,o)=>s+Number(o.total||0),0);
 const best=adds[0]?esc(adds[0][0]):'لا توجد بيانات محلية بعد';
-app.innerHTML=`<div class="tools no-print"><button onclick="dashboard()">↻ تحديث</button><button onclick="exportData()">⬇ تصدير البيانات المحلية</button><button onclick="downloadReport()">📄 تقرير اليوم</button><button class="danger" onclick="resetData()">مسح البيانات المحلية</button></div>
+app.innerHTML=`<div class="tools no-print"><button onclick="dashboard()">↻ تحديث</button><button onclick="exportData()">⬇ تصدير البيانات المحلية</button><button onclick="downloadReport()">📄 تقرير اليوم</button><button class="danger" onclick="resetData()">مسح البيانات المحلية</button><button class="danger" onclick="resetTodayOrders()">🗑️ تصفير طلبات اليوم</button></div>
 <div class="grid">
 <div class="card"><div class="k">💰 مبيعات اليوم</div><div class="v">${fmt(todaySales)}</div><div class="s">IQD</div></div>
 <div class="card"><div class="k">🧾 حسابات اليوم</div><div class="v">${fmt(todayOrders.length)}</div><div class="s">عدد الطلبات</div></div>
@@ -76,6 +78,56 @@ makeTableQRs();
 function makeTableQRs(){const grid=document.getElementById('qrgrid');grid.innerHTML='';for(let i=1;i<=42;i++){const card=document.createElement('div');card.className='qr-card';const box=document.createElement('div');box.id='q'+i;card.innerHTML=`<b>طاولة ${i}</b><small>${new URL('index.html?table='+i,location.href).href}</small>`;card.prepend(box);grid.appendChild(card);new QRCode(box,{text:new URL('index.html?table='+i,location.href).href,width:128,height:128,correctLevel:QRCode.CorrectLevel.H})}}
 function exportData(){const blob=new Blob([JSON.stringify({analytics:load(),feedback:loadFeedback(),orders:loadOrders()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='KIWI-local-data.json';a.click()}
 function downloadReport(){const d=load(),fb=loadFeedback(),orders=loadOrders();const a=document.createElement('a');const t=`تقرير KIWI - ${new Date().toLocaleDateString('ar-IQ')}\n\nالطلبات المحلية: ${orders.length}\nالتقييمات المحلية: ${fb.length}\nالمشاهدات: ${d.views||0}\nأفضل طبق حسب الإضافات: ${entries(d.adds||{})[0]?.[0]||'لا يوجد بعد'}`;a.href=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));a.download='KIWI-Daily-Report-'+new Date().toISOString().slice(0,10)+'.txt';a.click()}
-function resetData(){if(confirm('مسح الإحصائيات والطلبات والتقييمات المحلية من هذا الجهاز؟')){localStorage.removeItem(KEY);localStorage.removeItem('kiwi_feedback_v1');localStorage.removeItem('kiwi_local_orders_v1');dashboard()}}
+
+function resetData(){
+  if(!confirm('مسح البيانات المحلية من هذا الجهاز فقط؟')) return;
+  localStorage.removeItem(KEY);
+  localStorage.removeItem('kiwi_feedback_v1');
+  localStorage.removeItem('kiwi_local_orders_v1');
+  dashboard();
+}
+
+async function resetTodayOrders(){
+  if(!confirm('تصفير كل طلبات اليوم من Firebase؟ هذا يحذف طلبات اليوم من لوحة الإدارة والكابتن.')) return;
+  try{
+    const start=new Date();
+    const end=new Date();
+    const parts=new Intl.DateTimeFormat('en',{timeZone:'Asia/Baghdad',year:'numeric',month:'numeric',day:'numeric'}).formatToParts(start);
+    const y=Number(parts.find(x=>x.type==='year').value);
+    const m=Number(parts.find(x=>x.type==='month').value);
+    const d=Number(parts.find(x=>x.type==='day').value);
+    const startUtc=new Date(Date.UTC(y,m-1,d)-3*60*60*1000);
+    const endUtc=new Date(startUtc.getTime()+24*60*60*1000);
+
+    const snap=await kiwiDB.collection('orders')
+      .where('createdAt','>=',firebase.firestore.Timestamp.fromDate(startUtc))
+      .where('createdAt','<',firebase.firestore.Timestamp.fromDate(endUtc))
+      .get();
+
+    if(!snap.size){
+      alert('ماكو طلبات اليوم حتى تنمسح.');
+      await dashboard();
+      return;
+    }
+
+    let batch=kiwiDB.batch(), count=0;
+    snap.docs.forEach(doc=>{
+      batch.delete(doc.ref);
+      count++;
+      if(count===400){
+        batch.commit();
+        batch=kiwiDB.batch();
+        count=0;
+      }
+    });
+    if(count) await batch.commit();
+
+    alert('تم تصفير طلبات اليوم بنجاح.');
+    await dashboard();
+  }catch(e){
+    console.error(e);
+    alert('صار خطأ أثناء تصفير طلبات اليوم. جرّب تحديث الصفحة.');
+  }
+}
 login();</script>
 </body></html>
