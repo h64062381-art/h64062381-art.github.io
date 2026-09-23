@@ -1,1 +1,140 @@
-;let rows=[];function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}function loadOrders(){document.getElementById('status').textContent='جاري تحديث الطلبات...';fetch(API+'?t='+Date.now()https://script.google.com/macros/s/AKfycbzUf8bqlvK_V_U66XOvXjh81LeszGXNSF1WDSoHo2H_S97_tw8ue3tBGkwwFpTn6hwm/exec.then(r=>r.json()).then(d=>{rows=d.orders||[];render();document.getElementById('status').textContent='آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ')}).catch(()=>document.getElementById('status').textContent='تعذر تحميل الطلبات. تأكد من نشر Apps Script كـ تطبيق ويب.')}function render(){const box=document.getElementById('orders');if(!rows.length){box.innerHTML='<div class="empty">ماكو طلبات جديدة حالياً.</div>';return}box.innerHTML=rows.map((o,i)=>`<div class="order"><div class="row"><span class="table">طاولة ${esc(o.table||'—')}</span><span class="time">${esc(o.time||'')}</span></div><div class="items">${esc(o.order||'')}</div><div class="row"><span>المجموع</span><span class="total">${esc(o.total||0)} IQD</span></div><button class="done" onclick="markDone(${i})">تم رفعه للبيان</button></div>`).join('')}function markDone(i){rows.splice(i,1);render()}loadOrders();setInterval(loadOrders,15000);</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIWI — الكابتن</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f5f5f5;color:#222}
+header{background:#111;color:white;padding:18px;text-align:center}
+h1{margin:0 0 12px}
+button{border:0;border-radius:10px;padding:10px 16px;font-size:16px}
+.refresh{background:white;color:#111}
+#status{text-align:center;padding:12px;color:#666}
+#orders{padding:12px;max-width:700px;margin:auto}
+.card{background:white;border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 2px 10px #0001}
+.new{border-right:5px solid #16a34a}
+.row{display:flex;justify-content:space-between;margin:8px 0}
+.items{background:#fafafa;padding:10px;border-radius:10px;line-height:1.8}
+.done{background:#111;color:white;width:100%;margin-top:10px}
+.empty{text-align:center;padding:40px;color:#777}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>KIWI — الكابتن</h1>
+<button class="refresh" onclick="loadOrders()">تحديث</button>
+</header>
+
+<div id="status">جاري تحديث الطلبات...</div>
+<div id="orders"></div>
+
+<script>
+
+const API='https://script.google.com/macros/s/AKfycbzUf8bqlvK_V_U66XOvXjh81LeszGXNSF1WDSoHo2H_S97_tw8ue3tBGkwwFpTn6hwm/exec';
+
+let rows=[];
+
+function esc(s){
+return String(s ?? '').replace(/[&<>"']/g,m=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[m]));
+}
+
+function render(){
+
+const box=document.getElementById('orders');
+
+if(!rows.length){
+box.innerHTML='<div class="empty">ماكو طلبات حالياً</div>';
+return;
+}
+
+box.innerHTML=rows.map((r,i)=>{
+
+const table=r.table || r.table_number || '—';
+const order=r.order || r.items || '—';
+const total=r.total || 0;
+const status=r.status || 'جديد';
+
+return `
+<div class="card ${status==='جديد'?'new':''}">
+
+<div class="row">
+<b>الطاولة</b>
+<b>${esc(table)}</b>
+</div>
+
+<div class="row">
+<span>الحالة</span>
+<span>${esc(status)}</span>
+</div>
+
+<div class="items">${esc(order)}</div>
+
+<div class="row">
+<b>المجموع</b>
+<b>${esc(total)} د.ع</b>
+</div>
+
+${status==='جديد'
+? `<button class="done" onclick="markDone(${i})">تم تجهيز الطلب</button>`
+: ''}
+
+</div>`;
+
+}).join('');
+}
+
+async function loadOrders(){
+
+const status=document.getElementById('status');
+
+status.textContent='جاري تحديث الطلبات...';
+
+try{
+
+const res=await fetch(API+'?t='+Date.now());
+
+const data=await res.json();
+
+rows=data.orders || [];
+
+render();
+
+status.textContent='آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ');
+
+}catch(e){
+
+status.textContent='تعذر جلب الطلبات حالياً';
+
+document.getElementById('orders').innerHTML=
+'<div class="empty">تأكد من إعداد Google Apps Script.</div>';
+
+}
+
+}
+
+function markDone(i){
+
+if(rows[i]) rows[i].status='تم التجهيز';
+
+render();
+
+}
+
+loadOrders();
+
+setInterval(loadOrders,15000);
+
+</script>
+
+</body>
+</html>
