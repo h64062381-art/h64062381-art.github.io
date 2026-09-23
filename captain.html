@@ -32,7 +32,20 @@ button{border:0;border-radius:10px;padding:10px 16px;font-size:16px}
 <div id="status">جاري تحديث الطلبات...</div>
 <div id="orders"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
+const firebaseConfig={
+apiKey:"AIzaSyAQ9WanobYNjUbozIcWQrhDBCT82-RqMMU",
+authDomain:"kiwiresturant-30ff4.firebaseapp.com",
+projectId:"kiwiresturant-30ff4",
+storageBucket:"kiwiresturant-30ff4.firebasestorage.app",
+messagingSenderId:"329950339210",
+appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73"
+};
+firebase.initializeApp(firebaseConfig);
+const kiwiDB=firebase.firestore();
+</script><script>
 
 const API='https://script.google.com/macros/s/AKfycbzUf8bqlvK_V_U66XOvXjh81LeszGXNSF1WDSoHo2H_S97_tw8ue3tBGkwwFpTn6hwm/exec';
 
@@ -101,11 +114,8 @@ status.textContent='جاري تحديث الطلبات...';
 
 try{
 
-const res=await fetch(API+'?t='+Date.now());
-
-const data=await res.json();
-
-rows=data.orders || [];
+constsnap=await kiwiDB.collection('orders').where('status','==','pending').get();
+rows=snap.docs.map(d=>({id:d.id,...d.data()}));
 
 render();
 
@@ -122,9 +132,9 @@ document.getElementById('orders').innerHTML=
 
 }
 
-function markDone(i){
+async function markDone(i){
 
-if(rows[i]) rows[i].status='تم التجهيز';
+if(rows[i]) await kiwiDB.collection('orders').doc(rows[i].id).update({status:'approved'});
 
 render();
 
