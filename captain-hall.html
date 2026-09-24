@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIWI — الكابتن</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
+header{background:#111;color:#fff;padding:18px;text-align:center;position:sticky;top:0}
+h1{margin:0;font-size:24px}
+#status{padding:12px;text-align:center;color:#666}
+#orders{padding:12px;max-width:700px;margin:auto}
+.card{background:#fff;border-radius:14px;padding:16px;margin:12px 0;box-shadow:0 2px 10px #0001}
+.new{border-right:5px solid #16a34a}
+.row{display:flex;justify-content:space-between;gap:10px;margin:7px 0}
+.items{line-height:1.8;background:#fafafa;padding:10px;border-radius:10px}
+button{border:0;border-radius:10px;padding:10px 16px;font-size:16px;cursor:pointer}
+.refresh{background:#fff;color:#111}
+.done{background:#111;color:#fff;width:100%;margin-top:10px}.late{border:2px solid #b45309}.age{font-size:12px;color:#b45309;font-weight:800}.btn2{background:#fff;border:1px solid #ddd;margin:4px 0;width:100%}
+.empty{text-align:center;padding:40px;color:#777}
+.ready-section{margin:14px 12px 0;max-width:700px;margin-left:auto;margin-right:auto}
+.ready-title{background:#173f2b;color:#fff;border-radius:14px;padding:13px 16px;font-size:18px;font-weight:900}
+.ready-card{background:#fffdf5;border:2px solid #c9a45b;border-radius:14px;padding:16px;margin:10px 0;box-shadow:0 2px 10px #0001}
+.ready-badge{display:inline-block;background:#c9a45b;color:#111;border-radius:999px;padding:5px 10px;font-weight:900}
+.ready-done{background:#173f2b;color:#fff;width:100%;margin-top:10px}
+.captain-orders-btn{background:#c9a45b;color:#111;font-weight:900;margin:8px 4px 0;width:calc(100% - 8px);max-width:340px}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:99;padding:14px;box-sizing:border-box;overflow:auto}
+.modal-box{background:#f5f5f5;max-width:760px;margin:20px auto;border-radius:18px;padding:14px;min-height:80vh;box-sizing:border-box}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#111;color:#fff;border-radius:14px;padding:12px 14px;position:sticky;top:0;z-index:2}
+.close-btn{background:#fff;color:#111;font-weight:900}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.tab{flex:1;background:#ddd;color:#222;font-weight:900}
+.tab.active{background:#173f2b;color:#fff}
+.tab.ready-active{background:#c9a45b;color:#111}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.section-label{font-weight:900;font-size:18px;margin:10px 0}
+.bill-card{background:#fffdf5;border:2px solid #c9a45b;border-radius:14px;padding:16px;margin:10px 0}.bill-btn{background:#173f2b;color:#fff;width:100%;margin-top:10px}.approved-card{background:#fff;border:2px solid #6b8f71;border-radius:14px;padding:16px;margin:10px 0}.served-card{opacity:.65}
+.hall-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.table-tile{background:#fff;border:2px solid #c9a45b;color:#222;min-height:125px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:18px}.table-tile b{font-size:15px}.table-total{background:#173f2b;color:#fff;border-radius:14px;padding:16px;margin:12px 0;display:flex;justify-content:space-between;font-size:18px}.close-table{width:100%;background:#ddd;font-weight:900}
+
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script>
+const firebaseConfig={
+apiKey:"AIzaSyAQ9WanobYNjUbozIcWQrhDBCT82-RqMMU4",
+authDomain:"kiwiresturant-30ff4.firebaseapp.com",
+projectId:"kiwiresturant-30ff4",
+storageBucket:"kiwiresturant-30ff4.firebasestorage.app",
+messagingSenderId:"329950339210",
+appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73"
+};
+firebase.initializeApp(firebaseConfig);
+const kiwiDB=firebase.firestore();
+</script>
+</head>
+<body>
+<header>
+  <h1>KIWI — الكابتن</h1>
+  <button class="refresh" onclick="loadOrders()">تحديث</button>
+  <button class="refresh" onclick="enableAlert()">🔔 تفعيل التنبيه</button>
+  <button class="captain-orders-btn" onclick="openCaptainOrders()">🪑 الصالة</button>
+</header>
+
+<div id="status">جاري تحديث الطلبات...</div>
+<div id="readySection" class="ready-section" style="display:none">
+  <div class="ready-title">🔔 طلبات جاهزة من المطبخ</div>
+  <div id="readyOrders"></div>
+</div>
+<div id="orders"></div>
+<div id="approvedSection" class="ready-section" style="display:none">
+  <div class="ready-title">🧾 الطلبات المقبولة — تبقى ظاهرة برقم الطاولة</div>
+  <div id="approvedOrders"></div>
+</div>
+
+<div id="captainModal" class="modal" onclick="if(event.target===this) closeCaptainOrders()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <b>🪑 الصالة</b>
+      <button class="close-btn" onclick="closeCaptainOrders()">إغلاق ✕</button>
+    </div>
+    <div class="tabs">
+      <button id="tabCustomers" class="tab active" onclick="showCaptainTab('customers')">👤 طلبات الزبائن</button>
+      <button id="tabKitchen" class="tab" onclick="showCaptainTab('kitchen')">🍽️ جاهزة من المطبخ</button>
+    </div>
+    <div id="captainCustomers" class="tab-content active"></div>
+    <div id="captainKitchen" class="tab-content"></div>
+  </div>
+</div>
+
+<script>
+let rows=[];
+let audioCtx=null;
+let audioEnabled=false;
+let knownOrderIds=new Set();
+
+function enableAlert(){
+  try{
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const p=audioCtx.resume();
+    if(p&&p.catch)p.catch(()=>{});
+    audioEnabled=true;
+    playAlert();
+    document.getElementById('status').textContent='🔔 التنبيه الصوتي مفعّل';
+    setTimeout(loadOrders,300);
+  }catch(e){
+    document.getElementById('status').textContent='فعّل صوت الآيفون ثم جرّب مرة ثانية';
+  }
+}
+
+function playAlert(){
+  if(!audioEnabled||!audioCtx)return;
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  const now=audioCtx.currentTime;
+  const osc=audioCtx.createOscillator();
+  const gain=audioCtx.createGain();
+  osc.type='square';
+  osc.frequency.setValueAtTime(950,now);
+  osc.frequency.setValueAtTime(760,now+0.5);
+  osc.frequency.setValueAtTime(950,now+1.0);
+  gain.gain.setValueAtTime(0.0001,now);
+  gain.gain.exponentialRampToValueAtTime(0.95,now+0.03);
+  gain.gain.setValueAtTime(0.95,now+2.75);
+  gain.gain.exponentialRampToValueAtTime(0.0001,now+3);
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.start(now); osc.stop(now+3.05);
+}
+
+function esc(s){
+  return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function openCaptainOrders(){
+  document.getElementById('captainModal').style.display='block';
+  document.body.style.overflow='hidden';
+  showCaptainTab('customers');
+  renderCaptainModal();
+}
+
+function closeCaptainOrders(){
+  document.getElementById('captainModal').style.display='none';
+  document.body.style.overflow='';
+}
+
+function showCaptainTab(tab){
+  const customers=tab==='customers';
+  const kitchen=tab==='kitchen';
+  document.getElementById('captainCustomers').classList.toggle('active',customers);
+  document.getElementById('captainKitchen').classList.toggle('active',kitchen);
+  document.getElementById('tabCustomers').classList.toggle('active',customers);
+  document.getElementById('tabKitchen').classList.toggle('active',kitchen);
+  renderCaptainModal();
+}
+
+function getTable(r){ return r.table||r.table_number||'—'; }
+function getItems(r){
+  return Array.isArray(r.items)?r.items.map(x=>({name:x.name||x.title||'طلب',qty:x.qty||x.quantity||1,price:Number(x.price)||0})):[];
+}
+function orderTotal(r){
+  if(Number(r.total)) return Number(r.total);
+  return getItems(r).reduce((a,x)=>a+x.price*x.qty,0);
+}
+function tableGroups(){
+  const active=rows.filter(r=>['approved','preparing','ready','served'].includes(r.status) && r.status!=='billed');
+  const map={};
+  active.forEach(r=>{ const t=String(getTable(r)); (map[t]??=[]).push(r); });
+  return map;
+}
+function renderCaptainModal(){
+  const pending=rows.filter(r=>r.status==='pending');
+  const ready=rows.filter(r=>r.status==='ready');
+  const customerBox=document.getElementById('captainCustomers');
+  const kitchenBox=document.getElementById('captainKitchen');
+
+  customerBox.innerHTML='<div class="section-label">🪑 الصالة</div>'+renderHall()+(pending.length?'<div class="section-label">🔔 طلبات جديدة</div>'+pending.map(r=>{const table=getTable(r),items=getItems(r),total=orderTotal(r);return `<div class="card new"><div class="row"><b>طاولة ${esc(table)}</b><b>${total.toLocaleString('en-US')} د.ع</b></div><div class="items">${items.length?items.map(x=>esc(x.name)+' × '+x.qty).join('<br>'):esc(r.order||'—')}</div><button class="done" onclick="markDone('${esc(r.id)}')">قبول الطلب</button></div>`}).join(''):'');
+  kitchenBox.innerHTML='<div class="section-label">🍽️ الطلبات الجاهزة من المطبخ</div>'+(!ready.length?'<div class="empty">ماكو طلبات جاهزة حالياً</div>':ready.map(r=>{
+    const table=getTable(r), items=getItems(r), total=orderTotal(r);
+    return `<div class="ready-card"><div class="row"><b>الطاولة</b><b>${esc(table)}</b></div><div class="row"><span class="ready-badge">✅ جاهز من المطبخ</span><b>${total.toLocaleString('en-US')} د.ع</b></div><div class="items">${items.length?items.map(x=>esc(x.name)+' × '+x.qty).join('<br>'):esc(r.order||'—')}</div><button class="done ready-done" onclick="takeReady('${esc(r.id)}')">استلام الطلب</button></div>`;
+  }).join(''));
+}
+function renderHall(){
+  const groups=tableGroups();
+  const tables=Object.keys(groups).sort((a,b)=>Number(a)-Number(b));
+  if(!tables.length) return '<div class="empty">ماكو طاولات عليها طلبات حالياً</div>';
+  return `<div class="hall-grid">${tables.map(t=>{
+    const rs=groups[t]; const total=rs.reduce((a,r)=>a+orderTotal(r),0);
+    return `<button class="table-tile" onclick="openTable('${esc(t)}')">🪑<strong>طاولة ${esc(t)}</strong><span>${rs.length} طلب</span><b>${total.toLocaleString('en-US')} د.ع</b></button>`;
+  }).join('')}</div>`;
+}
+function openTable(table){
+  const groups=tableGroups(); const rs=groups[String(table)]||[];
+  const total=rs.reduce((a,r)=>a+orderTotal(r),0);
+  const modal=document.getElementById('captainModal');
+  document.getElementById('captainCustomers').innerHTML=`<div class="section-label">🪑 طاولة ${esc(table)}</div>
+    ${!rs.length?'<div class="empty">ماكو طلبات بهذه الطاولة</div>':rs.map((r,i)=>{
+      const items=getItems(r), ot=orderTotal(r);
+      return `<div class="card approved-card"><div class="row"><b>الطلب ${i+1}</b><span>${r.status==='served'?'🍽️ تم الاستلام':r.status==='ready'?'✅ جاهز':'👍 مقبول'}</span></div><div class="items">${items.length?items.map(x=>esc(x.name)+' × '+x.qty+(x.price?' — '+(x.price*x.qty).toLocaleString('en-US')+' د.ع':'')).join('<br>'):esc(r.order||'—')}</div><div class="row"><b>مجموع الطلب</b><b>${ot.toLocaleString('en-US')} د.ع</b></div><button class="done bill-btn" onclick="uploadCaptainBill('${esc(r.id)}')">📸 رفع الفاتورة</button></div>`;
+    }).join('')}
+    <div class="table-total"><span>المجموع الكلي للطاولة</span><b>${total.toLocaleString('en-US')} د.ع</b></div>
+    <button class="close-table" onclick="showCaptainTab('customers')">↩️ رجوع للطاولات</button>`;
+  modal.style.display='block';
+}
+
+function render(){
+  const box=document.getElementById('orders');
+  const readyBox=document.getElementById('readyOrders');
+  const readySection=document.getElementById('readySection');
+
+  const pending=rows.filter(r=>r.status==='pending');
+  const ready=rows.filter(r=>r.status==='ready');
+
+  if(!pending.length){
+    box.innerHTML='<div class="empty">ماكو طلبات جديدة حالياً</div>';
+  }else{
+    box.innerHTML=pending.map((r,i)=>{
+      const table=r.table||r.table_number||'—';
+      const order=Array.isArray(r.items)?r.items.map(x=>`${x.name||x.title||'طلب'} × ${x.qty||x.quantity||1}`).join('، '):(r.order||r.items||'—');
+      const total=r.total||0;
+      const dt=r.createdAt?.toDate?r.createdAt.toDate():new Date(r.created_at||0);
+      const mins=isNaN(dt.getTime())?0:Math.floor((Date.now()-dt.getTime())/60000);
+      const late=mins>=10;
+      return `<div class="card new ${late?'late':''}">
+        <div class="row"><b>الطاولة</b><b>${esc(table)}</b></div>
+        <div class="row"><span>الحالة</span><span>طلب جديد 🔔</span></div>
+        <div class="age">${mins} دقيقة${late?' — ⚠️ متأخر':''}</div>
+        <div class="items">${esc(order)}</div>
+        <div class="row"><b>المجموع</b><b>${esc(total)} د.ع</b></div>
+        <button class="done" onclick="markDone('${esc(r.id)}')">قبول الطلب</button>
+      </div>`;
+    }).join('');
+  }
+
+  if(!ready.length){
+    readySection.style.display='none';
+    readyBox.innerHTML='';
+  }else{
+    readySection.style.display='block';
+    readyBox.innerHTML=ready.map(r=>{
+      const table=r.table||r.table_number||'—';
+      const order=Array.isArray(r.items)?r.items.map(x=>`${x.name||x.title||'طلب'} × ${x.qty||x.quantity||1}`).join('، '):(r.order||r.items||'—');
+      const total=r.total||0;
+      return `<div class="ready-card">
+        <div class="row"><b>الطاولة</b><b>${esc(table)}</b></div>
+        <div class="row"><span class="ready-badge">✅ الطلب جاهز</span><b>${esc(total)} د.ع</b></div>
+        <div class="items">${esc(order)}</div>
+        <button class="done ready-done" onclick="takeReady('${esc(r.id)}')">استلام الطلب</button>
+      </div>`;
+    }).join('');
+  }
+}
+
+function renderApprovedSection(){
+  const sec=document.getElementById('approvedSection'), box=document.getElementById('approvedOrders');
+  const active=approvedRows.filter(r=>r.status!=='ready');
+  if(!active.length){sec.style.display='none';box.innerHTML='';return;}
+  sec.style.display='block';
+  box.innerHTML=active.map(r=>{
+    const table=r.table||r.table_number||'—';
+    const order=Array.isArray(r.items)?r.items.map(x=>`${x.name||x.title||'طلب'} × ${x.qty||x.quantity||1}`).join('، '):(r.order||r.items||'—');
+    const total=r.total||0;
+    return `<div class="approved-card"><div class="row"><b>الطاولة</b><b>${esc(table)}</b></div><div class="row"><span>الحالة</span><span>${r.status==='preparing'?'🟡 قيد التحضير':r.status==='served'?'🍽️ تم الاستلام':'👍 تم قبول الطلب'}</span></div><div class="items">${esc(order)}</div><div class="row"><b>المجموع</b><b>${esc(total)} د.ع</b></div>${captainBillButton(r)}</div>`;
+  }).join('');
+}
+
+let firstRealtimeSnapshot=true;
+let stopPendingRealtime=null;
+let stopReadyRealtime=null;
+let pendingRows=[];
+let approvedRows=[];
+let readyRows=[];
+let stopApprovedRealtime=null;
+
+function syncRows(){
+  rows=[...pendingRows,...approvedRows,...readyRows];
+  render();
+  renderApprovedSection();
+  renderCaptainModalIfOpen();
+}
+
+function renderCaptainModalIfOpen(){
+  if(document.getElementById('captainModal')?.style.display==='block') renderCaptainModal();
+}
+
+
+function loadOrders(){
+  if(stopPendingRealtime || stopReadyRealtime || stopApprovedRealtime || stopBillsRealtime)return;
+
+  stopPendingRealtime=kiwiDB.collection('orders').where('status','==','pending').onSnapshot(snap=>{
+    const incoming=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const oldIds=new Set(pendingRows.map(r=>String(r.id)));
+    const hasNew=!firstRealtimeSnapshot && incoming.some(r=>!oldIds.has(String(r.id)));
+    pendingRows=incoming;
+    syncRows();
+    renderCaptainModalIfOpen();
+    if(audioEnabled&&hasNew) playAlert();
+    document.getElementById('status').textContent='متصل — آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ');
+  },e=>{
+    stopPendingRealtime=null;
+    document.getElementById('status').textContent='تعذر جلب الطلبات الجديدة';
+  });
+
+  stopApprovedRealtime=kiwiDB.collection('orders').where('status','in',['approved','preparing','ready','served']).onSnapshot(snap=>{
+    approvedRows=snap.docs.map(d=>({id:d.id,...d.data()}));
+    syncRows();
+    document.getElementById('status').textContent='متصل — آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ');
+  },e=>{ stopApprovedRealtime=null; });
+
+
+  stopReadyRealtime=kiwiDB.collection('orders').where('status','==','ready').onSnapshot(snap=>{
+    const incoming=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const oldIds=new Set(readyRows.map(r=>String(r.id)));
+    const hasNew=!firstRealtimeSnapshot && incoming.some(r=>!oldIds.has(String(r.id)));
+    readyRows=incoming;
+    syncRows();
+    renderCaptainModalIfOpen();
+    if(audioEnabled&&hasNew) playAlert();
+    document.getElementById('status').textContent='متصل — آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ');
+    firstRealtimeSnapshot=false;
+  },e=>{
+    stopReadyRealtime=null;
+    document.getElementById('status').textContent='تعذر جلب الطلبات الجاهزة من المطبخ';
+  });
+}
+
+
+async function uploadCaptainBill(id){
+  const input=document.createElement('input');
+  input.type='file';
+  input.accept='image/*,.pdf';
+  input.onchange=async()=>{
+    const file=input.files&&input.files[0];
+    if(!file)return;
+    try{
+      const ref=firebase.storage().ref().child('captain_bills/'+id+'_'+Date.now()+'_'+file.name);
+      await ref.put(file);
+      const url=await ref.getDownloadURL();
+      await kiwiDB.collection('orders').doc(id).update({
+        status:'billed',
+        billUploaded:true,
+        billUrl:url,
+        billFileName:file.name,
+        billedAt:firebase.firestore.FieldValue.serverTimestamp()
+      });
+      renderCaptainModal();
+    }catch(e){
+      console.error(e);
+      document.getElementById('status').textContent='تعذر رفع الفاتورة: '+(e.message||'خطأ');
+    }
+  };
+  input.click();
+}
+
+async function markDone(id){
+  const r=rows.find(x=>String(x.id)===String(id)); if(!r)return;
+  try{
+    await kiwiDB.collection('orders').doc(r.id).update({status:'approved',approvedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  }catch(e){
+    document.getElementById('status').textContent='تعذر اعتماد الطلب';
+  }
+}
+
+async function takeReady(id){
+  const r=rows.find(x=>String(x.id)===String(id)); if(!r)return;
+  try{
+    await kiwiDB.collection('orders').doc(r.id).update({
+      status:'served',
+      captainReceivedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }catch(e){
+    document.getElementById('status').textContent='تعذر استلام الطلب';
+  }
+}
+
+loadOrders();
+</script>
+</body>
+</html>
