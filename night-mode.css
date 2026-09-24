@@ -1,0 +1,62 @@
+#nightModeToggle{
+  height:42px;
+  padding:0 12px;
+  margin:0 6px;
+  border:1px solid rgba(201,164,91,.35);
+  border-radius:12px;
+  background:rgba(255,255,255,.06);
+  color:#c9a45b;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  cursor:pointer;
+  font:700 12px Tahoma,Arial,sans-serif;
+}
+#nightModeToggle .night-icon{font-size:18px}
+#nightModeToggle:hover{background:rgba(201,164,91,.12)}
+
+html.night-mode,
+html.night-mode body{
+  background:#111210!important;
+  color:#eeeae0!important;
+}
+html.night-mode .sticky{
+  background:rgba(10,11,10,.96)!important;
+}
+html.night-mode section,
+html.night-mode main section,
+html.night-mode .popular-card,
+html.night-mode .quick-card{
+  background:#191b18!important;
+  color:#eeeae0!important;
+  border-color:#35362f!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.28)!important;
+}
+html.night-mode input,
+html.night-mode textarea,
+html.night-mode select{
+  background:#1b1d19!important;
+  color:#eeeae0!important;
+  border-color:#3a3b35!important;
+}
+html.night-mode h1,
+html.night-mode h2,
+html.night-mode h3,
+html.night-mode h4,
+html.night-mode b,
+html.night-mode strong{
+  color:#eeeae0!important;
+}
+html.night-mode p,
+html.night-mode small,
+html.night-mode .en,
+html.night-mode .popular-sub{
+  color:#aaa79e!important;
+}
+html.night-mode .item{
+  border-color:#35362f!important;
+}
+html.night-mode a{
+  color:#d9c58f;
+}
