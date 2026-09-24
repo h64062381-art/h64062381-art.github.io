@@ -987,10 +987,10 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
 (function(){
  const box=document.getElementById('kiwiReviewSummary'),list=document.getElementById('kiwiReviewList');
  if(!box||!list||!window.kiwiDB)return;
- window.kiwiDB.collection('feedback').where('visible','==',true).orderBy('createdAt','desc').limit(5).onSnapshot(function(snap){
-  list.innerHTML='';
-  snap.forEach(function(doc){const d=doc.data()||{},r=Math.max(0,Math.min(5,Number(d.rating||0)));const card=document.createElement('div');card.className='kiwi-review-card';card.innerHTML='<div class="kiwi-review-stars">'+('★'.repeat(r)+'☆'.repeat(5-r))+'</div><div class="kiwi-review-name"></div><div class="kiwi-review-comment"></div>';card.querySelector('.kiwi-review-name').textContent=d.name||'زائر';card.querySelector('.kiwi-review-comment').textContent=d.comment||'';list.appendChild(card);});
-  box.style.display=snap.empty?'none':'block';
+ window.kiwiDB.collection('feedback').orderBy('createdAt','desc').limit(12).onSnapshot(function(snap){
+  list.innerHTML=''; let shown=0;
+  snap.forEach(function(doc){if(shown>=5)return;const d=doc.data()||{};if(d.visible===false)return;shown++;const r=Math.max(0,Math.min(5,Number(d.rating||0)));const card=document.createElement('div');card.className='kiwi-review-card';card.innerHTML='<div class="kiwi-review-stars">'+('★'.repeat(r)+'☆'.repeat(5-r))+'</div><div class="kiwi-review-name"></div><div class="kiwi-review-comment"></div>';card.querySelector('.kiwi-review-name').textContent=d.name||'زائر';card.querySelector('.kiwi-review-comment').textContent=d.comment||'';list.appendChild(card);});
+  box.style.display=shown?'block':'none';
  },function(){});
 })();
 </script>
