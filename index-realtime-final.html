@@ -278,7 +278,33 @@ body.dark-mode .cart-line{border-color:#394137}
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-<script>const firebaseConfig={apiKey:"AIzaSyAQ9WanobYNjUbozWQrhDBCT82-RqMMU4",authDomain:"kiwiresturant-30ff4.firebaseapp.com",projectId:"kiwiresturant-30ff4",storageBucket:"kiwiresturant-30ff4.firebasestorage.app",messagingSenderId:"329950339210",appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73",measurementId:"G-K916WX9ZH8"};firebase.initializeApp(firebaseConfig);const kiwiDB=firebase.firestore();</script>
+<script>const firebaseConfig={apiKey:"AIzaSyAQ9WanobYNjUbozWQrhDBCT82-RqMMU4",authDomain:"kiwiresturant-30ff4.firebaseapp.com",projectId:"kiwiresturant-30ff4",storageBucket:"kiwiresturant-30ff4.firebasestorage.app",messagingSenderId:"329950339210",appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73",measurementId:"G-K916WX9ZH8"};firebase.initializeApp(firebaseConfig);const kiwiDB=firebase.firestore();const kiwiFirestoreCache=(()=>{try{if(kiwiDB&&kiwiDB.enablePersistence)return kiwiDB.enablePersistence({synchronizeTabs:true}).catch(()=>null)}catch(e){}return null})();</script>
+<style id="kiwi-classic-olive-ux">
+:root{
+ --kiwi-olive:#53633a;--kiwi-olive-dark:#394626;--kiwi-olive-soft:#e8eadb;
+ --kiwi-cream:#fbfaf5;--kiwi-gold:#b59a5a;
+}
+body{background:#fbfaf5!important}
+.sticky{background:rgba(251,250,245,.96)!important;border-bottom:1px solid #dfe2d3!important}
+.search input{border-color:#cdd2bd!important;box-shadow:0 5px 18px rgba(57,70,38,.06)!important}
+.nav{scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--kiwi-olive-dark)!important;border-color:#d4d8c7!important;background:#f0f1e9!important}
+.nav a:hover,.nav a.active{background:var(--kiwi-olive)!important;color:#fff!important;border-color:var(--kiwi-olive)!important}
+.cart-bar{background:rgba(57,70,38,.97)!important}
+.cart-open,.invoice-btn{background:var(--kiwi-olive)!important}
+.dish-item{border-color:#e1e3d8!important;box-shadow:0 8px 24px rgba(57,70,38,.055)!important}
+.dish-item .price,.dish-price,.sr-price{color:var(--kiwi-olive)!important}
+.add-cart{background:var(--kiwi-olive)!important}
+.toast{background:var(--kiwi-olive-dark)!important}
+@media(max-width:700px){
+ .sticky{padding:8px 10px!important}
+ .nav{display:flex!important;overflow-x:auto!important;flex-wrap:nowrap!important;gap:6px!important;padding-bottom:2px!important}
+ .nav a{white-space:nowrap!important;font-size:11px!important;padding:8px 11px!important}
+ .search input{height:42px!important}
+ .cart-bar{padding:8px 10px!important}
+}
+</style>
 </head>
 <body>
 <div id="kiwiTableBadge" class="kiwi-table-badge">طاولة <span id="kiwiTableNo"></span></div>
@@ -866,62 +892,131 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
 <script id="kiwi-invoice-script">
 (function(){
  const btn=document.getElementById('invoiceBtn'); if(!btn)return;
- btn.onclick=async()=>{
-   if(!window.kiwiCartRef){alert('السلة فارغة حالياً.');return}
-   const cart=window.kiwiCartRef; if(!cart.length){alert('السلة فارغة حالياً.');return}
+
+ const style=document.createElement('style');
+ style.textContent=`
+ .kiwi-confirm-overlay{position:fixed;inset:0;background:rgba(12,18,13,.62);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:99999;padding:18px}
+ .kiwi-confirm-overlay.show{display:flex}
+ .kiwi-confirm-card{width:min(420px,100%);background:#fbfaf5;border:1px solid #9a9f78;border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.28);padding:24px;text-align:center;direction:rtl}
+ .kiwi-confirm-icon{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:#e7ead8;color:#4f5f32;font-size:30px}
+ .kiwi-confirm-card h3{margin:0;color:#394626;font-size:21px}
+ .kiwi-confirm-card p{margin:8px 0;color:#676b5b;font-size:13px;line-height:1.8}
+ .kiwi-countdown{font-size:36px;font-weight:900;color:#4f5f32;margin:7px 0 13px}
+ .kiwi-confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+ .kiwi-confirm-actions button{border:0;border-radius:14px;padding:13px 10px;font:inherit;font-weight:900;cursor:pointer}
+ .kiwi-confirm-cancel{background:#ecebe4;color:#55584c}
+ .kiwi-confirm-ok{background:#53633a;color:#fff}
+ .kiwi-confirm-ok:disabled{opacity:.55}
+ .kiwi-confirm-note{font-size:10px!important;color:#8a8c80!important;margin-top:10px!important}
+ `;
+ document.head.appendChild(style);
+
+ const overlay=document.createElement('div');
+ overlay.className='kiwi-confirm-overlay';
+ overlay.innerHTML=`
+   <div class="kiwi-confirm-card" role="dialog" aria-modal="true" aria-labelledby="kiwiConfirmTitle">
+     <div class="kiwi-confirm-icon">✓</div>
+     <h3 id="kiwiConfirmTitle">متأكد من طلبك؟</h3>
+     <p>راجع طلبك بسرعة قبل الإرسال. عند التأكيد راح يوصل مباشرة للكابتن والمطبخ.</p>
+     <div class="kiwi-countdown" id="kiwiConfirmCountdown">10</div>
+     <div class="kiwi-confirm-actions">
+       <button class="kiwi-confirm-cancel" id="kiwiConfirmCancel" type="button">تراجع</button>
+       <button class="kiwi-confirm-ok" id="kiwiConfirmOk" type="button">متأكد — أرسل الطلب</button>
+     </div>
+     <p class="kiwi-confirm-note">ينتهي التأكيد تلقائياً بعد 10 ثواني إذا ما اخترت.</p>
+   </div>`;
+ document.body.appendChild(overlay);
+
+ const countdown=overlay.querySelector('#kiwiConfirmCountdown');
+ const cancel=overlay.querySelector('#kiwiConfirmCancel');
+ const ok=overlay.querySelector('#kiwiConfirmOk');
+ let timer=null, seconds=10, busy=false;
+
+ function closeConfirm(){
+   clearInterval(timer); timer=null; overlay.classList.remove('show');
+   document.body.style.overflow='';
+ }
+ function openConfirm(){
+   if(busy)return;
+   seconds=10; countdown.textContent=seconds;
+   overlay.classList.add('show'); document.body.style.overflow='hidden';
+   clearInterval(timer);
+   timer=setInterval(()=>{
+     seconds--; countdown.textContent=seconds;
+     if(seconds<=0){ clearInterval(timer); timer=null; closeConfirm(); }
+   },1000);
+ }
+
+ async function sendOrder(){
+   if(busy)return;
+   const cart=window.kiwiCartRef;
+   if(!cart || !cart.length){closeConfirm();alert('السلة فارغة حالياً.');return}
+   busy=true; ok.disabled=true; ok.textContent='جاري إرسال الطلب…';
+
    const table=new URLSearchParams(location.search).get('table')||localStorage.getItem('kiwi_current_table')||null;
    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
-   const items=cart.map(x=>({name:x.name,price:x.price,qty:x.qty,priceText:x.priceText}));
-
-   const lines=[];
-   lines.push('طلب جديد من KIWI');
-   lines.push('');
-   lines.push('الطاولة: '+(table||'غير محددة'));
-   lines.push('');
-   items.forEach(x=>lines.push(x.qty+' × '+x.name+' — '+(x.price*x.qty).toLocaleString('en-US')+' IQD'));
-   lines.push('');
-   lines.push('الإجمالي: '+total.toLocaleString('en-US')+' IQD');
-   lines.push('');
-   lines.push('يرجى تأكيد الطلب من الكابتن.');
-   const msg=lines.join('\n');
-   const waUrl='https://wa.me/9647891916733?text='+encodeURIComponent(msg);
-
-   // افتح واتساب فوراً من ضغطة الزبون، ثم أكمل حفظ الطلب للكابتن
-   let waOpened=false;
-   try{
-     const w=window.open(waUrl,'_blank');
-     waOpened=!!w;
-   }catch(e){}
-   if(!waOpened){ window.location.href=waUrl; return; }
+   const items=cart.map(x=>({name:x.name,price:Number(x.price||0),qty:Number(x.qty||0),priceText:x.priceText,note:String(x.note||'').trim()}));
 
    try{
-     const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
-     orders.unshift({created_at:new Date().toISOString(),table_number:table?Number(table):null,items:items,total:total,status:'pending'});
-     localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
-
-     const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;
-     if(d){
-       d.orders=(d.orders||0)+1;
-       d.daily=d.daily||{};
-       const day=new Date().toISOString().slice(0,10);
-       d.daily[day]=(d.daily[day]||0)+1;
-       localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d));
-     }
-
-     await kiwiDB.collection('orders').add({
+     // Firestore is the single realtime path used by captain/kitchen/admin.
+     await kiwiReady;
+     if(!kiwiDB) throw new Error('Firestore غير جاهز');
+     const orderRef=await kiwiDB.collection('orders').add({
        table:table||'',
        table_number:table?Number(table):null,
-       items:items.map(x=>({name:x.name,qty:Number(x.qty||0),price:Number(x.price||0)})),
+       items:items,
        total:Number(total||0),
        status:'pending',
        createdAt:firebase.firestore.FieldValue.serverTimestamp()
      });
 
+     try{
+       const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
+       orders.unshift({id:orderRef.id,created_at:new Date().toISOString(),table_number:table?Number(table):null,items,total,status:'pending'});
+       localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
+     }catch(e){}
+
+     try{
+       const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;
+       if(d){d.orders=(d.orders||0)+1;d.daily=d.daily||{};const day=new Date().toISOString().slice(0,10);d.daily[day]=(d.daily[day]||0)+1;localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d))}
+     }catch(e){}
+
+     localStorage.setItem('kiwi_last_order_id',orderRef.id);
+     localStorage.setItem('kiwi_last_order_table',table||'');
+     if(window.kiwiStartOrderStatus) window.kiwiStartOrderStatus(orderRef.id);
+
+     // Print only after the realtime order is safely stored.
+     const rows=cart.map(x=>`<tr><td>${String(x.name).replace(/[<>]/g,'')}${x.note?`<div style="font-size:10px;color:#777;margin-top:3px">📝 ${String(x.note).replace(/[<>]/g,'')}</div>`:''}</td><td>${x.qty}</td><td>${x.price.toLocaleString('en-US')} IQD</td><td>${(x.price*x.qty).toLocaleString('en-US')} IQD</td></tr>`).join('');
+     const box=document.getElementById('kiwiInvoicePrint');
+     if(box){
+       box.innerHTML=`<div class="invoice-print-title">KIWI RESTAURANT</div><div class="invoice-meta">فاتورة رقمية • طاولة ${table||'—'} • ${new Date().toLocaleString('ar-IQ')}</div><table class="invoice-table"><tr><th>الطبق</th><th>الكمية</th><th>السعر</th><th>المجموع</th></tr>${rows}</table><div class="invoice-total">الإجمالي: ${total.toLocaleString('en-US')} IQD</div><div style="margin-top:30px;text-align:center;font-size:11px;color:#777">شكراً لاختياركم KIWI ❤️</div>`;
+       box.style.display='block';
+       setTimeout(()=>{try{window.print()}catch(e){}},30);
+       setTimeout(()=>box.style.display='none',700);
+     }
+
+     cart.length=0;
+     if(typeof window.kiwiCartRef==='object'){
+       const count=document.getElementById('cartCount'), totalEl=document.getElementById('cartTotal');
+       if(count)count.textContent='0';
+       if(totalEl)totalEl.textContent='0 IQD';
+     }
+     closeConfirm();
+     alert('تم إرسال طلبك بنجاح ✓');
    }catch(e){
      console.error('KIWI order save error:',e);
+     ok.disabled=false; ok.textContent='متأكد — أرسل الطلب';
      alert('تعذر إرسال الطلب حالياً. حاول مرة ثانية.');
+   }finally{
+     busy=false;
    }
- };
+ }
+
+ btn.onclick=(e)=>{e.preventDefault();openConfirm()};
+ cancel.onclick=closeConfirm;
+ ok.onclick=sendOrder;
+ overlay.addEventListener('click',e=>{if(e.target===overlay)closeConfirm()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('show'))closeConfirm()});
 })();
 </script>
 
