@@ -852,10 +852,13 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
     const row={rating:rating,comment:text.value.trim(),name:name.value.trim()||'زائر',table_number:table?Number(table):null};
     submit.disabled=true; status.textContent='جاري إرسال التقييم…';status.style.color='#777';status.classList.add('show');
     try{
-            let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
-      arr.unshift({rating:row.rating,text:row.comment,name:row.name,date:new Date().toISOString(),table:table||''});
+            const payload={rating:Number(row.rating),comment:row.comment,name:row.name,table_number:row.table_number,createdAt:firebase.firestore.FieldValue.serverTimestamp(),visible:true};
+      let savedToCloud=false;
+      try{if(window.kiwiDB){await window.kiwiDB.collection('feedback').add(payload);savedToCloud=true;}}catch(cloudErr){console.warn('KIWI feedback cloud save failed',cloudErr)}
+      let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+      arr.unshift({rating:row.rating,text:row.comment,name:row.name,date:new Date().toISOString(),table:table||'',cloud:savedToCloud});
       localStorage.setItem(KEY,JSON.stringify(arr.slice(0,100)));
-      text.value='';name.value='';rating=0;paint();status.textContent='شكرًا لك ❤️ تم تسجيل تقييمك.';status.style.color='#4d7356';
+      text.value='';name.value='';rating=0;paint();status.textContent=savedToCloud?'شكرًا لك ❤️ تم إرسال تقييمك.':'تم حفظ تقييمك على هذا الجهاز.';status.style.color='#4d7356';
       setTimeout(shut,1200);
     }catch(e){
       status.textContent='تعذر إرسال التقييم حالياً. حاول مرة ثانية.';status.style.color='#a33b2b';
@@ -972,5 +975,25 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
 </script>
+
+<style id="kiwi-review-summary-style">
+.kiwi-review-summary{max-width:960px;margin:0 auto 28px;padding:0 14px}
+.kiwi-review-summary-box{border:1px solid #c9a45b66;border-radius:24px;background:linear-gradient(135deg,#fffdf8,#efe5d3);padding:20px;box-shadow:0 15px 38px #1b25190d}
+.kiwi-review-summary h3{margin:0;color:#173f2b;font-size:20px}.kiwi-review-summary p{margin:5px 0 0;color:#77736a;font-size:11px}
+.kiwi-review-list{display:grid;gap:10px;margin-top:14px}.kiwi-review-card{padding:13px;border:1px solid #e1d5c0;border-radius:16px;background:#fffaf0}.kiwi-review-stars{color:#c9a45b;letter-spacing:2px}.kiwi-review-name{font-weight:900;color:#173f2b;font-size:11px}.kiwi-review-comment{margin-top:5px;font-size:11px;color:#5e5a52;line-height:1.8}
+</style>
+<div class="kiwi-review-summary" id="kiwiReviewSummary" style="display:none"><div class="kiwi-review-summary-box"><h3>⭐ آراء زبائن KIWI</h3><p>تقييمات حقيقية من زبائننا</p><div class="kiwi-review-list" id="kiwiReviewList"></div></div></div>
+<script id="kiwi-public-reviews-script">
+(function(){
+ const box=document.getElementById('kiwiReviewSummary'),list=document.getElementById('kiwiReviewList');
+ if(!box||!list||!window.kiwiDB)return;
+ window.kiwiDB.collection('feedback').where('visible','==',true).orderBy('createdAt','desc').limit(5).onSnapshot(function(snap){
+  list.innerHTML='';
+  snap.forEach(function(doc){const d=doc.data()||{},r=Math.max(0,Math.min(5,Number(d.rating||0)));const card=document.createElement('div');card.className='kiwi-review-card';card.innerHTML='<div class="kiwi-review-stars">'+('★'.repeat(r)+'☆'.repeat(5-r))+'</div><div class="kiwi-review-name"></div><div class="kiwi-review-comment"></div>';card.querySelector('.kiwi-review-name').textContent=d.name||'زائر';card.querySelector('.kiwi-review-comment').textContent=d.comment||'';list.appendChild(card);});
+  box.style.display=snap.empty?'none':'block';
+ },function(){});
+})();
+</script>
+
 </body>
 </html>
