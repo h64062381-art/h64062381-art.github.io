@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>MENU | المنيو</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap');
+:root{--ink:#10100f;--black:#090909;--black2:#151412;--green:#1f5a3c;--green2:#2d7a50;--gold:#c9a45b;--gold2:#f0d58c;--cream:#f7f1e5;--paper:#fbf8f0;--muted:#8d8a81;--line:#e5dccb}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}body{overflow-x:hidden;width:100%;max-width:100%;min-width:0}.sticky,.promo-banner,.grill-top-promo,.quick-menu,.popular-wrap,main,.contact{width:100%;max-width:100%;min-width:0}.search input{font-size:16px;max-width:100%}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Cairo,Tahoma,Arial,sans-serif}a{color:inherit;text-decoration:none}
+.hero{min-height:720px;padding:26px 18px 64px;position:relative;overflow:hidden;color:#fff;text-align:center;background:linear-gradient(180deg,rgba(5,8,6,.18),rgba(5,8,6,.94)),url('hero.jpg') center/cover no-repeat;border-bottom:1px solid #c9a45b55;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,#d7b46a22,transparent 30%),linear-gradient(90deg,#07100bcc,transparent 48%,#07100bcc);pointer-events:none}.hero>*{position:relative;z-index:2}
+.hero h1:after{content:'';display:block;width:95px;height:2px;margin:18px auto 0;background:linear-gradient(90deg,transparent,#f0d58c,transparent);box-shadow:0 0 18px #f0d58c66}
+.hero .eyebrow{font-size:12px;letter-spacing:5px;color:#e8cf91;text-transform:uppercase;margin-bottom:10px}.hero h1{margin:0;font-family:'Playfair Display',serif;font-size:108px;letter-spacing:15px;font-weight:800;text-shadow:0 8px 30px #000}.hero .sub{font-size:15px;letter-spacing:5px;color:#eee4cf;margin-top:4px}.hero .promo{font-size:20px;font-weight:800;margin-top:26px;max-width:650px;line-height:1.8}.hero .story{max-width:610px;margin:8px auto 0;color:#d8d5cd;font-size:12px;line-height:2}.hero .cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}.hero .cta{padding:13px 24px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid #e7cd8e66;backdrop-filter:blur(10px)}.hero .cta.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#15120c}.hero .cta.dark{background:#ffffff12;color:#fff}
+.ribbon{background:var(--green);color:#fff;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;padding:11px 14px;font-size:11px;font-weight:800;border-bottom:1px solid #c9a45b44}.ribbon span{display:inline-flex;align-items:center;gap:7px}
+.sticky{position:sticky;top:0;z-index:30;background:#0c0d0cf0;backdrop-filter:blur(18px);border-bottom:1px solid #c9a45b33;padding:11px 12px;box-shadow:0 10px 35px #0001}.search{max-width:960px;margin:auto}.search input{width:100%;border:1px solid #ffffff1c;background:#ffffff0b;color:#fff;border-radius:15px;padding:13px 16px;outline:none;font-family:inherit}.search input::placeholder{color:#aaa79e}.nav{max-width:960px;margin:10px auto 0;display:flex;gap:7px;overflow:auto;padding-bottom:2px;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap;padding:8px 13px;border:1px solid #ffffff14;border-radius:999px;color:#e8e2d6;font-size:10px;background:#ffffff07}.nav a:first-child{border-color:#c9a45b77;color:#f0d58c;background:#c9a45b0c}
+.promo-banner{max-width:960px;margin:28px auto 0;padding:0 14px}.promo-banner .box{min-height:180px;border-radius:28px;overflow:hidden;position:relative;background:linear-gradient(90deg,#0a0d0aee,#0a0d0a55),url('promo.jpg') center/cover;display:flex;align-items:center;padding:30px;border:1px solid #c9a45b55;box-shadow:0 20px 55px #0002}.promo-banner .box h2{margin:0;color:#fff;font-size:27px}.promo-banner .box p{margin:7px 0 0;color:#e5d8bd;font-size:12px;max-width:500px;line-height:1.9}.promo-banner .tag{display:inline-block;margin-top:13px;background:var(--gold);color:#18140c;padding:8px 13px;border-radius:999px;font-size:10px;font-weight:900}
+.popular-wrap{max-width:960px;margin:30px auto 20px;padding:0 14px;position:relative;z-index:5}.popular-title{color:var(--ink);font-size:28px;font-weight:900;text-align:center}.popular-title:after{content:"";display:block;width:62px;height:3px;background:linear-gradient(90deg,var(--green),var(--gold));margin:9px auto;border-radius:9px}.popular-sub{color:#77736a;font-size:11px;text-align:center;margin:0 0 17px}.popular-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.popular-card{min-height:145px;border:1px solid #d7c9ad;border-radius:22px;background:linear-gradient(145deg,#fffdf8,#eee5d4);box-shadow:0 14px 34px #1b25190d;padding:17px 14px;display:flex;flex-direction:column;justify-content:space-between;transition:.25s;position:relative;overflow:hidden}.popular-card:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:#c9a45b14;right:-25px;top:-25px}.popular-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px #1b251922;border-color:#c9a45b}.popular-card span{font-size:28px}.popular-card b{font-size:15px;color:#172016}.popular-card small{font-size:10px;color:#77736a}
+.delivery{max-width:960px;margin:18px auto;padding:0 14px}.delivery>div{border:1px solid #b28b3f;background:linear-gradient(90deg,#163d29,#214f35);color:#f6e3ae;border-radius:17px;padding:14px;text-align:center;font-size:12px;font-weight:900;box-shadow:0 12px 28px #173c2417}
+main{max-width:960px;margin:auto;padding:8px 14px 110px}section{margin:22px 0;padding:20px 17px 13px;border:1px solid var(--line);background:rgba(255,253,248,.98);border-radius:25px;box-shadow:0 15px 40px #1c28170d;position:relative;overflow:hidden}section:before{content:"";position:absolute;right:0;top:0;width:90px;height:90px;background:radial-gradient(circle,#c9a45b18,transparent 68%)}section h2{margin:0 0 13px;padding:0 0 12px;border-bottom:1px solid var(--line);color:#173f2b;font-size:20px;font-weight:900;display:flex;align-items:center;gap:10px;position:relative}section h2:before{content:"";width:8px;height:26px;border-radius:8px;background:linear-gradient(var(--gold2),var(--green));display:inline-block;box-shadow:0 3px 10px #c9a45b44}.item{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:14px!important;padding:13px 3px!important;border-bottom:1px dashed #d8cebd!important;background:transparent!important}.item:last-child{border-bottom:0!important}.item b,.item .ar{font-size:15px;color:#202820;font-weight:700}.item .en{font-size:11px;color:#9a968b;margin-top:1px}.item .price{font-size:16px!important;font-weight:900!important;color:#6f4d12!important;white-space:nowrap;background:linear-gradient(135deg,#fff8df,#e8c873);padding:8px 13px;border-radius:999px;border:1px solid #c9a45b99;box-shadow:0 5px 14px #9a70241c;letter-spacing:.2px}
+
+.section-promo{margin:-3px 0 14px;padding:13px 15px;border-radius:15px;background:linear-gradient(135deg,#f8f3e8,#fffdf8);border:1px solid #e1d4bb;box-shadow:0 7px 18px #6f4d120b;position:relative;overflow:visible;direction:rtl;box-sizing:border-box;width:100%;min-width:0}.section-promo:after{content:"";position:absolute;left:-28px;bottom:-34px;width:80px;height:80px;border-radius:50%;background:#c9a45b12}.section-promo-kicker{font-size:8px;letter-spacing:1px;color:#9a7024;font-weight:900;margin-bottom:5px;line-height:1.8;white-space:normal;overflow-wrap:break-word;font-family:Cairo,Tahoma,Arial,sans-serif}.section-promo p{margin:0;color:#6c685f;font-size:10px;line-height:2;position:relative;z-index:1;display:block;width:100%;max-width:100%;white-space:normal;word-break:normal;overflow-wrap:break-word;letter-spacing:0;font-family:Cairo,Tahoma,Arial,sans-serif}.section-promo p:before{content:"✦ ";color:#b48b3c;font-weight:900}@media(max-width:650px){.section-promo{padding:12px 13px;margin-bottom:12px}.section-promo p{font-size:10px;line-height:2.05}.section-promo-kicker{font-size:8px;letter-spacing:.5px;line-height:1.8}}
+.cold-grill-promo{margin:0 0 14px;padding:17px 17px;border:1px solid #c9a45b66;border-radius:18px;background:linear-gradient(135deg,#f8f0df,#fffdf8);box-shadow:0 8px 22px #6f4d1210;position:relative;overflow:hidden}.cold-grill-promo:before{content:"";position:absolute;left:-35px;top:-35px;width:100px;height:100px;border-radius:50%;background:#c9a45b16}.cold-grill-promo .kicker{font-size:9px;letter-spacing:2px;color:#9a7024;font-weight:900;margin-bottom:4px}.cold-grill-promo h3{margin:0;color:#173f2b;font-size:17px;font-weight:900;position:relative}.cold-grill-promo p{margin:5px 0 0;color:#6f6a60;font-size:11px;line-height:1.9;position:relative}.cold-grill-promo b{color:#6f4d12}
+
+/* Final luxury polish */
+section{scroll-margin-top:118px}section h2{letter-spacing:-.2px}section h2:after{content:'';margin-right:auto;width:42px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));opacity:.7}.item{transition:background .2s ease,transform .2s ease}.item:hover{background:linear-gradient(90deg,transparent,#c9a45b08)!important}.popular-card{backdrop-filter:blur(4px)}
+.contact{padding:25px 14px 55px;background:linear-gradient(180deg,var(--paper),#e9dfcf)}.contact-card{max-width:960px;margin:auto;background:linear-gradient(135deg,#10130f,#1d3326);color:#fff;border:1px solid #c9a45b55;border-radius:28px;padding:28px;box-shadow:0 25px 70px #0d1a1126}.contact-title{font-family:'Playfair Display',serif;font-size:30px;letter-spacing:3px;color:#f0d58c}.contact-sub{font-size:11px;color:#bbb8ae;margin-top:3px}.contact-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.contact-btn{border:1px solid #ffffff1c;background:#ffffff09;color:#fff;padding:11px 16px;border-radius:999px;font-size:11px}.contact-btn.primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#16120a;font-weight:900}.backtop{position:fixed;bottom:20px;left:18px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#15120c;display:flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 10px 30px #0004;z-index:40}
+footer{background:#080908;color:#aaa79e;padding:40px 18px 50px;text-align:center;border-top:1px solid #c9a45b33}footer strong,.footer-brand{display:block;color:#f0d58c;font-family:'Playfair Display',serif;font-size:28px;letter-spacing:5px;margin-bottom:10px}
+@media(max-width:650px){.hero{min-height:650px}.hero h1{font-size:72px;letter-spacing:9px}.hero .promo{font-size:17px}.popular-grid{grid-template-columns:repeat(2,1fr)}.popular-card{min-height:120px}.promo-banner .box{min-height:240px;padding:24px;background-position:center}.promo-banner .box h2{font-size:22px}main{padding-left:9px;padding-right:9px}section{border-radius:21px;padding:17px 12px}.item{padding:12px 1px!important}.item .ar{font-size:13px}.item .price{font-size:14px!important;padding:7px 10px}.sticky{padding:8px 9px}.nav a{font-size:10px;padding:7px 10px}.ribbon{gap:12px;font-size:9px}}
+@media(min-width:900px){.hero{min-height:780px}.popular-card{min-height:155px}}
+
+.quick-menu{max-width:960px;margin:34px auto 10px;padding:0 14px}.quick-head{text-align:center;margin-bottom:16px}.quick-kicker{font-size:9px;letter-spacing:4px;color:#9a7024;font-weight:900}.quick-head h2{margin:4px 0 0;font-size:27px;color:#171b16;font-weight:900}.quick-head p{margin:4px 0 0;color:#858077;font-size:10px}.quick-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:9px;min-width:0}.quick-card{min-width:0;width:100%;position:relative;overflow:hidden;min-height:94px;border-radius:19px;border:1px solid #d5c49e;background:linear-gradient(145deg,#fffdf8,#f0e6d4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;box-shadow:0 10px 26px #1421160d;transition:transform .22s,box-shadow .22s,border-color .22s}.quick-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,#c9a45b20,transparent 55%);pointer-events:none}.quick-card:hover{transform:translateY(-4px);border-color:#b38a3d;box-shadow:0 16px 35px #14211618}.quick-icon{font-size:25px;line-height:1;position:relative}.quick-card b{font-size:11px;color:#1c271e;position:relative}.quick-card small{font-size:8px;color:#8b8478;position:relative}.quick-card.featured{background:linear-gradient(145deg,#102117,#1d4a31);border-color:#c9a45b}.quick-card.featured b{color:#f2dc9b}.quick-card.featured small{color:#c8c2b5}.quick-card.featured .quick-icon{filter:drop-shadow(0 4px 10px #0006)}
+@media(max-width:650px){.quick-menu{margin-top:25px;padding:0 9px}.quick-grid{grid-template-columns:repeat(4,1fr);gap:7px}.quick-card{min-height:88px;border-radius:16px}.quick-icon{font-size:22px}.quick-card b{font-size:9px}.quick-card small{font-size:7px}.quick-head h2{font-size:23px}}
+
+/* V4 luxury UX */
+body{background:linear-gradient(180deg,#fbf8f0 0%,#f5efe3 100%)}
+.hero{min-height:760px}
+.hero .promo{font-size:22px;letter-spacing:.2px;text-shadow:0 4px 18px #0008}
+.hero .story{font-size:13px;max-width:680px;color:#eee7d8}
+.hero .cta{font-size:12px;padding:14px 25px;box-shadow:0 10px 30px #0004}
+.hero .cta.gold{box-shadow:0 10px 30px #c9a45b33}
+.ribbon{font-size:11px;padding:12px 14px}
+.sticky{border-bottom:1px solid #c9a45b55}
+.search input{font-size:13px;min-height:48px;border-color:#c9a45b33;background:#11130f;color:#fff}
+.search input:focus{border-color:#c9a45b99;box-shadow:0 0 0 4px #c9a45b12}
+.nav a{font-size:11px;padding:9px 14px}
+.promo-banner .box{min-height:205px}
+.promo-banner .box h2{font-size:30px;letter-spacing:-.4px}
+.promo-banner .box p{font-size:13px}
+.popular-title{font-size:30px}
+.quick-menu{margin-top:38px}
+.quick-head{background:linear-gradient(135deg,#101a13,#173a27);border:1px solid #c9a45b66;border-radius:25px;padding:18px 15px;box-shadow:0 18px 45px #10231618}
+.quick-kicker{color:#efd48c}
+.quick-head h2{color:#fff;font-size:29px}
+.quick-head p{color:#d3ccbd;font-size:11px}
+.quick-grid{margin-top:14px}
+.quick-card{min-height:100px}
+section{margin:25px 0;padding:22px 19px 15px;border-color:#ddcfb5;box-shadow:0 18px 45px #1c281711}
+section h2{font-size:22px;padding-bottom:14px}
+.item{padding:15px 4px!important}
+.item b,.item .ar{font-size:16px}
+.item .en{font-size:11px}
+.item .price{font-size:17px!important;padding:9px 14px;min-width:108px;text-align:center}
+.note{margin:14px 0 2px!important;padding:13px 15px!important;border:1px solid #c9a45b66!important;border-radius:16px!important;background:linear-gradient(135deg,#fff8e5,#f3e7ca)!important;color:#654b18!important;font-size:11px!important;line-height:2!important;box-shadow:0 8px 22px #9a70240e!important}
+.note b{color:#8a641b}
+.welcome-strip{max-width:960px;margin:25px auto 8px;padding:0 14px}
+.welcome-strip .inner{border:1px solid #c9a45b66;border-radius:24px;background:linear-gradient(135deg,#fffdf8,#efe5d3);padding:22px 20px;text-align:center;box-shadow:0 15px 38px #1b25190d}
+.welcome-strip h3{margin:0;color:#183b28;font-size:22px}.welcome-strip p{margin:6px auto 0;max-width:680px;color:#746f66;font-size:11px;line-height:2}
+.no-results{display:none;margin:30px auto;padding:24px;border:1px solid #d8c9ac;border-radius:20px;background:#fffaf0;text-align:center;color:#6c6252;font-weight:800}
+.contact-card{position:relative;overflow:hidden}.contact-card:after{content:'🥝';position:absolute;left:22px;bottom:5px;font-size:64px;opacity:.06}
+.contact-title{font-size:34px}
+.footer-brand{font-size:32px}
+
+@media(max-width:650px){
+ .hero{min-height:690px}.hero h1{font-size:78px;letter-spacing:10px}.hero .promo{font-size:18px}.hero .story{font-size:12px}
+ .promo-banner .box h2{font-size:23px}.popular-title{font-size:26px}
+ .quick-head h2{font-size:24px}.quick-card{min-height:92px}
+ section{padding:18px 12px 13px}.item{padding:13px 1px!important}.item .ar{font-size:14px}.item .price{font-size:15px!important;min-width:96px;padding:8px 10px}
+ .mobile-actions a.primary{background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b}
+}
+
+/* KIWI LUXURY V2 — stronger visual refresh */
+body{background:radial-gradient(circle at 50% -10%,#fffdf8 0,#f7f1e5 42%,#eee5d6 100%)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.035;background-image:radial-gradient(#173f2b 1px,transparent 1px);background-size:18px 18px;z-index:0}
+.hero{min-height:790px;padding-top:40px;background:linear-gradient(180deg,rgba(4,8,6,.05),rgba(4,8,6,.35) 42%,rgba(4,8,6,.96) 100%),url('hero.jpg') center/cover no-repeat}
+.hero:after{content:"KIWI • RESTAURANT";position:absolute;bottom:24px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:5px;color:#f0d58c88;z-index:2}
+.hero .eyebrow{letter-spacing:7px;color:#f0d58c;font-size:11px}
+.hero h1{font-size:clamp(72px,18vw,125px);letter-spacing:clamp(7px,2vw,17px);line-height:.95}
+.hero .promo{font-size:clamp(18px,4vw,25px);max-width:720px;text-shadow:0 4px 20px #000}
+.hero .story{font-size:12px;color:#eee9dc;max-width:620px}
+.hero .cta{padding:14px 26px;box-shadow:0 10px 35px #0005}
+.ribbon{background:linear-gradient(90deg,#102b1d,#1e5135,#102b1d);padding:12px 14px;letter-spacing:.1px}
+.sticky{background:rgba(8,11,9,.92);border-bottom-color:#d0ad6548;box-shadow:0 12px 40px #0004}
+.nav a{border-color:#ffffff18;background:linear-gradient(180deg,#ffffff0b,#ffffff04);transition:.2s}
+.nav a:hover{border-color:#d6b56d88;color:#f5dda0;transform:translateY(-1px)}
+.promo-banner .box{min-height:205px;border-radius:30px;box-shadow:0 22px 65px #1a211817}
+.promo-banner .box h2{font-size:clamp(25px,5vw,34px)}
+.popular-wrap{margin-top:38px}
+.popular-title{font-family:'Playfair Display',Cairo,serif;letter-spacing:1px;font-size:32px;color:#163c29}
+.popular-grid{gap:14px}
+.popular-card{min-height:155px;border-color:#cdbb9c;background:linear-gradient(145deg,#fffefb,#eee4d2);box-shadow:0 16px 40px #26321d12}
+.popular-card b{font-size:16px}
+.popular-card small{font-size:10px}
+.delivery>div{border-color:#c9a45b;background:linear-gradient(90deg,#102e1f,#1c4d32,#102e1f);box-shadow:0 14px 34px #173c241f}
+main{position:relative;z-index:1}
+section{margin:28px 0;padding:24px 19px 15px;border-radius:30px;border-color:#ddcfb9;box-shadow:0 18px 55px #24301c0e}
+section:after{content:"";position:absolute;inset:1px;border-radius:29px;pointer-events:none;border:1px solid #ffffffaa;opacity:.55}
+section h2{font-family:Cairo,Tahoma,sans-serif;font-size:22px;color:#153b28;padding-bottom:15px;margin-bottom:16px}
+section h2:before{width:9px;height:29px}
+.item{padding:15px 5px!important;transition:.22s!important}
+.item:hover{transform:translateX(-3px);background:linear-gradient(90deg,#c9a45b0b,transparent)!important}
+.item .ar{font-size:15.5px}
+.item .en{font-size:10px;letter-spacing:.2px}
+.item .price{font-size:14px!important;padding:8px 12px!important;min-width:92px;text-align:center}
+.section-promo{border-radius:18px;background:linear-gradient(135deg,#fffaf0,#f2eadb);border-color:#d8c39e;box-shadow:0 10px 25px #6f4d120e}
+.section-promo-kicker{color:#8b671f}
+.grill-section-promo{min-height:315px;border-radius:26px;border-color:#d5b66f;box-shadow:0 25px 65px #0a120d25}
+.grill-section-promo .photo{opacity:.82;background-image:linear-gradient(90deg,rgba(7,10,8,.98) 0%,rgba(7,10,8,.78) 30%,rgba(7,10,8,.28) 63%,rgba(7,10,8,.06) 100%),url('grills-promo.jpg')}
+.grill-section-promo .copy{width:57%;padding:34px 30px}
+.grill-section-promo h3{font-family:'Playfair Display',Cairo,serif;font-size:34px;letter-spacing:.3px}
+.grill-section-promo p{font-size:12px;line-height:2.05}
+.grill-section-promo .badge{padding:9px 15px}
+.contact{background:linear-gradient(180deg,#eee5d6,#ded2bf);position:relative;z-index:1}
+.contact-card{background:linear-gradient(135deg,#0b120d,#1a3b28 65%,#10291c);border-radius:30px;box-shadow:0 30px 80px #101a1226}
+.contact-title{font-size:34px}
+footer{background:#0a0e0b!important;border-top:1px solid #c9a45b44!important}
+
+.mobile-actions a.primary{background:linear-gradient(135deg,#f0d58c,#c9a45b)!important;color:#17130b!important}
+.top{background:#173f2b!important;border-color:#d7b86d!important}
+@media(max-width:650px){
+ .hero{min-height:700px;padding:30px 16px 55px}
+ .hero h1{font-size:78px;letter-spacing:8px}
+ .hero .promo{font-size:18px;line-height:1.7}
+ .promo-banner .box{min-height:185px;padding:24px 20px;border-radius:24px}
+ .popular-grid{grid-template-columns:repeat(2,1fr)}
+ .popular-card{min-height:132px;padding:15px 12px;border-radius:20px}
+ section{margin:22px 0;padding:19px 14px 12px;border-radius:23px}
+ section:after{border-radius:22px}
+ .grill-section-promo{min-height:340px;border-radius:24px}
+ .grill-section-promo .photo{opacity:.72;background-image:linear-gradient(180deg,rgba(7,10,8,.05) 0%,rgba(7,10,8,.38) 35%,rgba(7,10,8,.96) 74%,rgba(7,10,8,.99) 100%),url('grills-promo.jpg');background-position:center}
+ .grill-section-promo .copy{width:100%;padding:24px 18px 22px;justify-content:flex-end}
+ .grill-section-promo h3{font-size:28px}
+ .grill-section-promo p{font-size:10.5px}
+ .item .price{min-width:84px;font-size:12.5px!important;padding:7px 9px!important}
+}
+
+/* KIWI Dish Details */
+.dish-item{cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;position:relative}
+.dish-item:after{content:'اضغط للتفاصيل';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:9px;color:var(--gold2);opacity:0;transition:.2s;pointer-events:none}
+.dish-item:hover{transform:translateY(-2px);box-shadow:0 12px 30px #0001;border-color:#c9a45b88}
+.dish-item:hover:after{opacity:1}
+.kiwi-modal{position:fixed;inset:0;z-index:9999;background:#050806cc;backdrop-filter:blur(12px);display:none;align-items:flex-end;justify-content:center;padding:14px}
+.kiwi-modal.show{display:flex}
+.kiwi-sheet{width:min(620px,100%);max-height:86vh;overflow:auto;background:linear-gradient(145deg,#18241d,#0b100d);border:1px solid #c9a45b66;border-radius:28px 28px 18px 18px;color:#fff;box-shadow:0 -20px 70px #0008;animation:kiwiUp .28s ease}
+@keyframes kiwiUp{from{transform:translateY(35px);opacity:0}to{transform:none;opacity:1}}
+.kiwi-modal-head{padding:24px 22px 10px;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.kiwi-modal-title{font-size:23px;font-weight:900;color:#f0d58c;margin:0}
+.kiwi-modal-en{font-size:11px;color:#aaa;margin-top:4px;direction:ltr;text-align:right}
+.kiwi-close{width:38px;height:38px;border-radius:50%;border:1px solid #c9a45b55;background:#ffffff08;color:#fff;font-size:22px;cursor:pointer}
+.kiwi-modal-body{padding:8px 22px 24px}
+.kiwi-price{display:inline-block;background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#15120c;font-weight:900;border-radius:999px;padding:7px 14px;font-size:12px;margin-bottom:18px}
+.kiwi-label{font-size:10px;color:#c9a45b;letter-spacing:1.5px;font-weight:900;margin-bottom:6px}
+.kiwi-desc{font-size:14px;line-height:2;color:#eee8dc;margin:0}
+.kiwi-hint{margin-top:18px;padding:11px 13px;border:1px solid #ffffff12;border-radius:13px;background:#ffffff06;color:#9e9a91;font-size:9px;line-height:1.8}
+@media(max-width:600px){.dish-item:after{display:none}.kiwi-sheet{max-height:82vh}.kiwi-modal-title{font-size:20px}}
+
+/* ===== KIWI INTERACTIVE UPGRADE ===== */
+.lang-toggle{
+  position:fixed;left:12px;bottom:76px;z-index:80;
+  border:1px solid #c9a45b88;background:#10130feF;color:#f0d58c;
+  padding:9px 13px;border-radius:999px;font:800 11px Cairo,Tahoma,sans-serif;
+  box-shadow:0 10px 30px #0003;backdrop-filter:blur(12px);cursor:pointer
+}
+.cart-bar{
+  position:fixed;right:12px;left:12px;bottom:12px;z-index:75;
+  max-width:700px;margin:auto;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:10px 12px;border:1px solid #c9a45b88;border-radius:18px;
+  background:#10130ff2;color:#fff;box-shadow:0 18px 55px #0005;backdrop-filter:blur(18px)
+}
+.cart-summary{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800}
+.cart-count{
+  min-width:27px;height:27px;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b;font-size:12px
+}
+.cart-total{color:#f0d58c;font-size:12px}
+.cart-open{
+  border:0;border-radius:999px;padding:10px 15px;background:linear-gradient(135deg,#f0d58c,#c9a45b);
+  color:#17130b;font:900 11px Cairo;cursor:pointer
+}
+.dish-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.add-cart{
+  border:1px solid #c9a45b88;background:#173f2b;color:#f0d58c;border-radius:999px;
+  padding:7px 10px;font:800 10px Cairo;cursor:pointer
+}
+.dish-item{cursor:pointer}
+.dish-item .add-cart{position:relative;z-index:3}
+.cart-modal,.order-modal{
+  position:fixed;inset:0;z-index:100;display:none;align-items:flex-end;justify-content:center;
+  background:#0009;backdrop-filter:blur(6px)
+}
+.cart-modal.show,.order-modal.show{display:flex}
+.cart-sheet,.order-sheet{
+  width:min(680px,100%);max-height:88vh;overflow:auto;background:#fbf8f0;
+  border-radius:28px 28px 0 0;padding:20px 18px 28px;box-shadow:0 -25px 80px #0005
+}
+.cart-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e1d5c0;padding-bottom:12px}
+.cart-head h3{margin:0;color:#173f2b;font-size:20px}
+.cart-close{border:0;background:#eee5d6;width:34px;height:34px;border-radius:50%;font-size:22px;cursor:pointer}
+.cart-line{
+  display:grid;grid-template-columns:1fr auto auto;gap:9px;align-items:center;
+  padding:12px 0;border-bottom:1px dashed #d8cebd
+}
+.cart-line-name{font-weight:800;font-size:12px}
+.cart-line-price{font-size:11px;color:#6f4d12;white-space:nowrap}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border:1px solid #c9a45b66;background:#fff;border-radius:50%;cursor:pointer}
+.cart-actions{display:flex;gap:8px;margin-top:16px}
+.cart-actions button{flex:1;border:0;border-radius:14px;padding:13px;font:900 12px Cairo;cursor:pointer}
+.clear-cart{background:#eee5d6;color:#4b463d}
+.empty-cart{text-align:center;color:#77736a;padding:30px 10px;font-size:12px}
+.toast{
+  position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);
+  opacity:0;z-index:120;background:#10130f;color:#f0d58c;border:1px solid #c9a45b77;
+  padding:10px 16px;border-radius:999px;font:800 11px Cairo;transition:.25s;pointer-events:none
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.lang-en .ar{display:none!important}
+.lang-en .en{display:block!important}
+.lang-en .item .en{font-size:14px;font-weight:700;color:#202820}
+@media(max-width:650px){
+  .cart-bar{bottom:10px}
+  .lang-toggle{bottom:72px}
+  .dish-item{gap:7px!important}
+  .dish-actions{gap:4px}
+  .add-cart{padding:7px 8px}
+}
+
+
+/* ===== CUSTOMER FEEDBACK ===== */
+.kiwi-feedback-launch{position:fixed;left:12px;bottom:82px;z-index:90;border:1px solid #c9a45b;background:linear-gradient(135deg,#173f2b,#0e2518);color:#f0d58c;border-radius:999px;padding:10px 15px;font:900 11px Cairo,Tahoma,sans-serif;box-shadow:0 10px 30px #0005;cursor:pointer}
+.kiwi-feedback-modal{position:fixed;inset:0;z-index:9998;display:none;align-items:flex-end;justify-content:center;background:#0009;backdrop-filter:blur(7px);padding:12px}
+.kiwi-feedback-modal.show{display:flex}
+.kiwi-feedback-panel{width:min(620px,100%);background:#fbf8f0;border:1px solid #c9a45b88;border-radius:28px 28px 18px 18px;padding:20px;box-shadow:0 -20px 70px #0007;color:#151812}
+.kiwi-feedback-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.kiwi-feedback-head h3{margin:0;color:#173f2b;font-size:20px}.kiwi-feedback-close{width:36px;height:36px;border:0;border-radius:50%;background:#eee5d6;color:#333;font-size:23px;cursor:pointer}
+.kiwi-feedback-sub{font-size:11px;color:#77736a;line-height:1.9;margin:8px 0 12px}.kiwi-stars{display:flex;flex-direction:row-reverse;justify-content:center;gap:5px;margin:8px 0 14px}.kiwi-star{border:0;background:none;color:#c9bda6;font-size:34px;line-height:1;cursor:pointer;padding:2px}.kiwi-star.active,.kiwi-star:hover,.kiwi-star:hover~.kiwi-star{color:#c9a45b}
+#kiwiFeedbackText,#kiwiFeedbackName{width:100%;border:1px solid #dfd4c2;background:#fffdf8;border-radius:14px;padding:11px 12px;font:500 12px Cairo,Tahoma,sans-serif;outline:none;margin-top:8px;color:#222}#kiwiFeedbackText{min-height:100px;resize:vertical}.kiwi-feedback-submit{width:100%;margin-top:10px;border:0;border-radius:14px;padding:13px;background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b;font:900 12px Cairo;cursor:pointer}.kiwi-feedback-status{display:none;text-align:center;font-size:11px;margin-top:10px}.kiwi-feedback-status.show{display:block}
+@media(max-width:650px){.kiwi-feedback-launch{bottom:76px;left:10px;padding:9px 12px}.kiwi-feedback-panel{padding:17px;border-radius:24px 24px 16px 16px}.kiwi-star{font-size:31px}}
+
+/* KIWI smart upgrades */
+body.dark-mode{--paper:#0d110e;--ink:#f4f0e6;--line:#394137;background:#0d110e;color:#f4f0e6}
+body.dark-mode main section{background:#151a16;border-color:#394137;box-shadow:0 15px 40px #0005}
+body.dark-mode .popular-title,body.dark-mode .item b,body.dark-mode .item .ar{color:#f4f0e6}
+body.dark-mode .popular-sub,body.dark-mode .item .en{color:#aaa79e}
+body.dark-mode .popular-card{background:linear-gradient(145deg,#171d18,#101510);border-color:#394137}
+body.dark-mode .delivery{color:#f6e3ae}
+body.dark-mode .search input{background:#ffffff12}
+body.dark-mode .kiwi-modal .kiwi-sheet,body.dark-mode .cart-sheet{background:#151a16;color:#f4f0e6}
+body.dark-mode .cart-line{border-color:#394137}
+.theme-toggle{position:fixed;right:14px;top:14px;left:auto;bottom:auto;z-index:95;border:1px solid #c9a45b77;background:#111a14;color:#f0d58c;border-radius:999px;width:44px;height:44px;font-size:18px;box-shadow:0 10px 25px #0003;cursor:pointer}
+.smart-results{max-width:960px;margin:10px auto 0;padding:0 14px;display:none}.smart-results.show{display:block}.smart-results-box{background:#fffdf8;border:1px solid #d9ccb5;border-radius:18px;padding:12px;box-shadow:0 10px 30px #0001}.dark-mode .smart-results-box{background:#151a16;border-color:#394137}.smart-results-title{font-size:11px;font-weight:900;color:#173f2b;margin-bottom:8px}.dark-mode .smart-results-title{color:#f0d58c}.smart-result{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px dashed #ddd2bf;cursor:pointer}.smart-result:last-child{border-bottom:0}.smart-result small{color:#888}.smart-result b{font-size:11px}.smart-result .sr-price{font-weight:900;color:#6f4d12;white-space:nowrap}.dark-mode .smart-result .sr-price{color:#f0d58c}
+.invoice-btn{width:100%;margin-top:10px;padding:12px;border:1px solid #c9a45b66;background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b;border-radius:13px;font-weight:900;cursor:pointer}
+@media print{body *{visibility:hidden!important}#kiwiInvoicePrint,#kiwiInvoicePrint *{visibility:visible!important}#kiwiInvoicePrint{position:absolute;inset:0;background:#fff!important;color:#111!important;padding:30px;direction:rtl;font-family:Arial,sans-serif}.invoice-print-title{text-align:center;font-size:25px;font-weight:900;margin-bottom:5px}.invoice-meta{font-size:12px;color:#555;margin-bottom:18px}.invoice-table{width:100%;border-collapse:collapse}.invoice-table th,.invoice-table td{border-bottom:1px solid #ddd;padding:9px;text-align:right}.invoice-total{font-size:18px;font-weight:900;margin-top:18px;text-align:left}}
+</style>
+<style>
+.east-promo{max-width:960px;margin:18px auto 8px;padding:0 14px}.east-promo-box{position:relative;overflow:visible;border:1px solid #c9a45b66;border-radius:24px;background:radial-gradient(circle at 90% 20%,#c9a45b22,transparent 35%),linear-gradient(135deg,#171b17,#0b0d0b);box-shadow:0 18px 45px #0002;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px}.east-promo-box:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,#c9a45b08,transparent);pointer-events:none}.east-copy{position:relative;z-index:1}.east-kicker{color:#d8b96f;font-size:10px;letter-spacing:2.5px;font-weight:900;margin-bottom:6px}.east-promo h3{margin:0;color:#fff;font-size:24px;font-weight:950}.east-promo p{margin:7px 0 0;color:#d8d4c9;font-size:12px;line-height:1.8}.east-promo .east-btn{position:relative;z-index:1;flex:none;text-decoration:none;background:linear-gradient(135deg,#d8b96f,#9f7832);color:#111;padding:11px 17px;border-radius:13px;font-weight:950;font-size:12px;box-shadow:0 8px 22px #c9a45b2b}.east-badge{position:absolute;right:150px;top:-18px;width:85px;height:85px;border:1px solid #d8b96f33;border-radius:50%;transform:rotate(14deg)}
+@media(max-width:650px){.east-promo-box{padding:18px 16px;align-items:flex-start}.east-promo h3{font-size:19px}.east-promo p{font-size:11px}.east-promo .east-btn{padding:10px 12px;font-size:10px;align-self:center}.east-badge{right:70px;top:-35px}}
+
+/* Grill promo above shortcuts */
+.grill-top-promo{max-width:960px;margin:26px auto 8px;padding:0 14px}.grill-top-box{position:relative;overflow:hidden;border-radius:26px;border:1px solid #c9a45b77;background:radial-gradient(circle at 12% 15%,#c9a45b24,transparent 30%),linear-gradient(135deg,#0a0d0a,#193624);box-shadow:0 20px 48px #10231622;padding:24px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}.grill-top-box:after{content:'🔥';position:absolute;left:25px;bottom:-20px;font-size:105px;opacity:.08;transform:rotate(-12deg)}.grill-top-copy{position:relative;z-index:1}.grill-top-kicker{font-size:9px;letter-spacing:3px;color:#e3c77e;font-weight:900;margin-bottom:5px}.grill-top-box h2{margin:0;color:#fff;font-size:27px;font-weight:950}.grill-top-box p{margin:7px 0 4px;color:#d7d3c8;font-size:12px;line-height:1.9;max-width:650px}.grill-top-box span{color:#f0d58c;font-size:11px;font-weight:800}.grill-top-btn{position:relative;z-index:2;flex:none;background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b;padding:12px 17px;border-radius:14px;font-size:11px;font-weight:950;box-shadow:0 9px 24px #c9a45b2b}
+/* Premium in-section grill promotion */
+.grill-section-promo{margin:0 0 18px;position:relative;min-height:235px;border:1px solid #c9a45b77;border-radius:22px;overflow:hidden;background:#0b0d0b;box-shadow:0 18px 40px #0a120d1c;display:flex;align-items:stretch;isolation:isolate}.grill-section-promo .photo{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(8,11,9,.97) 0%,rgba(8,11,9,.82) 34%,rgba(8,11,9,.35) 65%,rgba(8,11,9,.12) 100%),url('grills-promo.jpg');background-size:cover;background-position:center 55%;opacity:.94;z-index:-1}.grill-section-promo .copy{width:58%;padding:28px 28px 24px;display:flex;flex-direction:column;justify-content:center;direction:rtl}.grill-section-promo .kicker{font-size:9px;letter-spacing:2.5px;color:#e6ca82;font-weight:900;margin-bottom:7px}.grill-section-promo h3{margin:0;color:#fff;font-size:26px;font-weight:950;line-height:1.35}.grill-section-promo p{margin:8px 0 0;color:#e2ddd1;font-size:11px;line-height:2;max-width:470px}.grill-section-promo .badge{display:inline-flex;align-self:flex-start;margin-top:14px;background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b;padding:8px 13px;border-radius:999px;font-size:10px;font-weight:950;box-shadow:0 8px 20px #c9a45b33}.grill-section-promo:after{content:'🔥';position:absolute;left:18px;bottom:-25px;font-size:100px;opacity:.08;transform:rotate(-10deg);pointer-events:none}
+@media(max-width:650px){.grill-section-promo{min-height:290px}.grill-section-promo .photo{background-image:linear-gradient(180deg,rgba(8,11,9,.2) 0%,rgba(8,11,9,.58) 38%,rgba(8,11,9,.96) 77%),url('grills-promo.jpg');background-position:center}.grill-section-promo .copy{width:100%;padding:24px 19px 22px;justify-content:flex-end}.grill-section-promo h3{font-size:22px}.grill-section-promo p{font-size:10px;line-height:1.95}.grill-section-promo .badge{font-size:9px;margin-top:11px}}
+.juice-promo{margin:0 0 14px;direction:rtl;min-width:0;box-sizing:border-box;padding:15px 16px;border:1px solid #b9cdb9;border-radius:18px;background:linear-gradient(135deg,#f5fbf4,#e8f2e8);display:flex;align-items:center;gap:12px;box-shadow:0 8px 22px #214d3210}.juice-icon{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff,#e2eedf);border:1px solid #c9ddc9;font-size:25px;flex:none}.juice-kicker{font-size:8px;letter-spacing:2px;color:#4e7a5a;font-weight:900}.juice-promo h3{margin:2px 0 0;color:#173f2b;font-size:17px;font-weight:900}.juice-promo p{margin:4px 0 0;color:#687467;font-size:10px;line-height:1.9}
+@media(max-width:650px){.grill-top-promo{margin:20px auto 5px;padding:0 9px}.grill-top-box{padding:19px 17px;display:block;border-radius:21px}.grill-top-box h2{font-size:21px}.grill-top-box p{font-size:10px;line-height:1.9}.grill-top-box span{font-size:10px}.grill-top-btn{display:inline-block;margin-top:11px;padding:10px 14px}.juice-promo{padding:13px 12px;align-items:flex-start}.juice-icon{width:42px;height:42px;font-size:22px}.juice-promo h3{font-size:15px}.juice-promo p{font-size:9px}}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script>const firebaseConfig={apiKey:"AIzaSyAQ9WanobYNjUbozWQrhDBCT82-RqMMU4",authDomain:"kiwiresturant-30ff4.firebaseapp.com",projectId:"kiwiresturant-30ff4",storageBucket:"kiwiresturant-30ff4.firebasestorage.app",messagingSenderId:"329950339210",appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73",measurementId:"G-K916WX9ZH8"};firebase.initializeApp(firebaseConfig);const kiwiDB=firebase.firestore();const kiwiReady=(async()=>{try{if(firebase.auth){await firebase.auth().signInAnonymously();}}catch(e){console.warn("KIWI auth:",e.message)}return true;})();</script>
+
+<style id="kiwi-order-status-style">
+.kiwi-order-status{max-width:680px;margin:18px auto 8px;padding:16px;border:1px solid #c9a45b66;border-radius:20px;background:linear-gradient(135deg,#fffdf8,#f1e7d5);box-shadow:0 12px 30px #1b25190d;text-align:center;display:none}.kiwi-order-status.show{display:block}.kiwi-order-status h3{margin:0 0 10px;color:#173f2b;font-size:17px}.kiwi-order-steps{display:flex;justify-content:space-between;gap:6px}.kiwi-order-step{flex:1;padding:8px 4px;border-radius:12px;background:#e9e2d5;color:#8b8478;font-size:10px;font-weight:900}.kiwi-order-step.active{background:linear-gradient(135deg,#f0d58c,#c9a45b);color:#17130b}.kiwi-order-status-msg{margin-top:9px;font-size:11px;color:#625d53;font-weight:800}
+</style>
+
+<style>.mobile-actions{display:none!important}</style></head>
+<body>
+<div id="kiwiTableBadge" class="kiwi-table-badge">طاولة <span id="kiwiTableNo"></span></div>
+<header class="hero">
+<div class="eyebrow">A DINING EXPERIENCE</div>
+<h1>KIWI</h1>
+<div class="sub">RESTAURANT &amp; CAFÉ</div>
+<div class="promo">كل زيارة إلها طعم… وذكريات KIWI تبقى 🥝</div>
+<div class="story">من أول قهوة الصبح إلى آخر لقمة بالليل، جمعنالك النكهة، الأجواء، والتفاصيل بمكان واحد.</div>
+<div class="cta-row"><a class="cta gold" href="#popular">اكتشف المنيو ↓</a><a class="cta dark" href="tel:+9647738660066">احجز / اتصل بنا</a></div>
+</header>
+<div class="sticky"><div class="search"><input id="menuSearch" placeholder="🔎  ابحث عن طبق أو مشروب..." type="search"/></div><nav class="nav"><a href="#shortcuts">✦ الاختصارات</a><a href="#breakfast">الفطور</a><a href="#salads">السلطات</a><a href="#cold-app">المقبلات</a><a href="#pizza">البيتزا</a><a href="#sandwiches">السندويتشات</a><a href="#pasta">الباستا</a><a href="#chicken">الدجاج</a><a href="#seafood">البحرية</a><a href="#meat">اللحوم</a><a href="#grills">المشويات</a><a href="#iraqi">العراقي</a><a href="#desserts">الحلويات</a><a href="#fresh">عصائر</a><a href="#mojito">موهيتو</a><a href="#cold">بارد</a><a href="#milkshake">ميلك شيك</a><a href="#ice">آيس كريم</a><a href="#hot">ساخن</a><a href="#coffee">قهوة باردة</a><a href="#hookah">الأراكيل</a><a href="#hookah-luxury">لاكجوري</a><a href="#hookah-natural">طبيعية</a></nav></div><div class="ribbon"><span>🚚 توصيل مجاني لكل مناطق بغداد</span><span>📞 <bdi dir="ltr">0773 866 0066</bdi></span><span>📍 السيدية • الشارع التجاري</span></div>
+<div class="smart-results" id="smartResults"><div class="smart-results-box"><div class="smart-results-title">🔎 نتائج البحث الذكي</div><div id="smartResultsList"></div></div></div>
+<div class="promo-banner"><div class="box"><div><h2>أهلاً بيكم بـ KIWI 🥝</h2><p>من الفطور الصباحي للمشاوي والبيتزا، ومن القهوة للحلويات والأراكيل… اختار مزاجك وخلي الباقي علينا.</p><span class="tag">نكهة تحبها • أجواء تحبها • مكان ترجع له</span></div></div></div>
+<div class="grill-top-promo"><div class="grill-top-box"><div class="grill-top-copy"><div class="grill-top-kicker">KIWI • CHARCOAL GRILLS</div><h2>🔥 للمشويات طعم ثاني في KIWI</h2><p>ريحة الفحم، حرارة الشواية، وطعم اللحم المحمّر… تجربة مشاوي تنحفظ بالذاكرة من أول لقمة.</p><span>اختار مشوياتك وخلي الباقي علينا ✨</span></div><a href="#grills" class="grill-top-btn">شوف المشويات ←</a></div></div>
+<div class="quick-menu" id="shortcuts">
+<div class="quick-head">
+<div class="quick-kicker">KIWI SIGNATURE SELECTION</div>
+<h2>اختصارات المنيو</h2>
+<p>اختار القسم اللي تريده ووصل له مباشرة</p>
+</div>
+<div class="quick-grid">
+<a class="quick-card featured" href="#pizza"><span class="quick-icon">🍕</span><b>البيتزا</b><small>Pizza</small></a>
+<a class="quick-card" href="#sandwiches"><span class="quick-icon">🍔</span><b>برگر وسندويتش</b><small>Burgers</small></a>
+<a class="quick-card" href="#grills"><span class="quick-icon">🔥</span><b>المشويات</b><small>Grills</small></a>
+<a class="quick-card" href="#hookah"><span class="quick-icon">💨</span><b>الأراكيل</b><small>Shisha</small></a>
+<a class="quick-card" href="#pasta"><span class="quick-icon">🍝</span><b>الباستا</b><small>Pasta</small></a>
+<a class="quick-card" href="#chicken"><span class="quick-icon">🍗</span><b>الدجاج</b><small>Chicken</small></a>
+<a class="quick-card" href="#meat"><span class="quick-icon">🥩</span><b>اللحوم</b><small>Steak</small></a>
+<a class="quick-card" href="#seafood"><span class="quick-icon">🐟</span><b>البحرية</b><small>Seafood</small></a>
+<a class="quick-card" href="#iraqi"><span class="quick-icon">🍚</span><b>العراقي</b><small>Iraqi</small></a>
+<a class="quick-card" href="#breakfast"><span class="quick-icon">🍳</span><b>الفطور</b><small>Breakfast</small></a>
+<a class="quick-card" href="#fresh"><span class="quick-icon">🍊</span><b>عصائر فريش</b><small>Fresh Juice</small></a>
+<a class="quick-card" href="#mojito"><span class="quick-icon">🍹</span><b>موهيتو</b><small>Mojito</small></a>
+<a class="quick-card" href="#milkshake"><span class="quick-icon">🥤</span><b>ميلك شيك</b><small>Milkshake</small></a>
+<a class="quick-card" href="#desserts"><span class="quick-icon">🍰</span><b>الحلويات</b><small>Desserts</small></a>
+<a class="quick-card" href="#coffee"><span class="quick-icon">☕</span><b>القهوة</b><small>Coffee</small></a>
+<a class="quick-card" href="#ice"><span class="quick-icon">🍨</span><b>آيس كريم</b><small>Ice Cream</small></a>
+</div>
+</div>
+<div class="welcome-strip"><div class="inner"><h3>اختار مزاجك… والباقي علينا ✨</h3><p>منيو KIWI مصمم حتى توصل لطلبك بسرعة: اختار القسم، شوف الأصناف والأسعار، وإذا محتار ابدأ من «الأكثر طلباً».</p></div></div>
+
+<div class="popular-wrap" id="popular">
+<div class="popular-title">🔥 الأكثر طلباً</div>
+<div class="popular-sub">اختيارات مميزة من منيو KIWI</div>
+<div class="popular-grid">
+<a class="popular-card" href="#pizza"><span>🍕</span><b>البيتزا</b><small>اختيارات متنوعة</small></a>
+<a class="popular-card" href="#sandwiches"><span>🍔</span><b>السندويتشات</b><small>برگر وتويستر</small></a>
+<a class="popular-card" href="#grills"><span>🔥</span><b>المشويات</b><small>طعم على الفحم</small></a>
+<a class="popular-card" href="#desserts"><span>🍫</span><b>الحلويات</b><small>شي حلو بالنهاية</small></a>
+</div>
+</div>
+<div style="max-width:760px;margin:10px auto 0;padding:0 12px"><div style="background:#edf3ed;color:#245a3d;border:1px solid #d7e4d7;border-radius:14px;padding:10px 12px;text-align:center;font-size:12px;font-weight:700">🚗 التوصيل مجاني لكل مناطق بغداد</div></div><main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="no-results" id="noResults">جرّب اسم طبق ثاني أو اختار قسم من الاختصارات ✨</div><section id="breakfast"><h2><span class="heading-ar">الفطور الصباحي</span><span class="heading-en" style="display:none">Breakfast</span></h2><div class="section-promo"><div class="section-promo-kicker">☀️ صباح KIWI يبدأ من هنا</div><p>فطور مرتب، نكهات تحضر المزاج، وبداية يوم تليق بجو KIWI.</p></div>
+<div class="item dish-item" data-name="سيت فطور صباحي — شخصين" data-en="Breakfast Set — 2 People" data-price="25,000 IQD" data-desc="طبق محضر بمكونات مختارة وتتبيلة وصوص خاصين بطابع KIWI."><div><div class="ar">سيت فطور صباحي — شخصين</div><div class="en">Breakfast Set — 2 People</div></div><div class="dish-actions"><div class="price">25,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سيت فطور صباحي — 4 أشخاص" data-en="Breakfast Set — 4 People" data-price="45,000 IQD" data-desc="طبق محضر بمكونات مختارة وتتبيلة وصوص خاصين بطابع KIWI."><div><div class="ar">سيت فطور صباحي — 4 أشخاص</div><div class="en">Breakfast Set — 4 People</div></div><div class="dish-actions"><div class="price">45,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+
+<div class="note"><b>ملاحظة:</b> سيت منيو شخصين يكفي حتى 3 أشخاص، وسيت منيو 4 أشخاص يكفي حتى 5 أشخاص.<br/><b>يفتح الفطور من 8 صباحاً – 12 ظهراً</b></div>
+</section></section><section id="salads"><h2><span class="heading-ar">السلطات</span><span class="heading-en" style="display:none">Salads</span></h2><div class="section-promo"><div class="section-promo-kicker">🥗 خفّة وطزاجة بكل طبق</div><p>سلطات طازجة بتوازن نكهاتها، حتى تضيف للسفرة لمسة منعشة من KIWI.</p></div>
+<div class="item dish-item" data-name="تبولة" data-en="Tabbouleh" data-price="5,000 IQD" data-desc="بقدونس طازج، طماطم، برغل ناعم، بصل، نعناع، عصير ليمون وزيت زيتون."><div><div class="ar">تبولة</div><div class="en">Tabbouleh</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فتوش" data-en="Fattoush" data-price="6,000 IQD" data-desc="خضار مشكلة طازجة، خبز مقرمش، سماق، دبس رمان وعصير ليمون."><div><div class="ar">فتوش</div><div class="en">Fattoush</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تكس ميكس" data-en="TIX - MIX" data-price="5,000 IQD" data-desc="خضار مشكلة مع لمسة مكسيكية وصوص خاص."><div><div class="ar">تكس ميكس</div><div class="en">TIX - MIX</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سيزر" data-en="Caesar" data-price="6,500 IQD" data-desc="خس روماني، صوص سيزر، بارميزان وخبز محمص."><div><div class="ar">سيزر</div><div class="en">Caesar</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="يونانية" data-en="Greek Salad" data-price="6,500 IQD" data-desc="طماطم، خيار، زيتون، جبن فيتا، بصل وزيت زيتون."><div><div class="ar">يونانية</div><div class="en">Greek Salad</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كينوا" data-en="Quinoa" data-price="7,000 IQD" data-desc="كينوا، خضار طازجة، أعشاب وعصير ليمون."><div><div class="ar">كينوا</div><div class="en">Quinoa</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كابريزي" data-en="Caprese" data-price="10,000 IQD" data-desc="طماطم طازجة، موزاريلا، ريحان وزيت زيتون."><div><div class="ar">كابريزي</div><div class="en">Caprese</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="روكا" data-en="Rocca" data-price="6,500 IQD" data-desc="جرجير طازج، طماطم كرزية، بارميزان وصوص خفيف."><div><div class="ar">روكا</div><div class="en">Rocca</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="cold-app"><h2><span class="heading-ar">المقبلات الباردة</span><span class="heading-en" style="display:none">Cold Appetizers</span></h2>
+<div class="cold-grill-promo"><div class="kicker">KIWI • PERFECT START</div><h3>🔥 الأكل ما يكتمل إذا ما وياه مقبلات باردة!</h3><p>خصوصًا إذا السفرة بيها مشويات… نكهاتنا الباردة والطازجة تفتح النفس وتكمّل حرارة المشويات، وتخلي كل لقمة <b>ألذ وأشهى.</b></p></div>
+<div class="item dish-item" data-name="حمص كلاسيك" data-en="Classic Hummus" data-price="5,000 IQD" data-desc="حمص حب، طحينية، عصير ليمون، ثوم وزيت زيتون."><div><div class="ar">حمص كلاسيك</div><div class="en">Classic Hummus</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="حمص باللحمة" data-en="Hummus &amp; Meat" data-price="8,000 IQD" data-desc="حمص بالطحينية مع لحم متبل وصنوبر ولمسة زيت زيتون."><div><div class="ar">حمص باللحمة</div><div class="en">Hummus &amp; Meat</div></div><div class="dish-actions"><div class="price">8,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="محمرة بالجوز" data-en="Muhammara &amp; Walnuts" data-price="5,000 IQD" data-desc="فلفل أحمر، جوز، بقسماط، دبس رمان وزيت زيتون."><div><div class="ar">محمرة بالجوز</div><div class="en">Muhammara &amp; Walnuts</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="يلنجي" data-en="Yalanji" data-price="5,000 IQD" data-desc="ورق عنب محشو بالأرز والأعشاب والخضار مع الليمون."><div><div class="ar">يلنجي</div><div class="en">Yalanji</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="متبل الباذنجان" data-en="Eggplant Moutabal" data-price="5,000 IQD" data-desc="باذنجان مشوي، طحينية، ليمون، ثوم وزيت زيتون."><div><div class="ar">متبل الباذنجان</div><div class="en">Eggplant Moutabal</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سيت مقبلات" data-en="Appetizer Set" data-price="6,000 IQD" data-desc="تشكيلة من المقبلات الباردة المختارة للمشاركة."><div><div class="ar">سيت مقبلات</div><div class="en">Appetizer Set</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="hot-app"><h2><span class="heading-ar">المقبلات الحارة</span><span class="heading-en" style="display:none">Hot Appetizers</span></h2><div class="section-promo"><div class="section-promo-kicker">🔥 مقبلات تفتح النفس</div><p>نكهات ساخنة ومقرمشة تنطي السفرة بداية شهية وتكمل كل لقمة.</p></div>
+<div class="item dish-item" data-name="كاليفورنيا فرايز" data-en="California Fries" data-price="7,500 IQD" data-desc="بطاطا مقرمشة مع صوصات وتتبيلة خاصة وإضافات مشكلة."><div><div class="ar">كاليفورنيا فرايز</div><div class="en">California Fries</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="دجاج تندر" data-en="Chicken Tenders" data-price="7,500 IQD" data-desc="شرائح دجاج متبلة ومقرمشة تقدم مع صوص غمس."><div><div class="ar">دجاج تندر</div><div class="en">Chicken Tenders</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="داينمت شرمب ⭐" data-en="Dynamite Shrimp" data-price="10,000 IQD" data-desc="روبيان مقرمش مع صوص سبايسي كريمي ولمسة حارة."><div><div class="ar">داينمت شرمب <span style="font-size:10px;color:#c08f32;margin-right:5px">⭐</span></div><div class="en">Dynamite Shrimp</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فكر" data-en="Fries" data-price="2,000 IQD" data-desc="بطاطا مقلية ذهبية ومقرمشة مع تتبيلة خاصة."><div><div class="ar">فكر</div><div class="en">Fries</div></div><div class="dish-actions"><div class="price">2,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="pizza"><h2><span class="heading-ar">البيتزا</span><span class="heading-en" style="display:none">Pizza</span></h2><div class="section-promo"><div class="section-promo-kicker">🍕 البيتزا بطابع KIWI</div><p>عجينة، صوص ونكهات مختارة بعناية… بيتزا تنعرف من أول لقمة.</p></div>
+<div class="item dish-item" data-name="بيتزا كلاسيك" data-en="Classic Pizza" data-price="12,000 IQD" data-desc="عجينة بيتزا، صلصة طماطم، موزاريلا وأعشاب إيطالية."><div><div class="ar">بيتزا كلاسيك</div><div class="en">Classic Pizza</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيتزا ببروني 🔥" data-en="Pepperoni Pizza" data-price="13,000 IQD" data-desc="عجينة، صلصة طماطم، موزاريلا وشرائح ببروني."><div><div class="ar">بيتزا ببروني <span style="font-size:10px;color:#c08f32;margin-right:5px">🔥</span></div><div class="en">Pepperoni Pizza</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيتزا روست بيف" data-en="Roast Beef Pizza" data-price="16,000 IQD" data-desc="عجينة، صلصة، موزاريلا وشرائح روست بيف مع إضافات البيت."><div><div class="ar">بيتزا روست بيف</div><div class="en">Roast Beef Pizza</div></div><div class="dish-actions"><div class="price">16,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيتزا بولي باربكيو" data-en="BBQ Chicken Pizza" data-price="15,000 IQD" data-desc="دجاج مشوي، صوص باربكيو، موزاريلا ولمسة بصل."><div><div class="ar">بيتزا بولي باربكيو</div><div class="en">BBQ Chicken Pizza</div></div><div class="dish-actions"><div class="price">15,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيتزا شوبينيو كريم" data-en="Creamy" data-price="15,500 IQD" data-desc="موزاريلا، صوص كريمي، مشروم وإضافات مختارة."><div><div class="ar">بيتزا شوبينيو كريم</div><div class="en">Creamy</div></div><div class="dish-actions"><div class="price">15,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيتزا توك فومي" data-en="Tok Fumi Pizza" data-price="14,500 IQD" data-desc="بيتزا بنكهة خاصة من KIWI مع جبن وإضافات مشكلة."><div><div class="ar">بيتزا توك فومي</div><div class="en">Tok Fumi Pizza</div></div><div class="dish-actions"><div class="price">14,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="sandwiches"><h2><span class="heading-ar">الساندويتشات</span><span class="heading-en" style="display:none">Sandwiches</span></h2><div class="section-promo"><div class="section-promo-kicker">🍔 لقمة على مزاجك</div><p>برگر وسندويتشات بطبقات نكهة مدروسة، من أول لقمة تحس بفرق KIWI.</p></div>
+<div class="item dish-item" data-name="كلاسيك بركر" data-en="Classic breaker" data-price="6,500 IQD" data-desc="خبز برغر، قطعة لحم مشوية، خس، طماطم، بصل وصوص خاص."><div><div class="ar">كلاسيك بركر</div><div class="en">Classic breaker</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بركر سموك" data-en="Parker Smoke" data-price="7,000 IQD" data-desc="قطعة لحم مشوية، جبن، بصل وصوص مدخن داخل خبز برغر."><div><div class="ar">بركر سموك</div><div class="en">Parker Smoke</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بركر مشروم ⭐" data-en="Mushroom burger" data-price="9,000 IQD" data-desc="قطعة لحم، مشروم سوتيه، جبن وصوص كريمي."><div><div class="ar">بركر مشروم <span style="font-size:10px;color:#c08f32;margin-right:5px">⭐</span></div><div class="en">Mushroom burger</div></div><div class="dish-actions"><div class="price">9,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بركر باربيكيو" data-en="Burger BBQ" data-price="7,500 IQD" data-desc="قطعة لحم مشوية، جبن، بصل مقرمش وصوص باربكيو."><div><div class="ar">بركر باربيكيو</div><div class="en">Burger BBQ</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ديليوكس هوت دوغ" data-en="Deluxe hotdog" data-price="5,000 IQD" data-desc="هوت دوغ مشوي مع صوصات وإضافات مقرمشة داخل خبز طازج."><div><div class="ar">ديليوكس هوت دوغ</div><div class="en">Deluxe hotdog</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سوبريم" data-en="Supreme" data-price="6,000 IQD" data-desc="سندويتش سوبريم بطبقات من البروتين والخضار والصوص الخاص."><div><div class="ar">سوبريم</div><div class="en">Supreme</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="صاج دجاج" data-en="Chicken saj" data-price="5,000 IQD" data-desc="دجاج متبل، خضار، جبن وصوص خاص داخل خبز صاج."><div><div class="ar">صاج دجاج</div><div class="en">Chicken saj</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="صاج لحم" data-en="Saj meat" data-price="6,000 IQD" data-desc="شرائح لحم متبلة، خضار، جبن وصوص خاص داخل خبز صاج."><div><div class="ar">صاج لحم</div><div class="en">Saj meat</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فلر" data-en="Feller" data-price="5,500 IQD" data-desc="سندويتش محشو بمزيج من البروتين والخضار والصوص الخاص."><div><div class="ar">فلر</div><div class="en">Feller</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="رنجـر" data-en="Ranger" data-price="5,500 IQD" data-desc="دجاج مقرمش، جبن، خضار وصوص حار داخل خبز طازج."><div><div class="ar">رنجـر</div><div class="en">Ranger</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سموك جكن" data-en="Your Highness Jakun" data-price="6,500 IQD" data-desc="دجاج مدخن، جبن، خضار وصوص مدخن."><div><div class="ar">سموك جكن</div><div class="en">Your Highness Jakun</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="جكن إيطالي" data-en="Italian chicken" data-price="6,500 IQD" data-desc="دجاج، جبن، خضار وصوص بطابع إيطالي."><div><div class="ar">جكن إيطالي</div><div class="en">Italian chicken</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سبايسي جكن" data-en="Spicy chicken" data-price="6,500 IQD" data-desc="دجاج متبل حار، جبن، خضار وصوص سبايسي."><div><div class="ar">سبايسي جكن</div><div class="en">Spicy chicken</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تويستر مدخن" data-en="Smoked twister" data-price="7,000 IQD" data-desc="دجاج مدخن، خس، جبن وصوص خاص ملفوف بخبز تورتيلا."><div><div class="ar">تويستر مدخن</div><div class="en">Smoked twister</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تويستر" data-en="Twister" data-price="6,000 IQD" data-desc="دجاج، خس، جبن وصوص خاص ملفوف بخبز تورتيلا."><div><div class="ar">تويستر</div><div class="en">Twister</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="pasta"><h2><span class="heading-ar">الباستا</span><span class="heading-en" style="display:none">Pasta</span></h2><div class="section-promo"><div class="section-promo-kicker">🍝 مزاج إيطالي بلمسة KIWI</div><p>أطباق باستا غنية بالنكهة، معمولة حتى تكون الوجبة لحظة تستمتع بيها.</p></div>
+<div class="item dish-item" data-name="باستا لنكـوني" data-en="Lincino pasta" data-price="14,000 IQD" data-desc="باستا لينغويني مع صوص كريمي وإضافات مختارة."><div><div class="ar">باستا لنكـوني</div><div class="en">Lincino pasta</div></div><div class="dish-actions"><div class="price">14,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سباكتي بولونيز" data-en="Spaghetti Bolognese" data-price="14,000 IQD" data-desc="سباغيتي مع صوص طماطم ولحم مفروم وأعشاب إيطالية."><div><div class="ar">سباكتي بولونيز</div><div class="en">Spaghetti Bolognese</div></div><div class="dish-actions"><div class="price">14,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تاليـاتي شنبينيو" data-en="Talliti shunbinyo" data-price="15,000 IQD" data-desc="تاليياتيلي مع مشروم وصوص كريمي ولمسة بارميزان."><div><div class="ar">تاليـاتي شنبينيو</div><div class="en">Talliti shunbinyo</div></div><div class="dish-actions"><div class="price">15,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فوتشيني فولي" data-en="Fettuccine Folie" data-price="16,000 IQD" data-desc="فوتشيني مع صوص كريمي ومكونات مختارة بنكهة غنية."><div><div class="ar">فوتشيني فولي</div><div class="en">Fettuccine Folie</div></div><div class="dish-actions"><div class="price">16,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="chicken"><h2><span class="heading-ar">أطباق الدجاج</span><span class="heading-en" style="display:none">Chicken Dishes</span></h2><div class="section-promo"><div class="section-promo-kicker">🍗 دجاج بطعم يستاهل التجربة</div><p>اختيارات دجاج بطابع خاص، نكهات غنية وتقديم يليق بسفرة KIWI.</p></div>
+<div class="item dish-item" data-name="رول دجاج بالسبانخ" data-en="Spinach Chicken" data-price="19,000 IQD" data-desc="دجاج ملفوف بالسبانخ والجبن مع صوص كريمي."><div><div class="ar">رول دجاج بالسبانخ</div><div class="en">Spinach Chicken</div></div><div class="dish-actions"><div class="price">19,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سوبر يم دجاج سوبريم" data-en="Chicken Suprême" data-price="18,000 IQD" data-desc="صدر دجاج متبل ومشوي مع إضافات وصوص خاص."><div><div class="ar">سوبر يم دجاج سوبريم</div><div class="en">Chicken Suprême</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="دجاج طاوق ميزون" data-en="Maison Chicken" data-price="18,000 IQD" data-desc="قطع دجاج طاووق متبلة بالأعشاب والبهارات ومشوية حتى النضج."><div><div class="ar">دجاج طاوق ميزون</div><div class="en">Maison Chicken</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كاري دجاج" data-en="Chicken Curry" data-price="18,000 IQD" data-desc="دجاج مع صوص كاري كريمي وتوابل عطرية."><div><div class="ar">كاري دجاج</div><div class="en">Chicken Curry</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="seafood"><h2><span class="heading-ar">الأسماك البحرية</span><span class="heading-en" style="display:none">Seafood</span></h2><div class="section-promo"><div class="section-promo-kicker">🐟 من البحر إلى سفرتك</div><p>اختيارات بحرية بنكهة راقية وخفيفة، لمحبي الطعم المختلف.</p></div>
+<div class="item dish-item" data-name="زبيدي سغنتشر" data-en="Zubaidi Signature" data-price="25,500 IQD" data-desc="سمك زبيدي متبل ومطهو بطريقة خاصة مع الليمون والأعشاب."><div><div class="ar">زبيدي سغنتشر</div><div class="en">Zubaidi Signature</div></div><div class="dish-actions"><div class="price">25,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلمون فلفت" data-en="Salmon velvet" data-price="28,000 IQD" data-desc="فيليه سلمون مع تتبيلة أعشاب وصوص كريمي ناعم."><div><div class="ar">سلمون فلفت</div><div class="en">Salmon velvet</div></div><div class="dish-actions"><div class="price">28,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="meat"><h2><span class="heading-ar">أطباق اللحم</span><span class="heading-en" style="display:none">Meat Dishes</span></h2><div class="section-promo"><div class="section-promo-kicker">🥩 للذوّاقة حكاية ثانية</div><p>أطباق لحم غنية بالنكهة، بتفاصيل محسوبة حتى كل لقمة تكون تجربة.</p></div>
+<div class="item dish-item" data-name="تندرلوين ستيك" data-en="Tenderloin Steak" data-price="24,000 IQD" data-desc="قطعة تندرلوين طرية مشوية حسب الطلب مع صوص ومقبلات جانبية."><div><div class="ar">تندرلوين ستيك</div><div class="en">Tenderloin Steak</div></div><div class="dish-actions"><div class="price">24,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="اوسو بوكو" data-en="Osso Buco" data-price="28,000 IQD" data-desc="لحم موزات مطهو ببطء مع الخضار والأعشاب بصوص غني."><div><div class="ar">اوسو بوكو</div><div class="en">Osso Buco</div></div><div class="dish-actions"><div class="price">28,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيف ستراغنوف" data-en="Beef Stroganoff" data-price="22,000 IQD" data-desc="شرائح لحم بقري مع مشروم وصوص كريمي."><div><div class="ar">بيف ستراغنوف</div><div class="en">Beef Stroganoff</div></div><div class="dish-actions"><div class="price">22,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيبر ستيك" data-en="Pepper Steak" data-price="28,000 IQD" data-desc="شرائح ستيك مع الفلفل وصوص الفلفل الأسود."><div><div class="ar">بيبر ستيك</div><div class="en">Pepper Steak</div></div><div class="dish-actions"><div class="price">28,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كابوناتا لحم" data-en="Meat Caponata" data-price="25,000 IQD" data-desc="لحم مع خضار مشكلة وصلصة بطابع غني وحلو-حامض."><div><div class="ar">كابوناتا لحم</div><div class="en">Meat Caponata</div></div><div class="dish-actions"><div class="price">25,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="grills"><h2><span class="heading-ar">المشويات</span><span class="heading-en" style="display:none">Grills</span></h2><div class="section-promo"><div class="section-promo-kicker">🔥 سرّ المشاوي يبدأ من الفحم</div><p>لحوم مختارة، حرارة الفحم، ونكهة KIWI… مشاوي تنحفظ بالذاكرة من أول لقمة.</p></div><div class="grill-section-promo"><div class="photo" aria-hidden="true"></div><div class="copy"><div class="kicker">KIWI • CHARCOAL EXPERIENCE</div><h3>المشاوي على أصولها</h3><p>فحم حار، تحمير مضبوط، وتشكيلة تنجمع للسفرة بكل حب. إذا مزاجك مشاوي… هذا القسم إلك.</p><span class="badge">🔥 جرّب نكهة الفحم</span></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="item dish-item" data-name="نفر كباب لحم 1 🔥" data-en="Meat Kebab 1" data-price="18,000 IQD" data-desc="كباب لحم متبل بالبصل والأعشاب، مشوي على الفحم ويقدم مع إضافات جانبية."><div><div class="ar">نفر كباب لحم 1 <span style="font-size:10px;color:#c08f32;margin-right:5px">🔥</span></div><div class="en">Meat Kebab 1</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر كباب لحم" data-en="Meat Kebab 1/2" data-price="12,000 IQD" data-desc="كباب لحم متبل ومشوي على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر كباب لحم</div><div class="en">Meat Kebab 1/2</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نفر كباب دجاج 1" data-en="Chicken Kebab 1" data-price="16,000 IQD" data-desc="كباب دجاج متبل بالأعشاب والبهارات، مشوي على الفحم."><div><div class="ar">نفر كباب دجاج 1</div><div class="en">Chicken Kebab 1</div></div><div class="dish-actions"><div class="price">16,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر كباب دجاج" data-en="Chicken Kebab 1/2" data-price="12,000 IQD" data-desc="كباب دجاج متبل ومشوي على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر كباب دجاج</div><div class="en">Chicken Kebab 1/2</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نفر تكة لحم 1" data-en="Meat Tikka 1" data-price="19,000 IQD" data-desc="مكعبات لحم متبلة بالبهارات والأعشاب، مشوية على الفحم."><div><div class="ar">نفر تكة لحم 1</div><div class="en">Meat Tikka 1</div></div><div class="dish-actions"><div class="price">19,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر تكة لحم" data-en="Meat Tikka 1/2" data-price="12,500 IQD" data-desc="مكعبات لحم متبلة ومشوية على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر تكة لحم</div><div class="en">Meat Tikka 1/2</div></div><div class="dish-actions"><div class="price">12,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نفر تكة دجاج 1" data-en="Chicken Tikka 1" data-price="18,000 IQD" data-desc="مكعبات دجاج متبلة بالليمون والبهارات، مشوية على الفحم."><div><div class="ar">نفر تكة دجاج 1</div><div class="en">Chicken Tikka 1</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر تكة دجاج" data-en="Chicken Tikka 1/2" data-price="12,000 IQD" data-desc="مكعبات دجاج متبلة ومشوية على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر تكة دجاج</div><div class="en">Chicken Tikka 1/2</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نفر عرايس لحم 1" data-en="Meat Arayes 1" data-price="18,000 IQD" data-desc="خبز محشو بلحم مفروم متبل بالبصل والأعشاب، محمص على الفحم."><div><div class="ar">نفر عرايس لحم 1</div><div class="en">Meat Arayes 1</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر عرايس لحم" data-en="Meat Arayes 1/2" data-price="12,000 IQD" data-desc="عرايس لحم متبلة ومحَمّصة على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر عرايس لحم</div><div class="en">Meat Arayes 1/2</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="فروج مشوي عالفحم 1" data-en="Charcoal-Grilled 1" data-price="18,000 IQD" data-desc="فروج كامل متبل بالأعشاب والبهارات، مشوي ببطء على الفحم."><div><div class="ar">فروج مشوي عالفحم 1</div><div class="en">Charcoal-Grilled 1</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نفر أجنحة مشوي 1" data-en="Grilled Wings 1" data-price="16,000 IQD" data-desc="أجنحة دجاج متبلة ومشوية على الفحم حتى تتحمر."><div><div class="ar">نفر أجنحة مشوي 1</div><div class="en">Grilled Wings 1</div></div><div class="dish-actions"><div class="price">16,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر أجنحة مشوية" data-en="Grilled Wings 1/2" data-price="10,000 IQD" data-desc="أجنحة دجاج متبلة ومشوية على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر أجنحة مشوية</div><div class="en">Grilled Wings 1/2</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="ضلوع 1" data-en="Ribs 1" data-price="20,000 IQD" data-desc="ضلوع لحم متبلة ومشوية ببطء على الفحم مع صوص خاص."><div><div class="ar">ضلوع 1</div><div class="en">Ribs 1</div></div><div class="dish-actions"><div class="price">20,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div><div class="item dish-item" data-name="نص نفر ضلوع" data-en="Ribs 1/2" data-price="13,000 IQD" data-desc="ضلوع لحم متبلة ومشوية ببطء على الفحم بحجم نصف نفر."><div><div class="ar">نص نفر ضلوع</div><div class="en">Ribs 1/2</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div></section></section><section id="iraqi"><h2><span class="heading-ar">المطبخ العراقي (التراثي)</span><span class="heading-en" style="display:none">Iraqi Traditional</span></h2><div class="section-promo"><div class="section-promo-kicker">🍚 نكهة عراقية بلمسة KIWI</div><p>أطباق من تراثنا العراقي، نكهتها مألوفة وقلبها أصيل بروح KIWI.</p></div>
+<div class="item dish-item" data-name="قوزي لحم" data-en="Quzi" data-price="23,000 IQD" data-desc="أرز متبل مع لحم مطهو وتشكيلة من المكسرات والتزيين."><div><div class="ar">قوزي لحم</div><div class="en">Quzi</div></div><div class="dish-actions"><div class="price">23,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="برياني لحم" data-en="Meat Biryani" data-price="23,000 IQD" data-desc="أرز بسمتي متبل مع لحم وتوابل برياني عطرية."><div><div class="ar">برياني لحم</div><div class="en">Meat Biryani</div></div><div class="dish-actions"><div class="price">23,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مقلوبة لحم" data-en="Meat Maqluba" data-price="23,000 IQD" data-desc="أرز مع لحم وخضار مشكلة مرتبة ومقلوبة عند التقديم."><div><div class="ar">مقلوبة لحم</div><div class="en">Meat Maqluba</div></div><div class="dish-actions"><div class="price">23,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="نصف دجاجة ع التمن" data-en="Half Chicken &amp; Rice" data-price="12,000 IQD" data-desc="نصف دجاجة متبلة مع أرز متبل ومقبلات جانبية."><div><div class="ar">نصف دجاجة ع التمن</div><div class="en">Half Chicken &amp; Rice</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="برياني دجاج" data-en="Chicken Biryani" data-price="18,000 IQD" data-desc="أرز بسمتي متبل مع دجاج وتوابل برياني عطرية."><div><div class="ar">برياني دجاج</div><div class="en">Chicken Biryani</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مقلوبة دجاج" data-en="Chicken Maqluba" data-price="18,000 IQD" data-desc="أرز مع دجاج وخضار مشكلة مرتبة ومقلوبة عند التقديم."><div><div class="ar">مقلوبة دجاج</div><div class="en">Chicken Maqluba</div></div><div class="dish-actions"><div class="price">18,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مطبك الروبيان" data-en="Shrimp Matbaq" data-price="22,000 IQD" data-desc="روبيان متبل مع أرز وتوابل وخضار بنكهة عراقية."><div><div class="ar">مطبك الروبيان</div><div class="en">Shrimp Matbaq</div></div><div class="dish-actions"><div class="price">22,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ماعون رز مشكل" data-en="Side of Rice" data-price="4,000 IQD" data-desc="تشكيلة أرز بنكهات مختلفة مناسبة للمشاركة."><div><div class="ar">ماعون رز مشكل</div><div class="en">Side of Rice</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كاسة مرق" data-en="Bowl of Stew" data-price="2,500 IQD" data-desc="مرق غني بالتوابل يقدم ساخناً كطبق جانبي."><div><div class="ar">كاسة مرق</div><div class="en">Bowl of Stew</div></div><div class="dish-actions"><div class="price">2,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تمن ومرق" data-en="Rice and Stew" data-price="6,000 IQD" data-desc="أرز عراقي مع مرق غني حسب وصفة البيت."><div><div class="ar">تمن ومرق</div><div class="en">Rice and Stew</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="desserts"><h2><span class="heading-ar">الحلويات</span><span class="heading-en" style="display:none">Desserts</span></h2><div class="section-promo"><div class="section-promo-kicker">🍰 خلّي النهاية أحلى</div><p>حلويات تكمّل السفرة وتخلي آخر لقمة من KIWI أحلى من البداية.</p></div>
+<div class="item dish-item" data-name="كريب شوكلا" data-en="Chocolate Crêpe" data-price="7,000 IQD" data-desc="شوكلا داخل كريب طري مع صوص حلو وتزيين حسب الاختيار."><div><div class="ar">كريب شوكلا</div><div class="en">Chocolate Crêpe</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كريب لوتس" data-en="Lotus Crêpe" data-price="7,500 IQD" data-desc="لوتس داخل كريب طري مع صوص حلو وتزيين حسب الاختيار."><div><div class="ar">كريب لوتس</div><div class="en">Lotus Crêpe</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كريب شوكلا وفواكه" data-en="Chocolate &amp; Fruit" data-price="8,000 IQD" data-desc="شوكلا وفواكه داخل كريب طري مع صوص حلو وتزيين حسب الاختيار."><div><div class="ar">كريب شوكلا وفواكه</div><div class="en">Chocolate &amp; Fruit</div></div><div class="dish-actions"><div class="price">8,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كريب لوتس وفواكه" data-en="Lotus &amp; Fruit Crêpe" data-price="8,000 IQD" data-desc="لوتس وفواكه داخل كريب طري مع صوص حلو وتزيين حسب الاختيار."><div><div class="ar">كريب لوتس وفواكه</div><div class="en">Lotus &amp; Fruit Crêpe</div></div><div class="dish-actions"><div class="price">8,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سوشي كريب" data-en="Sushi Crêpe" data-price="7,000 IQD" data-desc="طبق محضر بمكونات مختارة وتتبيلة وصوص خاصين بطابع KIWI."><div><div class="ar">سوشي كريب</div><div class="en">Sushi Crêpe</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مكس كريب" data-en="Mixed Crêpe" data-price="7,500 IQD" data-desc="طبق محضر بمكونات مختارة وتتبيلة وصوص خاصين بطابع KIWI."><div><div class="ar">مكس كريب</div><div class="en">Mixed Crêpe</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="وافل شوكلا" data-en="Chocolate Waffle" data-price="7,000 IQD" data-desc="شوكلا مع وافل طازج وصوص حلو وتزيين مناسب."><div><div class="ar">وافل شوكلا</div><div class="en">Chocolate Waffle</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="وافل شوكلا وفواكه" data-en="Chocolate &amp; Fruit" data-price="7,500 IQD" data-desc="شوكلا وفواكه مع وافل طازج وصوص حلو وتزيين مناسب."><div><div class="ar">وافل شوكلا وفواكه</div><div class="en">Chocolate &amp; Fruit</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بان كيك شوكلا" data-en="Chocolate Pancake" data-price="7,000 IQD" data-desc="شوكلا مع بان كيك طري وصوص وتزيين حلو."><div><div class="ar">بان كيك شوكلا</div><div class="en">Chocolate Pancake</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بان كيك لوتس" data-en="Lotus Pancake" data-price="7,000 IQD" data-desc="لوتس مع بان كيك طري وصوص وتزيين حلو."><div><div class="ar">بان كيك لوتس</div><div class="en">Lotus Pancake</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بان كيك بستاشيو" data-en="Pistachio Pancake" data-price="7,000 IQD" data-desc="بستاشيو مع بان كيك طري وصوص وتزيين حلو."><div><div class="ar">بان كيك بستاشيو</div><div class="en">Pistachio Pancake</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بان كيك راشي وعسل" data-en="Tahini &amp; Honey" data-price="7,000 IQD" data-desc="راشي وعسل مع بان كيك طري وصوص وتزيين حلو."><div><div class="ar">بان كيك راشي وعسل</div><div class="en">Tahini &amp; Honey</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فتوتشيني كريب" data-en="Fettuccine Crêpe" data-price="7,000 IQD" data-desc="طبق محضر بمكونات مختارة وتتبيلة وصوص خاصين بطابع KIWI."><div><div class="ar">فتوتشيني كريب</div><div class="en">Fettuccine Crêpe</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كريب بستاشيو" data-en="Pistachio Crêpe" data-price="7,000 IQD" data-desc="بستاشيو داخل كريب طري مع صوص حلو وتزيين حسب الاختيار."><div><div class="ar">كريب بستاشيو</div><div class="en">Pistachio Crêpe</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="وافل بستاشيو" data-en="Pistachio Waffle" data-price="7,000 IQD" data-desc="بستاشيو مع وافل طازج وصوص حلو وتزيين مناسب."><div><div class="ar">وافل بستاشيو</div><div class="en">Pistachio Waffle</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="fruit-salads"><h2><span class="heading-ar">سلطات الفواكه</span><span class="heading-en" style="display:none">Fruit Salads</span></h2><div class="section-promo"><div class="section-promo-kicker">🍓 انتعاش بطعم الفواكه</div><p>ألوان ونكهات فريش تجمعها لك KIWI بلمسة خفيفة ومنعشة.</p></div>
+<div class="item dish-item" data-name="سلطة فواكه سادة" data-en="Plain Fruit Salad" data-price="8,000 IQD" data-desc="تشكيلة فواكه طازجة مع إضافات وصوص حلو حسب الاختيار."><div><div class="ar">سلطة فواكه سادة</div><div class="en">Plain Fruit Salad</div></div><div class="dish-actions"><div class="price">8,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلطة فواكه سبيشل" data-en="Special Fruit Salad" data-price="10,000 IQD" data-desc="تشكيلة فواكه طازجة مع إضافات وصوص حلو حسب الاختيار."><div><div class="ar">سلطة فواكه سبيشل</div><div class="en">Special Fruit Salad</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلطة فواكه فاخر" data-en="Premium Fruit Salad" data-price="12,000 IQD" data-desc="تشكيلة فواكه طازجة مع إضافات وصوص حلو حسب الاختيار."><div><div class="ar">سلطة فواكه فاخر</div><div class="en">Premium Fruit Salad</div></div><div class="dish-actions"><div class="price">12,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كرانش" data-en="Crunch" data-price="14,000 IQD" data-desc="تشكيلة فواكه طازجة مع إضافات وصوص حلو حسب الاختيار."><div><div class="ar">كرانش</div><div class="en">Crunch</div></div><div class="dish-actions"><div class="price">14,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="soft"><h2><span class="heading-ar">المشروبات الغازية</span><span class="heading-en" style="display:none">Soft Drinks</span></h2><div class="section-promo"><div class="section-promo-kicker">🥤 البساطة اللي تكمل الوجبة</div><p>مشروب بارد وبسيط… لكنه دائمًا المكان الصح بين كل لقمة.</p></div>
+<div class="item dish-item" data-name="بيبسي مشين" data-en="Pepsi Machine" data-price="1,500 IQD" data-desc="مشروب بارد ومنعش يقدم حسب الاختيار."><div><div class="ar">بيبسي مشين</div><div class="en">Pepsi Machine</div></div><div class="dish-actions"><div class="price">1,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيبسي" data-en="Pepsi" data-price="1,000 IQD" data-desc="مشروب بارد ومنعش يقدم حسب الاختيار."><div><div class="ar">بيبسي</div><div class="en">Pepsi</div></div><div class="dish-actions"><div class="price">1,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بيبسي دايت" data-en="Diet Pepsi" data-price="1,000 IQD" data-desc="مشروب بارد ومنعش يقدم حسب الاختيار."><div><div class="ar">بيبسي دايت</div><div class="en">Diet Pepsi</div></div><div class="dish-actions"><div class="price">1,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميرندا" data-en="Mirinda" data-price="1,000 IQD" data-desc="مشروب بارد ومنعش يقدم حسب الاختيار."><div><div class="ar">ميرندا</div><div class="en">Mirinda</div></div><div class="dish-actions"><div class="price">1,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سفن اب" data-en="7 Up" data-price="1,000 IQD" data-desc="مشروب بارد ومنعش يقدم حسب الاختيار."><div><div class="ar">سفن اب</div><div class="en">7 Up</div></div><div class="dish-actions"><div class="price">1,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="water"><h2><span class="heading-ar">المياه المعدنية</span><span class="heading-en" style="display:none">Mineral Water</span></h2><div class="section-promo"><div class="section-promo-kicker">💧 خفّة وانتعاش</div><p>لأن التفاصيل الصغيرة تكمل التجربة، خلي انتعاشك حاضر على السفرة.</p></div>
+<div class="item dish-item" data-name="مياه معدنية" data-en="Water" data-price="1,000 IQD" data-desc="مشروب بارد ومنعش يقدم حسب الاختيار."><div><div class="ar">مياه معدنية</div><div class="en">Water</div></div><div class="dish-actions"><div class="price">1,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="fresh"><h2><span class="heading-ar">العصائر الفريش</span><span class="heading-en" style="display:none">Fresh Juices</span></h2>
+<div class="juice-promo"><div class="juice-icon">🍊</div><div><div class="juice-kicker">KIWI • FRESH &amp; NATURAL</div><h3>🥤 انتعاش يليق بطعم KIWI</h3><p>عصائر فريش تُحضّر بطعمها الطازج حتى تكون كل رشفة أخف، أطيب، وتكمّل سفرتك بكل انتعاش.</p></div></div>
+
+<div class="item dish-item" data-name="برتقال فريش" data-en="Fresh Orange" data-price="3,500 IQD" data-desc="برتقال فريش محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">برتقال فريش</div><div class="en">Fresh Orange</div></div><div class="dish-actions"><div class="price">3,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="برتقال وليمون" data-en="Orange and Lemon" data-price="3,500 IQD" data-desc="برتقال وليمون محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">برتقال وليمون</div><div class="en">Orange and Lemon</div></div><div class="dish-actions"><div class="price">3,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="برتقال وزنجبيل" data-en="Orange and Ginger" data-price="4,000 IQD" data-desc="برتقال وزنجبيل محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">برتقال وزنجبيل</div><div class="en">Orange and Ginger</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="برتقال وجزر" data-en="Orange and Carrot" data-price="3,000 IQD" data-desc="برتقال وجزر محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">برتقال وجزر</div><div class="en">Orange and Carrot</div></div><div class="dish-actions"><div class="price">3,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شمندر وبرتقال" data-en="Beetroot and Orange" data-price="3,500 IQD" data-desc="شمندر وبرتقال محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">شمندر وبرتقال</div><div class="en">Beetroot and Orange</div></div><div class="dish-actions"><div class="price">3,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="جزر" data-en="Carrot" data-price="4,000 IQD" data-desc="جزر محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">جزر</div><div class="en">Carrot</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شمندر وجزر" data-en="Beetroot and Carrot" data-price="4,000 IQD" data-desc="شمندر وجزر محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">شمندر وجزر</div><div class="en">Beetroot and Carrot</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="جزر وزنجبيل" data-en="Carrot and Ginger" data-price="4,000 IQD" data-desc="جزر وزنجبيل محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">جزر وزنجبيل</div><div class="en">Carrot and Ginger</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تفاح" data-en="Apple" data-price="4,000 IQD" data-desc="تفاح محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">تفاح</div><div class="en">Apple</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شمندر وتفاح" data-en="Beetroot, Apple" data-price="4,000 IQD" data-desc="شمندر وتفاح محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">شمندر وتفاح</div><div class="en">Beetroot, Apple</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تفاح و زنجبيل" data-en="Ginger &amp; Apple" data-price="4,000 IQD" data-desc="تفاح و زنجبيل محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">تفاح و زنجبيل</div><div class="en">Ginger &amp; Apple</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="رمان" data-en="Pomegranate" data-price="8,000 IQD" data-desc="رمان محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">رمان</div><div class="en">Pomegranate</div></div><div class="dish-actions"><div class="price">8,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شمندر ورمان" data-en="Beetroot &amp; Pomegranate" data-price="8,000 IQD" data-desc="شمندر ورمان محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">شمندر ورمان</div><div class="en">Beetroot &amp; Pomegranate</div></div><div class="dish-actions"><div class="price">8,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="natural"><h2><span class="heading-ar">عصائر طبيعية</span><span class="heading-en" style="display:none">Natural Juices</span></h2><div class="section-promo"><div class="section-promo-kicker">🍍 نكهات طبيعية على مزاجك</div><p>خلطات فواكه منعشة تجمع الطعم الطبيعي مع لمسة KIWI الخاصة.</p></div>
+<div class="item dish-item" data-name="اناناس كريب فروت" data-en="Pineapple &amp; Grapefruit" data-price="5,500 IQD" data-desc="اناناس كريب فروت محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">اناناس كريب فروت</div><div class="en">Pineapple &amp; Grapefruit</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="اناناس وبرتقال" data-en="Pineapple &amp; Orange" data-price="6,000 IQD" data-desc="اناناس وبرتقال محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">اناناس وبرتقال</div><div class="en">Pineapple &amp; Orange</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ليمون" data-en="Lemon" data-price="4,000 IQD" data-desc="ليمون محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">ليمون</div><div class="en">Lemon</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ليمون ونعنع" data-en="Lemon &amp; Mint" data-price="4,500 IQD" data-desc="ليمون ونعنع محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">ليمون ونعنع</div><div class="en">Lemon &amp; Mint</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="دراق وبرتقال" data-en="Peach &amp; Orange" data-price="5,000 IQD" data-desc="دراق وبرتقال محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">دراق وبرتقال</div><div class="en">Peach &amp; Orange</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ركي" data-en="Watermelon" data-price="5,000 IQD" data-desc="ركي محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">ركي</div><div class="en">Watermelon</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بطيخ" data-en="Watermelon" data-price="5,000 IQD" data-desc="بطيخ محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">بطيخ</div><div class="en">Watermelon</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بطيخ ومنگا" data-en="Watermelon &amp; Mango" data-price="5,500 IQD" data-desc="بطيخ ومنگا محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">بطيخ ومنگا</div><div class="en">Watermelon &amp; Mango</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بطيخ وبرتقال" data-en="Watermelon &amp; Orange" data-price="5,500 IQD" data-desc="بطيخ وبرتقال محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">بطيخ وبرتقال</div><div class="en">Watermelon &amp; Orange</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بطيخ وحليب" data-en="Watermelon &amp; Milk" data-price="5,500 IQD" data-desc="بطيخ وحليب محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">بطيخ وحليب</div><div class="en">Watermelon &amp; Milk</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ركي وحلوم" data-en="Watermelon &amp; Halloumi" data-price="7,000 IQD" data-desc="ركي وحلوم محضر من الفواكه الطازجة ويقدم بارداً."><div><div class="ar">ركي وحلوم</div><div class="en">Watermelon &amp; Halloumi</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="mojito"><h2><span class="heading-ar">الموهـيتو</span><span class="heading-en" style="display:none">Mojitos</span></h2><div class="section-promo"><div class="section-promo-kicker">🍹 رشفة تغيّر المزاج</div><p>موهيتو بارد، منعش، ومليان نكهة… اختار مكسك وخلي المزاج علينا.</p></div>
+<div class="item dish-item" data-name="موهيتو الباشن فروت" data-en="Passion fruit" data-price="4,500 IQD" data-desc="الباشن فروت مع ليمون، نعناع، صودا ولمسة منعشة."><div><div class="ar">موهيتو الباشن فروت</div><div class="en">Passion fruit</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="موهيتو كيوي" data-en="Kiwi mojito" data-price="4,500 IQD" data-desc="كيوي مع ليمون، نعناع، صودا ولمسة منعشة."><div><div class="ar">موهيتو كيوي</div><div class="en">Kiwi mojito</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="موهيتو اناناس" data-en="Pineapple mojito" data-price="4,500 IQD" data-desc="اناناس مع ليمون، نعناع، صودا ولمسة منعشة."><div><div class="ar">موهيتو اناناس</div><div class="en">Pineapple mojito</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="موهيتو مكس بيري" data-en="Mix berry mojito" data-price="4,500 IQD" data-desc="مكس بيري مع ليمون، نعناع، صودا ولمسة منعشة."><div><div class="ar">موهيتو مكس بيري</div><div class="en">Mix berry mojito</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="موهيتو ليمون ونعناع" data-en="Lemon and mint" data-price="4,500 IQD" data-desc="ليمون ونعناع مع ليمون، نعناع، صودا ولمسة منعشة."><div><div class="ar">موهيتو ليمون ونعناع</div><div class="en">Lemon and mint</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="موهيتو بلو اناناس" data-en="Blue pineapple" data-price="4,500 IQD" data-desc="بلو اناناس مع ليمون، نعناع، صودا ولمسة منعشة."><div><div class="ar">موهيتو بلو اناناس</div><div class="en">Blue pineapple</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="cold"><h2><span class="heading-ar">مشروبات باردة</span><span class="heading-en" style="display:none">Cold Drinks</span></h2><div class="section-promo"><div class="section-promo-kicker">🧊 برودة تكمّل الأجواء</div><p>مشروبات باردة لوقت تحتاج بيه شي منعش يكمّل جلستك.</p></div>
+<div class="item dish-item" data-name="باشن مانجا" data-en="Passion Fruit &amp; Mango" data-price="6,250 IQD" data-desc="باشن مانجا محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">باشن مانجا</div><div class="en">Passion Fruit &amp; Mango</div></div><div class="dish-actions"><div class="price">6,250 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="باشن فراولة" data-en="Passion Fruit &amp; Strawberry" data-price="6,250 IQD" data-desc="باشن فراولة محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">باشن فراولة</div><div class="en">Passion Fruit &amp; Strawberry</div></div><div class="dish-actions"><div class="price">6,250 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="افوكادو سادة" data-en="Plain Avocado" data-price="6,000 IQD" data-desc="افوكادو سادة محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">افوكادو سادة</div><div class="en">Plain Avocado</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="افوكادو فاخر" data-en="Premium Avocado" data-price="7,500 IQD" data-desc="افوكادو فاخر محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">افوكادو فاخر</div><div class="en">Premium Avocado</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="افوكادو سبيشل" data-en="Special Avocado" data-price="7,500 IQD" data-desc="افوكادو سبيشل محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">افوكادو سبيشل</div><div class="en">Special Avocado</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="افوكادو ومنگا" data-en="Avocado &amp; Mango" data-price="7,500 IQD" data-desc="افوكادو ومنگا محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">افوكادو ومنگا</div><div class="en">Avocado &amp; Mango</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="افوكادو وجوز الهند" data-en="Avocado &amp; Coconut" data-price="7,500 IQD" data-desc="افوكادو وجوز الهند محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">افوكادو وجوز الهند</div><div class="en">Avocado &amp; Coconut</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="افوكادو وتمر" data-en="Avocado &amp; Date" data-price="7,500 IQD" data-desc="افوكادو وتمر محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">افوكادو وتمر</div><div class="en">Avocado &amp; Date</div></div><div class="dish-actions"><div class="price">7,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كريب فروت" data-en="Grapefruit" data-price="4,000 IQD" data-desc="فروت داخل كريب طري مع صوص حلو وتزيين حسب الاختيار."><div><div class="ar">كريب فروت</div><div class="en">Grapefruit</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلاش فراولة" data-en="Strawberry Slush" data-price="4,000 IQD" data-desc="سلاش فراولة محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">سلاش فراولة</div><div class="en">Strawberry Slush</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلاش ليمون" data-en="Lemon Slush" data-price="4,000 IQD" data-desc="سلاش ليمون محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">سلاش ليمون</div><div class="en">Lemon Slush</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلاش برتقال" data-en="Orange Slush" data-price="4,000 IQD" data-desc="سلاش برتقال محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">سلاش برتقال</div><div class="en">Orange Slush</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سلاش بطيخ" data-en="Watermelon Slush" data-price="4,000 IQD" data-desc="سلاش بطيخ محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">سلاش بطيخ</div><div class="en">Watermelon Slush</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="توتي فروتي" data-en="Tutti Frutti" data-price="8,500 IQD" data-desc="توتي فروتي محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">توتي فروتي</div><div class="en">Tutti Frutti</div></div><div class="dish-actions"><div class="price">8,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="توت شامي" data-en="Damascus Berry (Mulberry)" data-price="8,500 IQD" data-desc="توت شامي محضر بارداً بمكونات منعشة وصوص/إضافات مناسبة."><div><div class="ar">توت شامي</div><div class="en">Damascus Berry (Mulberry)</div></div><div class="dish-actions"><div class="price">8,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="milkshake"><h2><span class="heading-ar">ميلك شيك</span><span class="heading-en" style="display:none">Milkshakes</span></h2><div class="section-promo"><div class="section-promo-kicker">🥤 دلّع مزاجك</div><p>ميلك شيك كريمي وغني، مناسب لكل وقت تحب بيه شي حلو وبارد.</p></div>
+<div class="item dish-item" data-name="ميلك شيك جيز كيك" data-en="Cheesecake" data-price="7,000 IQD" data-desc="ميلك شيك جيز كيك ميلك شيك كريمي مع الحليب ونكهة جيز كيك وتزيين حلو."><div><div class="ar">ميلك شيك جيز كيك</div><div class="en">Cheesecake</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك من سما" data-en="Min Sama" data-price="7,000 IQD" data-desc="ميلك شيك من سما ميلك شيك كريمي مع الحليب ونكهة من سما وتزيين حلو."><div><div class="ar">ميلك شيك من سما</div><div class="en">Min Sama</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك سنيكرز" data-en="Snickers" data-price="7,000 IQD" data-desc="ميلك شيك سنيكرز ميلك شيك كريمي مع الحليب ونكهة سنيكرز وتزيين حلو."><div><div class="ar">ميلك شيك سنيكرز</div><div class="en">Snickers</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك تمر" data-en="Date Milkshake" data-price="6,000 IQD" data-desc="ميلك شيك تمر ميلك شيك كريمي مع الحليب ونكهة تمر وتزيين حلو."><div><div class="ar">ميلك شيك تمر</div><div class="en">Date Milkshake</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك شوكلا" data-en="Chocolate" data-price="6,500 IQD" data-desc="ميلك شيك شوكلا ميلك شيك كريمي مع الحليب ونكهة شوكلا وتزيين حلو."><div><div class="ar">ميلك شيك شوكلا</div><div class="en">Chocolate</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك فانيلا" data-en="Vanilla Milkshake" data-price="6,000 IQD" data-desc="ميلك شيك فانيلا ميلك شيك كريمي مع الحليب ونكهة فانيلا وتزيين حلو."><div><div class="ar">ميلك شيك فانيلا</div><div class="en">Vanilla Milkshake</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك فراولة" data-en="Strawberry" data-price="6,000 IQD" data-desc="ميلك شيك فراولة ميلك شيك كريمي مع الحليب ونكهة فراولة وتزيين حلو."><div><div class="ar">ميلك شيك فراولة</div><div class="en">Strawberry</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك موز" data-en="Banana Milkshake" data-price="6,000 IQD" data-desc="ميلك شيك موز ميلك شيك كريمي مع الحليب ونكهة موز وتزيين حلو."><div><div class="ar">ميلك شيك موز</div><div class="en">Banana Milkshake</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك عربي" data-en="Arabic-style" data-price="7,000 IQD" data-desc="ميلك شيك عربي ميلك شيك كريمي مع الحليب ونكهة عربي وتزيين حلو."><div><div class="ar">ميلك شيك عربي</div><div class="en">Arabic-style</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ملك شيك اوريو" data-en="Oreo Milkshake" data-price="6,500 IQD" data-desc="ملك شيك اوريو ميلك شيك كريمي مع الحليب ونكهة اوريو وتزيين حلو."><div><div class="ar">ملك شيك اوريو</div><div class="en">Oreo Milkshake</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ميلك شيك لوتس" data-en="Lotus Milkshake" data-price="6,500 IQD" data-desc="ميلك شيك لوتس ميلك شيك كريمي مع الحليب ونكهة لوتس وتزيين حلو."><div><div class="ar">ميلك شيك لوتس</div><div class="en">Lotus Milkshake</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="عوار قلب" data-en="Awar Qalb" data-price="7,000 IQD" data-desc="عوار قلب ميلك شيك كريمي مع الحليب ونكهة عوار قلب وتزيين حلو."><div><div class="ar">عوار قلب</div><div class="en">Awar Qalb</div></div><div class="dish-actions"><div class="price">7,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سيريلاك" data-en="Cerelac Milkshake" data-price="6,500 IQD" data-desc="سيريلاك ميلك شيك كريمي مع الحليب ونكهة سيريلاك وتزيين حلو."><div><div class="ar">سيريلاك</div><div class="en">Cerelac Milkshake</div></div><div class="dish-actions"><div class="price">6,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="ice"><h2><span class="heading-ar">الآيس كريم</span><span class="heading-en" style="display:none">Ice Cream</span></h2><div class="section-promo"><div class="section-promo-kicker">🍨 لقمة باردة وحلوة</div><p>آيس كريم يبرد المزاج ويخلي لحظتك في KIWI أحلى.</p></div>
+<div class="item dish-item" data-name="فانيلا" data-en="Vanilla" data-price="5,000 IQD" data-desc="آيس كريم بنكهة فانيلا يقدم بارداً مع تزيين بسيط."><div><div class="ar">فانيلا</div><div class="en">Vanilla</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بستاشيو" data-en="Pistachio" data-price="5,000 IQD" data-desc="آيس كريم بنكهة بستاشيو يقدم بارداً مع تزيين بسيط."><div><div class="ar">بستاشيو</div><div class="en">Pistachio</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شوكولا" data-en="Chocolate" data-price="5,000 IQD" data-desc="آيس كريم بنكهة شوكولا يقدم بارداً مع تزيين بسيط."><div><div class="ar">شوكولا</div><div class="en">Chocolate</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="اوريو" data-en="Oreo" data-price="5,000 IQD" data-desc="آيس كريم بنكهة اوريو يقدم بارداً مع تزيين بسيط."><div><div class="ar">اوريو</div><div class="en">Oreo</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="لوتس" data-en="Lotus" data-price="5,000 IQD" data-desc="آيس كريم بنكهة لوتس يقدم بارداً مع تزيين بسيط."><div><div class="ar">لوتس</div><div class="en">Lotus</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بوظة عربية" data-en="Arabic Ice Cream" data-price="5,000 IQD" data-desc="آيس كريم بنكهة بوظة عربية يقدم بارداً مع تزيين بسيط."><div><div class="ar">بوظة عربية</div><div class="en">Arabic Ice Cream</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فراولة فواكه" data-en="Strawberry / Fruit" data-price="5,000 IQD" data-desc="تشكيلة فواكه طازجة مع إضافات وصوص حلو حسب الاختيار."><div><div class="ar">فراولة فواكه</div><div class="en">Strawberry / Fruit</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ايس كريم مشكل" data-en="Ice cream mix" data-price="5,000 IQD" data-desc="آيس كريم بنكهة ايس كريم مشكل يقدم بارداً مع تزيين بسيط."><div><div class="ar">ايس كريم مشكل</div><div class="en">Ice cream mix</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="note">ملاحظة: عند طلب آيس كريم يقدم كوز أو كاس مع كرات مزين.</div>
+</section></section><section id="hot"><h2><span class="heading-ar">المشروبات الساخنة</span><span class="heading-en" style="display:none">Hot Drinks</span></h2><div class="section-promo"><div class="section-promo-kicker">☕ دفء على مزاج KIWI</div><p>مشروبات ساخنة بطعم هادئ وأجواء دافئة، من أول رشفة تحس بالراحة.</p></div>
+<div class="item dish-item" data-name="اسبريسو سنغل" data-en="Single Espresso" data-price="3,500 IQD" data-desc="اسبريسو سنغل محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">اسبريسو سنغل</div><div class="en">Single Espresso</div></div><div class="dish-actions"><div class="price">3,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="اسبريسو دبل" data-en="Double Espresso" data-price="5,500 IQD" data-desc="اسبريسو دبل محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">اسبريسو دبل</div><div class="en">Double Espresso</div></div><div class="dish-actions"><div class="price">5,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="امريكانو" data-en="Americano" data-price="5,000 IQD" data-desc="امريكانو محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">امريكانو</div><div class="en">Americano</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="قهوة تركية" data-en="Turkish Coffee" data-price="3,500 IQD" data-desc="قهوة تركية محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">قهوة تركية</div><div class="en">Turkish Coffee</div></div><div class="dish-actions"><div class="price">3,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="قهوة فرنسية" data-en="French Coffee" data-price="3,500 IQD" data-desc="قهوة فرنسية محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">قهوة فرنسية</div><div class="en">French Coffee</div></div><div class="dish-actions"><div class="price">3,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="لاتيه" data-en="Latte" data-price="5,000 IQD" data-desc="لاتيه محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">لاتيه</div><div class="en">Latte</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سبانش لاتيه" data-en="Spanish Latte" data-price="5,000 IQD" data-desc="سبانش لاتيه محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">سبانش لاتيه</div><div class="en">Spanish Latte</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="بستاشيو لاتيه" data-en="Pistachio Latte" data-price="5,000 IQD" data-desc="بستاشيو لاتيه محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">بستاشيو لاتيه</div><div class="en">Pistachio Latte</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="موكا" data-en="Mocha" data-price="5,000 IQD" data-desc="موكا محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">موكا</div><div class="en">Mocha</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="وايت موكا" data-en="White Mocha" data-price="5,000 IQD" data-desc="وايت موكا محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">وايت موكا</div><div class="en">White Mocha</div></div><div class="dish-actions"><div class="price">5,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="نسكافي" data-en="Nescafe" data-price="4,000 IQD" data-desc="نسكافي محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">نسكافي</div><div class="en">Nescafe</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كابتشينو" data-en="Cappuccino" data-price="4,000 IQD" data-desc="كابتشينو محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">كابتشينو</div><div class="en">Cappuccino</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شاي كرك" data-en="Karak Tea" data-price="4,000 IQD" data-desc="شاي كرك محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">شاي كرك</div><div class="en">Karak Tea</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="سحلب" data-en="Sahlab" data-price="4,000 IQD" data-desc="سحلب محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">سحلب</div><div class="en">Sahlab</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="شاي" data-en="Tea" data-price="1,000 IQD" data-desc="شاي محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">شاي</div><div class="en">Tea</div></div><div class="dish-actions"><div class="price">1,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مشروب صحة" data-en="Healthy Drink" data-price="4,000 IQD" data-desc="مشروب صحة محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">مشروب صحة</div><div class="en">Healthy Drink</div></div><div class="dish-actions"><div class="price">4,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كمون وليمون" data-en="Cumin and Lemon" data-price="3,000 IQD" data-desc="كمون وليمون محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">كمون وليمون</div><div class="en">Cumin and Lemon</div></div><div class="dish-actions"><div class="price">3,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="coffee"><h2><span class="heading-ar">القهوة الباردة</span><span class="heading-en" style="display:none">Iced Coffee</span></h2><div class="section-promo"><div class="section-promo-kicker">🧊☕ قهوتك الباردة بطريقتنا</div><p>قهوة باردة بنكهة متوازنة، مثالية لوقت تريد بيه انتعاش وتركيز.</p></div>
+<div class="item dish-item" data-name="ايس كوفي" data-en="Iced Coffee" data-price="4,500 IQD" data-desc="ايس كوفي محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">ايس كوفي</div><div class="en">Iced Coffee</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ايس لاتيه" data-en="Iced Latte" data-price="4,500 IQD" data-desc="ايس لاتيه محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">ايس لاتيه</div><div class="en">Iced Latte</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ايس امريكانو" data-en="Iced Americano" data-price="4,500 IQD" data-desc="ايس امريكانو محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">ايس امريكانو</div><div class="en">Iced Americano</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ايس موكا" data-en="Iced Mocha" data-price="4,500 IQD" data-desc="ايس موكا محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">ايس موكا</div><div class="en">Iced Mocha</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ايس سبانش لاتيه" data-en="Iced Spanish Latte" data-price="4,500 IQD" data-desc="ايس سبانش لاتيه محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">ايس سبانش لاتيه</div><div class="en">Iced Spanish Latte</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ايس كراميل لاتيه" data-en="Iced Caramel Latte" data-price="4,500 IQD" data-desc="ايس كراميل لاتيه محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">ايس كراميل لاتيه</div><div class="en">Iced Caramel Latte</div></div><div class="dish-actions"><div class="price">4,500 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="فرابتشينو" data-en="Frappuccino" data-price="6,000 IQD" data-desc="فرابتشينو محضر بعناية وبنكهة متوازنة ويقدم بالطريقة المناسبة."><div><div class="ar">فرابتشينو</div><div class="en">Frappuccino</div></div><div class="dish-actions"><div class="price">6,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="hookah"><h2><span class="heading-ar">الأراكيل كلاسيك</span><span class="heading-en" style="display:none">Classic Hookah</span></h2><div class="section-promo"><div class="section-promo-kicker">💨 جلسة على أصولها</div><p>نكهات كلاسيكية وجلسة هادئة… خلي وقتك في KIWI إله مزاجه الخاص.</p></div>
+<div class="item dish-item" data-name="مكس بيري" data-en="Mixed Berry" data-price="10,000 IQD" data-desc="أركيلة بنكهة مكس بيري مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">مكس بيري</div><div class="en">Mixed Berry</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="علك ونعناع" data-en="Gum &amp; Mint" data-price="10,000 IQD" data-desc="أركيلة بنكهة علك ونعناع مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">علك ونعناع</div><div class="en">Gum &amp; Mint</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="انكليزي" data-en="English" data-price="10,000 IQD" data-desc="أركيلة بنكهة انكليزي مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">انكليزي</div><div class="en">English</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تفاحتين" data-en="Double Apple" data-price="10,000 IQD" data-desc="أركيلة بنكهة تفاحتين مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">تفاحتين</div><div class="en">Double Apple</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="نعناع" data-en="Mint" data-price="10,000 IQD" data-desc="أركيلة بنكهة نعناع مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">نعناع</div><div class="en">Mint</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ليمون ونعناع" data-en="Lemon &amp; Mint" data-price="10,000 IQD" data-desc="أركيلة بنكهة ليمون ونعناع مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">ليمون ونعناع</div><div class="en">Lemon &amp; Mint</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مزاج" data-en="Mazaj" data-price="10,000 IQD" data-desc="أركيلة بنكهة مزاج مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">مزاج</div><div class="en">Mazaj</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كروسان" data-en="Croissant" data-price="10,000 IQD" data-desc="أركيلة بنكهة كروسان مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">كروسان</div><div class="en">Croissant</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="Kiwi floor 1" data-en="Kiwi floor 1" data-price="10,000 IQD" data-desc="أركيلة بنكهة Kiwi floor 1 مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">Kiwi floor 1</div><div class="en">Kiwi floor 1</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="Kiwi floor 2" data-en="Kiwi floor 2" data-price="10,000 IQD" data-desc="أركيلة بنكهة Kiwi floor 2 مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">Kiwi floor 2</div><div class="en">Kiwi floor 2</div></div><div class="dish-actions"><div class="price">10,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="hookah-luxury"><h2><span class="heading-ar">الأراكيل لاكجوري</span><span class="heading-en" style="display:none">Luxury Hookah</span></h2><div class="section-promo"><div class="section-promo-kicker">✨ جلسة بمستوى ثاني</div><p>اختيارات لاكجوري لمحبي التفاصيل والنكهات اللي تترك انطباع.</p></div>
+<div class="item dish-item" data-name="مكس بيري" data-en="Mixed Berry" data-price="13,000 IQD" data-desc="أركيلة بنكهة مكس بيري مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">مكس بيري</div><div class="en">Mixed Berry</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="علك ونعناع" data-en="Gum &amp; Mint" data-price="13,000 IQD" data-desc="أركيلة بنكهة علك ونعناع مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">علك ونعناع</div><div class="en">Gum &amp; Mint</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="انكليزي" data-en="English" data-price="13,000 IQD" data-desc="أركيلة بنكهة انكليزي مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">انكليزي</div><div class="en">English</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="تفاحتين" data-en="Double Apple" data-price="13,000 IQD" data-desc="أركيلة بنكهة تفاحتين مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">تفاحتين</div><div class="en">Double Apple</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="نعناع" data-en="Mint" data-price="13,000 IQD" data-desc="أركيلة بنكهة نعناع مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">نعناع</div><div class="en">Mint</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="ليمون ونعناع" data-en="Lemon &amp; Mint" data-price="13,000 IQD" data-desc="أركيلة بنكهة ليمون ونعناع مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">ليمون ونعناع</div><div class="en">Lemon &amp; Mint</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="مزاج" data-en="Mazaj" data-price="13,000 IQD" data-desc="أركيلة بنكهة مزاج مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">مزاج</div><div class="en">Mazaj</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="كروسان" data-en="Croissant" data-price="13,000 IQD" data-desc="أركيلة بنكهة كروسان مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">كروسان</div><div class="en">Croissant</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="Kiwi floor 1" data-en="Kiwi floor 1" data-price="13,000 IQD" data-desc="أركيلة بنكهة Kiwi floor 1 مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">Kiwi floor 1</div><div class="en">Kiwi floor 1</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+<div class="item dish-item" data-name="Kiwi floor 2" data-en="Kiwi floor 2" data-price="13,000 IQD" data-desc="أركيلة بنكهة Kiwi floor 2 مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">Kiwi floor 2</div><div class="en">Kiwi floor 2</div></div><div class="dish-actions"><div class="price">13,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section><section id="hookah-natural"><h2><span class="heading-ar">الأراكيل الطبيعية</span><span class="heading-en" style="display:none">Natural Hookah</span></h2><div class="section-promo"><div class="section-promo-kicker">🌿 نكهة طبيعية وجلسة رايقة</div><p>نكهات طبيعية وجو هادئ، لتكمل جلستك بتجربة مختلفة من KIWI.</p></div>
+<div class="item dish-item" data-name="الأركيلة الطبيعية" data-en="Natural Hookah" data-price="20,000 IQD" data-desc="أركيلة بنكهة الأركيلة الطبيعية مع تبغ/معسل بنكهة مختارة وتجهيز KIWI."><div><div class="ar">الأركيلة الطبيعية</div><div class="en">Natural Hookah</div></div><div class="dish-actions"><div class="price">20,000 IQD</div><button class="add-cart" type="button">+ إضافة</button></div></div>
+</section></section></main>
+
+</div>
+<div class="contact">
+<div class="contact-card">
+<div class="contact-title">تواصل ويانا</div>
+<div class="contact-sub">KIWI RESTAURANT • أهلاً وسهلاً بكم</div>
+<div class="contact-buttons">
+<a class="contact-btn primary" href="tel:+9647738660066">📞 <bdi dir="ltr">0773 866 0066</bdi></a>
+<a class="contact-btn" href="https://wa.me/9647738660066" rel="noopener" target="_blank">💬 واتساب</a>
+<a class="contact-btn" href="https://www.instagram.com/kiwirest_iq/" rel="noopener" target="_blank">◎ @kiwirest_iq</a>
+</div>
+<div style="margin-top:16px;padding-top:14px;border-top:1px solid #ffffff22;font-size:12px;line-height:1.9">
+      🚗 <strong>التوصيل مجاني</strong> لكل مناطق بغداد<br/>
+      📍 السيدية • الشارع التجاري • مجاور لحوم الطازج • مقابل بناية ألوان
+    </div>
+</div>
+</div>
+
+<footer><div class="footer-brand">KIWI RESTAURANT</div><div>كل التفاصيل اللي تحتاجها… بمكان واحد.</div><div style="margin-top:8px;opacity:.65">MENU • الأسعار بالدينار العراقي</div></footer>
+<script>
+const input=document.getElementById('menuSearch');
+const sections=[...document.querySelectorAll('main section')];
+const noResults=document.getElementById('noResults');
+const smartResults=document.getElementById('smartResults');
+const smartResultsList=document.getElementById('smartResultsList');
+const dishes=[...document.querySelectorAll('.dish-item')];
+function runSmartSearch(){
+  const q=input.value.trim().toLowerCase();
+  let sectionHits=0, dishHits=[];
+  sections.forEach(s=>{
+    const ok=!q || s.innerText.toLowerCase().includes(q);
+    s.style.display=ok?'':'none'; if(ok) sectionHits++;
+  });
+  if(q){
+    dishHits=dishes.filter(el=>`${el.dataset.name||''} ${el.dataset.en||''} ${el.dataset.desc||''}`.toLowerCase().includes(q)).slice(0,8);
+    smartResults.classList.add('show');
+    smartResultsList.innerHTML=dishHits.length?dishHits.map(el=>`<div class="smart-result" data-target="${el.dataset.name.replace(/"/g,'&quot;')}"><div><b>${el.dataset.name}</b><br><small>${el.dataset.en||''}</small></div><span class="sr-price">${el.dataset.price||''}</span></div>`).join(''):'<div style="font-size:10px;color:#888;padding:8px">ما لقينا طبق مطابق للبحث.</div>';
+    smartResultsList.querySelectorAll('.smart-result').forEach(r=>r.onclick=()=>{const el=dishes.find(d=>d.dataset.name===r.dataset.target);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.outline='2px solid #c9a45b';setTimeout(()=>el.style.outline='',1400)}});
+  }else smartResults.classList.remove('show');
+  noResults.style.display=sectionHits?'none':'block';
+}
+input.addEventListener('input',runSmartSearch);
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{input.value='';sections.forEach(s=>s.style.display='');noResults.style.display='none';smartResults.classList.remove('show')}));
+</script>
+
+<button class="lang-toggle" id="langToggle" type="button">English</button>
+<div class="cart-bar" id="cartBar">
+  <div class="cart-summary">
+    <span class="cart-count" id="cartCount">0</span>
+    <span>سلة الطلب</span>
+    <span class="cart-total" id="cartTotal">0 IQD</span>
+  </div>
+  <button class="cart-open" id="cartOpen" type="button">عرض السلة</button>
+</div>
+<div class="toast" id="toast">تمت الإضافة للسلة ✓</div>
+
+<div class="cart-modal" id="cartModal">
+  <div class="cart-sheet" role="dialog" aria-modal="true">
+    <div class="cart-head"><h3>🛒 سلة الطلب</h3><button class="cart-close" id="cartClose">×</button></div>
+    <div id="cartLines"></div>
+    <div class="cart-actions">
+      <button class="clear-cart" id="clearCart">مسح السلة</button>
+      <button class="invoice-btn" id="invoiceBtn" type="button">تأكيد الطلب</button>
+    </div>
+<div id="kiwiOrderStatus" class="kiwi-order-status"><h3>📦 حالة طلبك</h3><div class="kiwi-order-steps"><div class="kiwi-order-step" data-status="pending">⏳ قيد المراجعة</div><div class="kiwi-order-step" data-status="approved">👍 تم قبول الطلب</div><div class="kiwi-order-step" data-status="preparing">🟡 قيد التحضير</div><div class="kiwi-order-step" data-status="ready">🟢 جاهز</div></div><div id="kiwiOrderStatusMsg" class="kiwi-order-status-msg">جاري متابعة طلبك…</div>
+
+  </div>
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="الوضع الليلي">🌙</button>
+<div id="kiwiInvoicePrint" style="display:none"></div>
+
+<button aria-label="العودة للأعلى" class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+(function(){
+  const modal=document.createElement('div');
+  modal.className='kiwi-modal';
+  modal.innerHTML=`<div class="kiwi-sheet" role="dialog" aria-modal="true">
+    <div class="kiwi-modal-head">
+      <div><h3 class="kiwi-modal-title"></h3><div class="kiwi-modal-en"></div></div>
+      <button class="kiwi-close" aria-label="إغلاق">×</button>
+    </div>
+    <div class="kiwi-modal-body">
+      <div class="kiwi-price"></div>
+      <div class="kiwi-label">المكونات والوصف</div>
+      <p class="kiwi-desc"></p>
+      <div class="kiwi-hint">* الوصف إرشادي للتعريف بالطبق، وقد تختلف المكونات حسب تحضير المطعم.</div>
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+  const title=modal.querySelector('.kiwi-modal-title'), en=modal.querySelector('.kiwi-modal-en'),
+        price=modal.querySelector('.kiwi-price'), descEl=modal.querySelector('.kiwi-desc');
+  function openDish(el){
+    title.textContent=el.dataset.name||'';
+    en.textContent=el.dataset.en||'';
+    price.textContent=el.dataset.price||'';
+    descEl.textContent=el.dataset.desc||'طبق محضر بمكونات مختارة بطابع KIWI.';
+    modal.classList.add('show');
+    document.body.style.overflow='hidden';
+  }
+  function close(){modal.classList.remove('show');document.body.style.overflow='';}
+  document.querySelectorAll('.dish-item').forEach(el=>el.addEventListener('click',()=>openDish(el)));
+  modal.querySelector('.kiwi-close').addEventListener('click',close);
+  modal.addEventListener('click',e=>{if(e.target===modal)close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script>
+
+<script>
+(function(){
+  const cart = [];
+  window.kiwiCartRef=cart;
+  const cartBar = document.getElementById('cartBar');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+  const cartModal = document.getElementById('cartModal');
+  const cartLines = document.getElementById('cartLines');
+  const toast = document.getElementById('toast');
+  const langToggle = document.getElementById('langToggle');
+
+  function moneyValue(v){
+    const n = parseInt(String(v||'').replace(/[^\d]/g,''),10);
+    return Number.isFinite(n) ? n : 0;
+  }
+  function money(n){ return n.toLocaleString('en-US') + ' IQD'; }
+  function showToast(){
+    toast.classList.add('show');
+    clearTimeout(showToast.t);
+    showToast.t=setTimeout(()=>toast.classList.remove('show'),1400);
+  }
+  function renderCart(){
+    const count=cart.reduce((a,x)=>a+x.qty,0);
+    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+    cartCount.textContent=count;
+    cartTotal.textContent=money(total);
+    if(!cart.length){
+      cartLines.innerHTML='<div class="empty-cart">السلة فارغة حالياً<br/>اختار أي طبق واضغط «إضافة».</div>';
+      return;
+    }
+    cartLines.innerHTML=cart.map((x,i)=>`
+      <div class="cart-line">
+        <div class="cart-line-name">${x.name}<br><small>${x.priceText}</small></div>
+        <div class="qty">
+          <button data-minus="${i}" type="button">−</button><b>${x.qty}</b>
+          <button data-plus="${i}" type="button">+</button>
+        </div>
+        <div class="cart-line-price">${money(x.price*x.qty)}</div>
+      </div>`).join('');
+  }
+  function addDish(el){
+    const name=el.dataset.name||'طبق';
+    const price=moneyValue(el.dataset.price);
+    const priceText=el.dataset.price||'';
+    const found=cart.find(x=>x.name===name);
+    if(found) found.qty++;
+    else cart.push({name,price,priceText,qty:1});
+    renderCart(); showToast();
+  }
+  document.querySelectorAll('.add-cart').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      addDish(btn.closest('.dish-item'));
+    });
+  });
+  document.getElementById('cartOpen').onclick=()=>{renderCart();cartModal.classList.add('show');document.body.style.overflow='hidden'};
+  document.getElementById('cartClose').onclick=()=>{cartModal.classList.remove('show');document.body.style.overflow=''};
+  cartModal.addEventListener('click',e=>{if(e.target===cartModal){cartModal.classList.remove('show');document.body.style.overflow=''}});
+  document.getElementById('clearCart').onclick=()=>{cart.length=0;renderCart()};
+  cartLines.addEventListener('click',e=>{
+    const mi=e.target.dataset.minus, pi=e.target.dataset.plus;
+    if(mi!==undefined){cart[mi].qty--;if(cart[mi].qty<=0)cart.splice(mi,1);renderCart()}
+    if(pi!==undefined){cart[pi].qty++;renderCart()}
+  });
+
+  // Arabic / English presentation toggle
+  let isEn=false;
+  langToggle.onclick=()=>{
+    isEn=!isEn;
+    document.documentElement.classList.toggle('lang-en',isEn);
+    document.documentElement.dir=isEn?'ltr':'rtl';
+    langToggle.textContent=isEn?'عربي':'English';
+    document.querySelectorAll('.heading-ar').forEach(x=>x.style.display=isEn?'none':'');
+    document.querySelectorAll('.heading-en').forEach(x=>x.style.display=isEn?'':'none');
+    document.querySelectorAll('.kiwi-modal-title').forEach(()=>{});
+  };
+
+  renderCart();
+})();
+</script>
+
+
+
+<script id="kiwi-theme-script">
+(function(){
+ const KEY='kiwi_theme'; const btn=document.getElementById('themeToggle');
+ function apply(v){document.body.classList.toggle('dark-mode',v==='dark');btn.textContent=v==='dark'?'☀️':'🌙';}
+ const saved=localStorage.getItem(KEY)||'light'; apply(saved);
+ btn.onclick=()=>{const v=document.body.classList.contains('dark-mode')?'light':'dark';localStorage.setItem(KEY,v);apply(v)};
+})();
+</script>
+
+<button class="kiwi-feedback-launch" id="kiwiFeedbackLaunch" aria-label="Feedback">⭐ رأيك</button>
+<div class="kiwi-feedback-modal" id="kiwiFeedbackModal">
+  <div class="kiwi-feedback-panel">
+    <div class="kiwi-feedback-head"><h3>⭐ رأيك يهمنا</h3><button class="kiwi-feedback-close" id="kiwiFeedbackClose">×</button></div>
+    <div class="kiwi-feedback-sub">ساعدنا نطوّر تجربة KIWI. تقييمك ما ياخذ أكثر من دقيقة.</div>
+    <div class="kiwi-stars" id="kiwiStars" aria-label="التقييم من 5 نجوم">
+      <button class="kiwi-star" data-star="5" type="button">★</button><button class="kiwi-star" data-star="4" type="button">★</button><button class="kiwi-star" data-star="3" type="button">★</button><button class="kiwi-star" data-star="2" type="button">★</button><button class="kiwi-star" data-star="1" type="button">★</button>
+    </div>
+    <textarea id="kiwiFeedbackText" placeholder="شنو عجبك؟ وشنو تحب نطوره؟"></textarea>
+    <input id="kiwiFeedbackName" placeholder="اسمك (اختياري)" maxlength="40">
+    <button class="kiwi-feedback-submit" id="kiwiFeedbackSubmit" type="button">إرسال التقييم</button>
+    <div class="kiwi-feedback-status" id="kiwiFeedbackStatus">شكرًا لك ❤️ تم تسجيل تقييمك.</div>
+  </div>
+</div>
+
+</div>
+
+<script id="kiwi-table-script">(function(){const n=new URLSearchParams(location.search).get('table');if(n&&/^\d{1,3}$/.test(n)){document.getElementById('kiwiTableNo').textContent=n;document.getElementById('kiwiTableBadge').classList.add('show');localStorage.setItem('kiwi_current_table',n);}})();</script>
+<script id="kiwi-feedback-script">
+(function(){
+  const KEY='kiwi_feedback_v1';
+  const modal=document.getElementById('kiwiFeedbackModal'), launch=document.getElementById('kiwiFeedbackLaunch'), close=document.getElementById('kiwiFeedbackClose');
+  const stars=[...document.querySelectorAll('.kiwi-star')], text=document.getElementById('kiwiFeedbackText'), name=document.getElementById('kiwiFeedbackName'), submit=document.getElementById('kiwiFeedbackSubmit'), status=document.getElementById('kiwiFeedbackStatus');
+  let rating=0;
+  function paint(){stars.forEach(b=>b.classList.toggle('active',Number(b.dataset.star)<=rating))}
+  stars.forEach(b=>b.addEventListener('click',()=>{rating=Number(b.dataset.star);paint()}));
+  function open(){modal.classList.add('show');document.body.style.overflow='hidden'}
+  function shut(){modal.classList.remove('show');document.body.style.overflow=''}
+  launch.onclick=open; close.onclick=shut; modal.addEventListener('click',e=>{if(e.target===modal)shut()});
+  submit.onclick=async()=>{
+    if(!rating){status.textContent='اختار تقييم من 1 إلى 5 نجوم أولاً.';status.style.color='#a33b2b';status.classList.add('show');return}
+    const table=new URLSearchParams(location.search).get('table')||localStorage.getItem('kiwi_current_table')||null;
+    const row={rating:rating,comment:text.value.trim(),name:name.value.trim()||'زائر',table_number:table?Number(table):null};
+    submit.disabled=true; status.textContent='جاري إرسال التقييم…';status.style.color='#777';status.classList.add('show');
+    try{
+            const payload={rating:Number(row.rating),comment:row.comment,name:row.name,table_number:row.table_number,createdAt:firebase.firestore.FieldValue.serverTimestamp(),visible:true};
+      let savedToCloud=false;
+      try{
+        await kiwiReady;
+        if(!kiwiDB) throw new Error('Firestore غير جاهز');
+        await kiwiDB.collection('feedback').add(payload);
+        savedToCloud=true;
+      }catch(cloudErr){
+        console.error('KIWI feedback cloud save failed',cloudErr);
+        throw cloudErr;
+      }
+      let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+      arr.unshift({rating:row.rating,text:row.comment,name:row.name,date:new Date().toISOString(),table:table||'',cloud:true});
+      localStorage.setItem(KEY,JSON.stringify(arr.slice(0,100)));
+      text.value='';name.value='';rating=0;paint();status.textContent='شكرًا لك ❤️ تم إرسال تقييمك للادمن مباشرة.';status.style.color='#4d7356';
+      setTimeout(shut,1200);
+    }catch(e){
+      status.textContent='تعذر إرسال التقييم للادمن. تأكد من اتصال Firebase.';status.style.color='#a33b2b';
+      console.error(e);
+    }finally{submit.disabled=false}
+  };
+})();
+</script>
+<script id="kiwi-invoice-script">
+(function(){
+ const btn=document.getElementById('invoiceBtn'); if(!btn)return;
+ btn.onclick=async()=>{
+   if(!window.kiwiCartRef){alert('السلة فارغة حالياً.');return}
+   const cart=window.kiwiCartRef; if(!cart.length){alert('السلة فارغة حالياً.');return}
+   const table=new URLSearchParams(location.search).get('table')||localStorage.getItem('kiwi_current_table')||null;
+   const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+   const items=cart.map(x=>({name:x.name,price:x.price,qty:x.qty,priceText:x.priceText}));
+   const rows=cart.map(x=>`<tr><td>${String(x.name).replace(/[<>]/g,'')}</td><td>${x.qty}</td><td>${x.price.toLocaleString('en-US')} IQD</td><td>${(x.price*x.qty).toLocaleString('en-US')} IQD</td></tr>`).join('');
+   const box=document.getElementById('kiwiInvoicePrint');
+   box.innerHTML=`<div class="invoice-print-title">KIWI RESTAURANT</div><div class="invoice-meta">فاتورة رقمية • طاولة ${table||'—'} • ${new Date().toLocaleString('ar-IQ')}</div><table class="invoice-table"><tr><th>الطبق</th><th>الكمية</th><th>السعر</th><th>المجموع</th></tr>${rows}</table><div class="invoice-total">الإجمالي: ${total.toLocaleString('en-US')} IQD</div><div style="margin-top:30px;text-align:center;font-size:11px;color:#777">شكراً لاختياركم KIWI ❤️</div>`;
+   box.style.display='block';
+   try{
+      const orders=JSON.parse(localStorage.getItem('kiwi_local_orders_v1')||'[]');
+      orders.unshift({created_at:new Date().toISOString(),table_number:table?Number(table):null,items:items,total:total,status:'pending'});
+      localStorage.setItem('kiwi_local_orders_v1',JSON.stringify(orders.slice(0,100)));
+      const d=window.kiwiAnalyticsLoad?window.kiwiAnalyticsLoad():null;if(d){d.orders=(d.orders||0)+1;d.daily=d.daily||{};const day=new Date().toISOString().slice(0,10);d.daily[day]=(d.daily[day]||0)+1;localStorage.setItem('kiwi_admin_analytics_v1',JSON.stringify(d))}
+      // Send the order to the captain's Google Sheet bridge (no Supabase).
+      const msg='طلب KIWI - طاولة '+(table||'بدون رقم')+'\n'+items.map(x=>x.name+' × '+x.qty).join('\n')+'\nالإجمالي: '+total.toLocaleString('en-US')+' IQD';
+      const waUrl='https://wa.me/9647891916733?text='+encodeURIComponent(msg);
+      let waOpened=false;
+      try{
+        const w=window.open(waUrl,'_blank');
+        waOpened=!!w;
+      }catch(e){}
+      await kiwiReady;const orderRef=await kiwiDB.collection('orders').add({table:table||'',table_number:table?Number(table):null,items:items.map(x=>({name:x.name,qty:Number(x.qty||0),price:Number(x.price||0)})),total:Number(total||0),status:'pending',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      localStorage.setItem('kiwi_last_order_id',orderRef.id);
+      localStorage.setItem('kiwi_last_order_table',table||'');
+      if(window.kiwiStartOrderStatus) window.kiwiStartOrderStatus(orderRef.id);
+      if(!waOpened) window.location.href=waUrl;
+    }catch(e){console.error('KIWI local order save error:',e)}
+    window.print();setTimeout(()=>box.style.display='none',500);
+ };
+})();
+</script>
+
+<script id="kiwi-analytics-script">
+(function(){
+  const KEY='kiwi_admin_analytics_v1';
+  const load=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{"views":0,"sessions":0,"orders":0,"adds":{},"clicks":{},"sections":{},"daily":{}}')}catch(e){return {views:0,sessions:0,orders:0,adds:{},clicks:{},sections:{},daily:{}}}};
+  const save=d=>localStorage.setItem(KEY,JSON.stringify(d));
+  window.kiwiAnalyticsLoad=load;
+  const today=()=>new Date().toISOString().slice(0,10);
+  function track(type,name){const d=load();d[type]=d[type]||{};d[type][name]=(d[type][name]||0)+1;d.daily=d.daily||{};d.daily[today()]=(d.daily[today()]||0)+1;save(d)}
+  const d=load();d.views=(d.views||0)+1;if(!sessionStorage.getItem('kiwi_session')){d.sessions=(d.sessions||0)+1;sessionStorage.setItem('kiwi_session','1')}d.daily=d.daily||{};d.daily[today()]=(d.daily[today()]||0)+1;save(d);
+  try{window.kiwiSupabaseInsert('analytics_events',{event_type:'visit',table_number:(new URLSearchParams(location.search).get('table')||null)?Number(new URLSearchParams(location.search).get('table')):null,meta:{path:location.pathname}}).catch(()=>{});}catch(e){}
+  document.querySelectorAll('.dish-item').forEach(el=>el.addEventListener('click',()=>track('clicks',el.dataset.name||'طبق'),true));
+  document.querySelectorAll('.add-cart').forEach(btn=>btn.addEventListener('click',()=>track('adds',btn.closest('.dish-item')?.dataset.name||'طبق'),true));
+  document.querySelectorAll('main section[id]').forEach(sec=>{const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){track('sections',e.target.id);obs.unobserve(e.target)}}),{threshold:.35});obs.observe(sec)});
+})();
+</script>
+
+<script id="kiwi-customer-order-status">
+(function(){
+ const box=document.getElementById('kiwiOrderStatus'),msg=document.getElementById('kiwiOrderStatusMsg');
+ let stop=null;
+ const labels={pending:'جاري استلام طلبك من الكابتن…',approved:'تم قبول الطلب من الكابتن 👍',preparing:'طلبك قيد التحضير الآن 🟡',ready:'طلبك جاهز للاستلام 🟢'};
+ const rank={pending:0,approved:1,preparing:2,ready:3};
+ window.kiwiStartOrderStatus=function(id){
+   if(!id||!box)return;
+   box.classList.add('show');
+   if(stop)stop();
+   const orderSteps=[...box.querySelectorAll('.kiwi-order-step')];
+   kiwiReady.then(()=>{stop=kiwiDB.collection('orders').doc(id).onSnapshot(d=>{
+     if(!d.exists)return;
+     const st=d.data().status||'pending'; const r=rank[st]??0;
+     orderSteps.forEach(x=>x.classList.toggle('active',(rank[x.dataset.status]??0)<=r));
+     msg.textContent=labels[st]||('حالة الطلب: '+st);
+   },()=>{msg.textContent='تعذر تحديث الحالة حالياً. حاول تحديث الصفحة.'});});
+ };
+ const id=localStorage.getItem('kiwi_last_order_id');
+ if(id) window.kiwiStartOrderStatus(id);
+})();
+</script>
+<style id="kiwi-review-summary-style">
+.kiwi-review-summary{max-width:960px;margin:0 auto 28px;padding:0 14px}
+.kiwi-review-summary-box{border:1px solid #c9a45b66;border-radius:24px;background:linear-gradient(135deg,#fffdf8,#efe5d3);padding:20px;box-shadow:0 15px 38px #1b25190d}
+.kiwi-review-summary h3{margin:0;color:#173f2b;font-size:20px}.kiwi-review-summary p{margin:5px 0 0;color:#77736a;font-size:11px}
+.kiwi-review-list{display:grid;gap:10px;margin-top:14px}.kiwi-review-card{padding:13px;border:1px solid #e1d5c0;border-radius:16px;background:#fffaf0}.kiwi-review-stars{color:#c9a45b;letter-spacing:2px}.kiwi-review-name{font-weight:900;color:#173f2b;font-size:11px}.kiwi-review-comment{margin-top:5px;font-size:11px;color:#5e5a52;line-height:1.8}
+</style>
+<div class="kiwi-review-summary" id="kiwiReviewSummary" style="display:none"><div class="kiwi-review-summary-box"><h3>⭐ آراء زبائن KIWI</h3><p>تقييمات حقيقية من زبائننا</p><div class="kiwi-review-list" id="kiwiReviewList"></div></div></div>
+<script id="kiwi-public-reviews-script">
+(function(){
+ const box=document.getElementById('kiwiReviewSummary'),list=document.getElementById('kiwiReviewList');
+ if(!box||!list||!kiwiDB)return;
+ kiwiReady.then(()=>kiwiDB.collection('feedback').limit(50).onSnapshot(function(snap){
+  list.innerHTML='';
+  const docs=snap.docs.map(function(doc){return doc.data()||{}}).filter(function(d){return d.visible!==false;}).sort(function(a,b){const ta=a.createdAt&&a.createdAt.toMillis?a.createdAt.toMillis():0;const tb=b.createdAt&&b.createdAt.toMillis?b.createdAt.toMillis():0;return tb-ta;});
+  docs.forEach(function(d){const r=Math.max(0,Math.min(5,Number(d.rating||0)));const card=document.createElement('div');card.className='kiwi-review-card';card.innerHTML='<div class="kiwi-review-stars">'+('★'.repeat(r)+'☆'.repeat(5-r))+'</div><div class="kiwi-review-name"></div><div class="kiwi-review-comment"></div>';card.querySelector('.kiwi-review-name').textContent=d.name||'زائر';card.querySelector('.kiwi-review-comment').textContent=d.comment||'';list.appendChild(card);});
+  box.style.display=docs.length?'block':'none';
+ },function(err){console.error('KIWI reviews:',err)}));
+})();
+</script>
+
+</body>
+</html>
