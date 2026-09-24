@@ -1,0 +1,29 @@
+// KIWI Firestore rules — paste into Firebase Console > Firestore Database > Rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Menu status: public read, authenticated write.
+    // Anonymous authentication must be enabled in Firebase Authentication.
+    match /menu_status/{dishId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Customer reviews: public read/write so customers can submit without accounts.
+    match /feedback/{reviewId} {
+      allow read: if true;
+      allow create: if request.resource.data.rating is number
+                    && request.resource.data.rating >= 1
+                    && request.resource.data.rating <= 5
+                    && request.resource.data.comment is string
+                    && request.resource.data.name is string;
+      allow update, delete: if request.auth != null;
+    }
+
+    // Orders: customers create; authenticated/admin sessions can read/update/delete.
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
