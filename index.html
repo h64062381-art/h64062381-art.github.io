@@ -1132,13 +1132,25 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
         <div class="cart-item-note"><textarea data-note="${i}" rows="1" maxlength="200" placeholder="📝 ملاحظة على الأكل؟ مثال: ملح زايد، حار، بارد، بدون بصل...">${String(x.note||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea></div>
       </div>`).join('');
   }
+  function departmentForSection(sectionId){
+    const id=String(sectionId||'').toLowerCase();
+    if(id==='grills') return 'grills';
+    if(['cold-app','hot-app'].includes(id)) return 'appetizers';
+    if(['fresh','natural','soft','water','mojito','cold','milkshake','ice','hot','coffee','desserts'].includes(id)) return 'barista';
+    if(['hookah','hookah-luxury','hookah-natural'].includes(id)) return 'hookah';
+    return 'kitchen';
+  }
+  window.kiwiDepartmentForSection=departmentForSection;
   function addDish(el){
     const name=el.dataset.name||'طبق';
     const price=moneyValue(el.dataset.price);
     const priceText=el.dataset.price||'';
-    const found=cart.find(x=>x.name===name);
+    const section=el.closest('section[id]');
+    const sectionId=section?.id||'';
+    const department=departmentForSection(sectionId);
+    const found=cart.find(x=>x.name===name && x.sectionId===sectionId);
     if(found) found.qty++;
-    else cart.push({name,price,priceText,qty:1,note:''});
+    else cart.push({name,price,priceText,qty:1,note:'',sectionId,department});
     renderCart(); showToast();
   }
   document.querySelectorAll('.add-cart').forEach(btn=>{
@@ -1313,7 +1325,15 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{in
    const table=(rawTable&&/^\d{1,3}$/.test(rawTable))?rawTable:null;
    const isTakeaway=!table;
    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
-   const items=cart.map(x=>({name:x.name,price:Number(x.price||0),qty:Number(x.qty||0),priceText:x.priceText,note:String(x.note||'').trim()}));
+   const items=cart.map(x=>({
+     name:x.name,
+     price:Number(x.price||0),
+     qty:Number(x.qty||0),
+     priceText:x.priceText,
+     note:String(x.note||'').trim(),
+     sectionId:x.sectionId||'',
+     department:x.department||'kitchen'
+   }));
 
    try{
      // Firestore is the single realtime path used by captain/kitchen/admin.
@@ -1654,4 +1674,68 @@ main section{margin-bottom:24px!important}
   .contact{padding:28px 10px 62px!important}
   .contact-title{font-size:32px!important}
 }
+</style>
+
+<style id="kiwi-department-dashboard-style">
+#kiwiDeptDashboard{display:none;min-height:100vh;background:#f4f1e8;color:#18251b;font-family:Cairo,Tahoma,Arial,sans-serif;direction:rtl;padding:22px 14px 50px;box-sizing:border-box}
+.kiwi-dept-wrap{width:min(1050px,100%);margin:auto}
+.kiwi-dept-head{background:linear-gradient(135deg,#173f2b,#284f38);color:#fff;border-radius:24px;padding:20px 18px;margin-bottom:16px;box-shadow:0 15px 38px rgba(20,50,32,.18);border:1px solid #c9a45b}
+.kiwi-dept-head h1{margin:0;font-size:25px;font-weight:950}.kiwi-dept-head p{margin:6px 0 0;color:#e8e1d2;font-size:12px}
+.kiwi-dept-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.kiwi-dept-actions a,.kiwi-dept-actions button{border:0;border-radius:12px;padding:9px 13px;background:#f0d58c;color:#17130b;font:inherit;font-weight:900;text-decoration:none;cursor:pointer}
+.kiwi-dept-order{background:#fffdf8;border:1px solid #d7d1bf;border-radius:18px;margin:12px 0;padding:15px;box-shadow:0 8px 25px rgba(42,55,38,.08)}
+.kiwi-dept-order-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #ddd7c8;padding-bottom:10px;margin-bottom:10px}.kiwi-dept-order-top b{font-size:15px}.kiwi-dept-badge{padding:6px 10px;border-radius:999px;background:#e9f0df;color:#35532f;font-size:10px;font-weight:900}
+.kiwi-dept-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-bottom:1px dashed #d8d0bd}.kiwi-dept-item:last-child{border-bottom:0}.kiwi-dept-item b{font-size:13px}.kiwi-dept-item small{display:block;color:#716e64;font-size:10px;margin-top:3px}.kiwi-dept-empty{background:#fffdf8;border:1px dashed #b8b39f;border-radius:18px;padding:28px;text-align:center;color:#6e6a60}
+@media(max-width:650px){#kiwiDeptDashboard{padding:12px 9px 35px}.kiwi-dept-head h1{font-size:21px}}
+</style>
+<script id="kiwi-department-dashboard">
+(function(){
+  const params=new URLSearchParams(location.search);
+  const dept=params.get('department');
+  const map={
+    grills:{title:'قسم المشويات',icon:'🔥'},
+    kitchen:{title:'قسم المطبخ',icon:'🍽️'},
+    barista:{title:'قسم الباريستا',icon:'☕'},
+    appetizers:{title:'قسم المقبلات',icon:'🥗'},
+    hookah:{title:'قسم الأراكيل',icon:'💨'}
+  };
+  if(!dept || !map[dept]) return;
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.body.classList.add('kiwi-department-mode');
+    const box=document.createElement('div'); box.id='kiwiDeptDashboard';
+    box.innerHTML=`<div class="kiwi-dept-wrap"><div class="kiwi-dept-head"><h1>${map[dept].icon} ${map[dept].title}</h1><p>تظهر هنا فقط الأصناف التابعة لهذا القسم بعد موافقة الكابتن على طلب الزبون.</p><div class="kiwi-dept-actions"><a href="index.html">← الرجوع للمنيو</a><button id="kiwiDeptRefresh" type="button">↻ تحديث</button></div></div><div id="kiwiDeptOrders"><div class="kiwi-dept-empty">جاري تحميل الطلبات…</div></div></div>`;
+    document.body.appendChild(box); box.style.display='block';
+    const out=box.querySelector('#kiwiDeptOrders');
+    const safe=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+    const render=orders=>{
+      if(!orders.length){out.innerHTML='<div class="kiwi-dept-empty">ماكو طلبات مقبولة حالياً لهذا القسم.</div>';return;}
+      out.innerHTML=orders.map(o=>{
+        const items=(o.items||[]).filter(x=>(x.department||'kitchen')===dept);
+        if(!items.length)return '';
+        const time=o.createdAt?.toDate?o.createdAt.toDate().toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'}):'';
+        return `<article class="kiwi-dept-order"><div class="kiwi-dept-order-top"><b>طلب #${safe(o.id||'')}</b><span class="kiwi-dept-badge">طاولة ${safe(o.table_number||o.table||'—')} • ${safe(time)}</span></div>${items.map(x=>`<div class="kiwi-dept-item"><div><b>${safe(x.name)}</b>${x.note?`<small>📝 ${safe(x.note)}</small>`:''}</div><strong>× ${safe(x.qty||1)}</strong></div>`).join('')}</article>`;
+      }).filter(Boolean).join('')||'<div class="kiwi-dept-empty">ماكو أصناف مقبولة لهذا القسم حالياً.</div>';
+    };
+    let unsubscribe=null;
+    const load=async()=>{
+      out.innerHTML='<div class="kiwi-dept-empty">جاري تحميل الطلبات…</div>';
+      try{
+        if(typeof kiwiReady!=='undefined' && kiwiReady?.then) await kiwiReady;
+        const db=(typeof kiwiDB!=='undefined'&&kiwiDB)?kiwiDB:(firebase?.firestore?firebase.firestore():null);
+        if(!db) throw new Error('Firestore غير مهيأ');
+        if(unsubscribe) unsubscribe();
+        unsubscribe=db.collection('orders').where('status','==','approved').onSnapshot(s=>{
+          const orders=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>{
+            const at=a.createdAt?.toMillis?a.createdAt.toMillis():0, bt=b.createdAt?.toMillis?b.createdAt.toMillis():0; return bt-at;
+          });
+          render(orders);
+        },err=>{out.innerHTML='<div class="kiwi-dept-empty">تعذر تحميل الطلبات حالياً.</div>';console.error(err)});
+      }catch(e){out.innerHTML='<div class="kiwi-dept-empty">تعذر الاتصال بقاعدة الطلبات.</div>';console.error(e)}
+    };
+    box.querySelector('#kiwiDeptRefresh').onclick=load; load();
+  });
+})();
+</script>
+<style id="kiwi-department-mode-style">
+body.kiwi-department-mode> *:not(#kiwiDeptDashboard){display:none!important}
+body.kiwi-department-mode{margin:0!important;background:#f4f1e8!important}
 </style>
