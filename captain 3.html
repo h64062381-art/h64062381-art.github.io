@@ -34,7 +34,7 @@ firebase.initializeApp(firebaseConfig);
 const kiwiDB=firebase.firestore();
 </script>
 </head>
-<body>
+<body data-kiwi-role="captain 3">
 <header>
   <h1>KIWI — الكابتن</h1>
   <button class="refresh" onclick="loadOrders()">تحديث</button>
@@ -126,5 +126,5 @@ async function markDone(i){
 loadOrders();
 setInterval(loadOrders,2000);
 </script>
-</body>
+<script src="kiwi-alerts.js"></script></body>
 </html>
