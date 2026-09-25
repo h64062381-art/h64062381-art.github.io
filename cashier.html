@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KIWI — الكابتن والصالة</title>
+<title>KIWI — الكاشير والصالة والسفريات</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4;color:#222}
 header{background:#111;color:#fff;padding:16px;position:sticky;top:0;z-index:10;text-align:center}
 h1{margin:0 0 10px;font-size:24px}
 button{border:0;border-radius:11px;padding:11px 15px;font-size:16px;font-weight:800;cursor:pointer}
-.header-btn{background:#fff;color:#111;margin:3px}
+.header-btn{background:#fff;color:#111;margin:3px}.top-tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.activeTab{background:#c9a45b;color:#111}.takeaway-card{background:#fffdf5;border:2px solid #c9a45b;border-radius:15px;padding:15px;margin:10px 0}
 #status{padding:10px;text-align:center;color:#666;background:#fff}
 .wrap{max-width:900px;margin:auto;padding:14px}
 .section-title{font-size:20px;font-weight:900;margin:8px 0 12px}
@@ -21,7 +21,7 @@ button{border:0;border-radius:11px;padding:11px 15px;font-size:16px;font-weight:
 .table-total{margin:8px 0;font-size:18px;font-weight:900}
 .table-state{font-size:13px;color:#666;margin-bottom:10px}
 .open-table{background:#111;color:#fff;width:100%}
-.ready-section{margin-top:24px;display:none}
+.ready-section{margin-top:24px;display:none}.ready-banner{background:#173f2b;color:#fff;border-radius:18px;padding:18px;margin:16px 0;box-shadow:0 6px 20px #0002}.ready-banner .ready-banner-title{font-size:22px;font-weight:1000}.ready-banner .ready-banner-sub{font-size:13px;opacity:.9;margin-top:5px}.ready-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}.ready-card{background:#fffdf5;border:3px solid #c9a45b;border-radius:15px;padding:15px}.ready-card .ready-place{font-size:22px;font-weight:1000}.ready-card .ready-order{font-size:14px;color:#555;margin-top:4px}
 .ready-card{background:#fffdf5;border:2px solid #c9a45b;border-radius:15px;padding:15px;margin:10px 0}
 .new-card{background:#fff;border-right:5px solid #16a34a;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 2px 10px #0001}
 .items{background:#fafafa;border-radius:10px;padding:10px;line-height:1.9;margin:10px 0}
@@ -169,6 +169,12 @@ function listenOrders(){
    });
 }
 
+function isTakeaway(o){
+ const t=String(o.table ?? o.table_number ?? o.tableNumber ?? '').trim();
+ return !t || t==='—' || t.toLowerCase()==='takeaway' || t==='سفري';
+}
+function tableNum(o){ const t=String(o.table ?? o.table_number ?? o.tableNumber ?? '').trim(); return t; }
+
 function activeTables(){
  const map=new Map();
  allOrders.forEach(o=>{
@@ -182,6 +188,7 @@ function activeTables(){
 
 function renderAll(){
  renderTables();
+ renderTakeaways();
  renderReady();
  if(currentTable!==null) renderTableModal();
 }
@@ -189,62 +196,81 @@ function renderAll(){
 function renderTables(){
  const box=document.getElementById('tables');
  const map=activeTables();
- const keys=[...map.keys()].sort((a,b)=>Number(a)-Number(b));
- if(!keys.length){
-   box.innerHTML='<div class="empty">ماكو طلبات حالياً بالطاولات</div>';
-   return;
- }
- box.innerHTML=keys.map(t=>{
-   const orders=map.get(t);
-   const total=orders.reduce((s,o)=>s+orderTotal(o),0);
+ let html='';
+ for(let n=1;n<=42;n++){
+   const t=String(n);
+   const orders=map.get(t)||[];
+   const total=orders.reduce((sum,o)=>sum+orderTotal(o),0);
    const ready=orders.filter(o=>o.status==='ready').length;
-   return `<div class="table-card has-orders">
-      <div class="table-num">🪑 طاولة ${esc(t)}</div>
-      <div class="table-total">${money(total)}</div>
-      <div class="table-state">${orders.length} طلب${ready?` • ${ready} جاهز`:''}</div>
-      <button class="open-table" onclick="openTable('${esc(t)}')">فتح الطاولة</button>
+   html+=`<div class="table-card ${orders.length?'has-orders':''}">
+      <div class="table-num">🪑 طاولة ${n}</div>
+      <div class="table-total">${orders.length?money(total):'فارغة'}</div>
+      <div class="table-state">${orders.length?`${orders.length} طلب${ready?` • ${ready} جاهز`:''}`:'لا يوجد طلب'}</div>
+      <button class="open-table" onclick="openTable('${n}')">فتح الطاولة</button>
    </div>`;
- }).join('');
+ }
+ box.innerHTML=html;
+}
+
+function renderTakeaways(){
+ const box=document.getElementById('takeawayOrders');
+ const list=allOrders.filter(isTakeaway);
+ if(!list.length){box.innerHTML='<div class="empty">ماكو طلبات سفري حالياً</div>';return;}
+ box.innerHTML=list.sort((a,b)=>String(b.id).localeCompare(String(a.id))).map(o=>`
+  <div class="new-card">
+   <div class="row"><b>🛍️ سفري — الطلب #${esc(o.id)}</b><span class="badge ${o.status==='ready'?'ready':o.status==='served'?'served':o.status==='pending'?'new':''}">${statusText(o.status)}</span></div>
+   <div class="items">${itemText(o)}</div>
+   ${isTakeaway(o)?`<div class="items" style="background:#eef5ea"><b>📞 الهاتف:</b> ${esc(o.customerPhone||o.customerContact?.phone||'—')}<br><b>📍 الموقع:</b> ${esc(o.deliveryLocation||o.customerContact?.location||'—')}<br><b>🧭 أقرب نقطة:</b> ${esc(o.landmark||o.customerContact?.landmark||'—')}</div>`:''}
+   <div class="row"><span>حساب الطلب</span><b>${money(orderTotal(o))}</b></div>
+   ${o.status==='pending'?`<button class="primary" onclick="acceptOrder('${esc(o.id)}')">قبول الطلب</button>`:''}
+   ${o.status==='ready'?`<button class="green" onclick="takeReady('${esc(o.id)}')">استلام الطلب</button>`:''}
+   ${o.status!=='billed'?`<button class="primary" onclick="openEditOrder('${esc(o.id)}')">✏️ تعديل / إضافة للطلب</button>`:''}
+   <button class="gold" onclick="showTakeawayInvoice('${esc(o.id)}')">🧾 إصدار / رفع الفاتورة</button>
+  </div>`).join('');
+}
+
+function showSection(section){
+ document.getElementById('hallSection').style.display=section==='hall'?'block':'none';
+ document.getElementById('takeawaySection').style.display=section==='takeaway'?'block':'none';
+ document.getElementById('hallBtn').classList.toggle('activeTab',section==='hall');
+ document.getElementById('takeBtn').classList.toggle('activeTab',section==='takeaway');
+ if(section==='takeaway') renderTakeaways();
 }
 
 let readyOpen=false;
 
-function deptLabel(d){return ({kitchen:'🍳 المطبخ',barista:'☕ الباريستا',appetizers:'🥗 المقبلات',grills:'🔥 المشويات',hookah:'💨 الأركيلة'})[d]||d;}
-function departmentGroups(o){
- const groups={};
- itemList(o).forEach(x=>{const d=String(x.department||'kitchen').toLowerCase();(groups[d]||(groups[d]=[])).push(x)});
- return groups;
-}
-function readyDepartments(o){
- const groups=departmentGroups(o), ds=o.departmentStatus||{};
- return Object.keys(groups).filter(d=>ds[d]==='ready');
-}
-function allDepartmentsReady(o){
- const groups=departmentGroups(o), ds=o.departmentStatus||{};
- return Object.keys(groups).every(d=>ds[d]==='ready');
-}
 function toggleReady(){
- const ready=allOrders.filter(o=>readyDepartments(o).length);
- if(!ready.length){alert('ماكو أقسام جاهزة حالياً.');return;}
- readyOpen=!readyOpen;document.getElementById('readySection').style.display=readyOpen?'block':'none';
+ const ready=allOrders.filter(o=>o.status==='ready');
+ if(!ready.length){
+   alert('ماكو طلبات جاهزة من المطبخ حالياً.');
+   return;
+ }
+ readyOpen=!readyOpen;
+ document.getElementById('readySection').style.display=readyOpen?'block':'none';
 }
+
 function renderReady(){
- const sec=document.getElementById('readySection'),box=document.getElementById('readyOrders'),count=document.getElementById('readyCount');
- const ready=allOrders.filter(o=>readyDepartments(o).length);
- const totalReady=ready.reduce((n,o)=>n+readyDepartments(o).length,0);count.textContent=totalReady?`(${totalReady})`:'';
- if(!ready.length){sec.style.display='none';readyOpen=false;box.innerHTML='';return;}
+ const sec=document.getElementById('readySection');
+ const box=document.getElementById('readyOrders');
+ const count=document.getElementById('readyCount');
+ const ready=allOrders.filter(o=>o.status==='ready');
+ count.textContent=ready.length?`(${ready.length})`:'';
+ if(!ready.length){
+   sec.style.display='none';
+   readyOpen=false;
+   box.innerHTML='';
+   return;
+ }
  sec.style.display=readyOpen?'block':'none';
- box.innerHTML=ready.map(o=>{const groups=departmentGroups(o), ds=o.departmentStatus||{};return `<div class="ready-card">
-   <div class="row"><b>${isTakeawayOrder(o)?'🛍️ سفري':'🪑 طاولة '+esc(tableOf(o))}</b><span class="badge ready">طلب #${esc(o.id)}</span></div>
-   ${Object.keys(groups).map(d=>{const isReady=ds[d]==='ready';return `<div style="border-top:1px dashed #ddd;padding:10px 0"><div class="row"><b>${deptLabel(d)}</b><span class="badge ${isReady?'ready':''}">${isReady?'🟢 جاهز':'⏳ بانتظار القسم'}</span></div><div class="items">${groups[d].map(x=>`${esc(x.name||'صنف')} × ${esc(x.qty||x.quantity||1)}`).join('<br>')}</div>${isReady?`<button class="green" onclick="takeDepartment('${esc(o.id)}','${esc(d)}')">استلم ${deptLabel(d)}</button>`:''}</div>`}).join('')}
-   <div class="row"><b>المجموع</b><b>${money(orderTotal(o))}</b></div>
-   ${allDepartmentsReady(o)?`<button class="green" onclick="takeReady('${esc(o.id)}')">✅ استلام الطلب كامل</button>`:''}
- </div>`}).join('');
-}
-function isTakeawayOrder(o){return !String(o.table??o.table_number??o.tableNumber??'').trim();}
-async function takeDepartment(id,dept){
- try{await db.collection('orders').doc(id).update({[`departmentStatus.${dept}`]:'served',updatedAt:firebase.firestore.FieldValue.serverTimestamp()});renderReady();}
- catch(e){alert('تعذر استلام القسم: '+(e.message||'خطأ'));}
+ box.innerHTML=ready.map(o=>`
+   <div class="ready-card">
+     <div class="ready-place">${isTakeaway(o)?'🛍️ سفري':'🪑 طاولة '+esc(tableOf(o))}</div>
+     <div class="ready-order">رقم الطلب: <b>#${esc(o.id)}</b></div>
+     <div class="row"><span class="badge ready">🍽️ جاهز</span><b>${money(orderTotal(o))}</b></div>
+     <div class="items">${itemText(o)}</div>
+     <button class="green" onclick="takeReady('${esc(o.id)}')">استلام الطلب</button>
+   </div>
+ `).join('');
 }
 
 function openTable(t){
@@ -277,7 +303,7 @@ function renderTableModal(){
  document.getElementById('tableTotal').innerHTML=`المجموع الكلي للطاولة<div class="big">${money(total)}</div>`;
  document.getElementById('billArea').innerHTML=orders.length?`
    <div class="bill-area">
-     <button class="gold" onclick="showInvoice('${esc(currentTable)}')">🧾 إصدار الفاتورة</button>
+     <button class="gold" onclick="showInvoice('${esc(currentTable)}')">🧾 إصدار / رفع الفاتورة</button>
    </div>`:'';
 }
 
@@ -301,10 +327,11 @@ function buildInvoiceHtml(table, orders, total, invoiceNumber, issued=false){
    </div>
    <div class="invoice-meta">
      <div><span>رقم الفاتورة</span><br><b>${esc(invoiceNumber||'غير مصدرة بعد')}</b></div>
-     <div><span>الطاولة</span><br><b>${esc(table)}</b></div>
+     <div><span>${String(table)==='سفري'?'نوع الطلب':'الطاولة'}</span><br><b>${esc(table)}</b></div>
+     ${String(table)==='سفري' && orders[0] ? `<div><span>الهاتف</span><br><b>${esc(orders[0].customerPhone||orders[0].customerContact?.phone||'—')}</b></div>`:''}
      <div><span>التاريخ والوقت</span><br><b>${date}<br>${time}</b></div>
    </div>
-   <div class="invoice-body">${body}</div>
+   <div class="invoice-body">${String(table)==='سفري' && orders[0] ? `<div class="invoice-line"><div class="invoice-item-title">📍 بيانات التوصيل</div><div class="invoice-item-detail">الهاتف: ${esc(orders[0].customerPhone||orders[0].customerContact?.phone||'—')}<br>الموقع: ${esc(orders[0].deliveryLocation||orders[0].customerContact?.location||'—')}<br>أقرب نقطة دالة: ${esc(orders[0].landmark||orders[0].customerContact?.landmark||'—')}</div></div>`:''}${body}</div>
    <div class="invoice-grand">
      <div class="label">المجموع الكلي</div>
      <div class="value">${money(total)}</div>
@@ -327,7 +354,7 @@ function openEditOrder(id){
  if(!items.length){
    items.push({name:String(o.order??''),qty:1,price:num(o.total)});
  }
- document.getElementById('editOrderTitle').textContent='✏️ تعديل الطلب — طاولة '+tableOf(o);
+ document.getElementById('editOrderTitle').textContent='✏️ تعديل الطلب — '+(isTakeaway(o)?'سفري':'طاولة '+tableOf(o));
  const box=document.getElementById('editItems');
  box.innerHTML='';
  items.forEach(it=>addEditRow(it.name,it.qty,it.price));
@@ -472,6 +499,36 @@ async function saveEditOrder(){
 }
 
 
+function showTakeawayInvoice(id){
+ const o=allOrders.find(x=>x.id===id);
+ if(!o){alert('الطلب غير موجود.');return;}
+ const total=orderTotal(o);
+ const invoiceNumber='INV-'+Date.now();
+ document.getElementById('invoiceTitle').textContent='🧾 فاتورة سفري — الطلب '+id;
+ document.getElementById('invoiceContent').innerHTML=`
+   <div id="invoicePaper">${buildInvoiceHtml('سفري', [o], total, invoiceNumber, false)}</div>
+   <div class="invoice-actions">
+     <button class="gold" onclick="issueTakeawayInvoice('${esc(id)}','${invoiceNumber}')">✅ إصدار الفاتورة</button>
+     <button class="primary" onclick="printCurrentInvoice()">🖨️ معاينة / طباعة</button>
+     <button class="green" onclick="uploadInvoiceFile('takeaway','${esc(id)}','${invoiceNumber}')">📤 رفع الفاتورة</button>
+   </div>
+   <input id="invoiceFileInput" type="file" accept="application/pdf,image/*" style="display:none" onchange="handleInvoiceFile(event)">`;
+ document.getElementById('invoiceModal').style.display='block';
+}
+
+async function issueTakeawayInvoice(id, invoiceNumber){
+ const o=allOrders.find(x=>x.id===id);
+ if(!o){alert('الطلب غير موجود.');return;}
+ const total=orderTotal(o);
+ if(!confirm('إصدار فاتورة سفري بقيمة '+money(total)+'؟')) return;
+ try{
+  await db.collection('orders').doc(id).update({status:'billed',billUploaded:true,billType:'electronic',invoiceNumber,invoiceTable:'سفري',invoiceTotal:total,invoiceItems:itemList(o),billedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  await db.collection('invoices').doc(invoiceNumber).set({invoiceNumber,table:'سفري',total,customerPhone:o.customerPhone||o.customerContact?.phone||'',deliveryLocation:o.deliveryLocation||o.customerContact?.location||'',landmark:o.landmark||o.customerContact?.landmark||'',orders:[{orderId:o.id,total:orderTotal(o),items:itemList(o),status:o.status,customerPhone:o.customerPhone||'',deliveryLocation:o.deliveryLocation||'',landmark:o.landmark||' '}],createdAt:firebase.firestore.FieldValue.serverTimestamp(),type:'electronic'});
+  document.getElementById('invoiceTitle').textContent='🧾 تم إصدار فاتورة السفري';
+  document.getElementById('invoiceContent').innerHTML=`<div id="invoicePaper">${buildInvoiceHtml('سفري',[o],total,invoiceNumber,true)}</div><div class="invoice-actions"><button class="gold" onclick="printCurrentInvoice()">🖨️ طباعة / حفظ PDF</button><button class="green" onclick="uploadInvoiceFile('takeaway','${esc(id)}','${invoiceNumber}')">📤 رفع الفاتورة</button><button class="primary" onclick="closeInvoice()">تم ✓</button></div>`;
+ }catch(e){alert('تعذر إصدار الفاتورة: '+(e.message||'خطأ'));}
+}
+
 function showInvoice(table){
  const orders=allOrders.filter(o=>tableOf(o)===String(table));
  if(!orders.length){ alert('ماكو طلبات بهذه الطاولة.'); return; }
@@ -484,9 +541,47 @@ function showInvoice(table){
    <div class="invoice-actions">
      <button class="gold" onclick="issueInvoice('${esc(table)}','${invoiceNumber}')">✅ إصدار الفاتورة</button>
      <button class="primary" onclick="printCurrentInvoice()">🖨️ معاينة / طباعة</button>
+     <button class="green" onclick="uploadInvoiceFile('table','${esc(table)}','${invoiceNumber}')">📤 رفع الفاتورة</button>
    </div>
+   <input id="invoiceFileInput" type="file" accept="application/pdf,image/*" style="display:none" onchange="handleInvoiceFile(event)">
  `;
  document.getElementById('invoiceModal').style.display='block';
+}
+
+let pendingInvoiceUpload=null;
+function uploadInvoiceFile(kind, target, invoiceNumber){
+ const input=document.getElementById('invoiceFileInput');
+ if(!input){alert('تعذر فتح رفع الفاتورة.');return;}
+ pendingInvoiceUpload={kind,target,invoiceNumber};
+ input.value='';
+ input.click();
+}
+async function handleInvoiceFile(event){
+ const file=event.target.files && event.target.files[0];
+ if(!file || !pendingInvoiceUpload)return;
+ if(file.size>10*1024*1024){alert('حجم الفاتورة يجب ألا يتجاوز 10MB.');return;}
+ const {kind,target,invoiceNumber}=pendingInvoiceUpload;
+ try{
+   document.getElementById('status').textContent='جاري رفع الفاتورة...';
+   const safe=String(file.name).replace(/[^a-zA-Z0-9._-]/g,'_');
+   const path=`invoices/${invoiceNumber}/${Date.now()}_${safe}`;
+   const ref=firebase.storage().ref(path);
+   const snap=await ref.put(file,{contentType:file.type||'application/octet-stream'});
+   const url=await snap.ref.getDownloadURL();
+   const uploadedAt=firebase.firestore.FieldValue.serverTimestamp();
+   await db.collection('invoices').doc(invoiceNumber).set({invoiceNumber,uploadUrl:url,uploadedFileName:file.name,uploadedFileType:file.type||'',uploadedAt,uploaded:true},{merge:true});
+   if(kind==='takeaway'){
+     await db.collection('orders').doc(target).update({billUploaded:true,billUrl:url,billFileName:file.name,billFileType:file.type||'',billUploadedAt:uploadedAt,invoiceNumber,invoiceTable:'سفري'});
+   }else{
+     const orders=allOrders.filter(o=>tableOf(o)===String(target));
+     const batch=db.batch();
+     orders.forEach(o=>batch.update(db.collection('orders').doc(o.id),{billUploaded:true,billUrl:url,billFileName:file.name,billFileType:file.type||'',billUploadedAt:uploadedAt,invoiceNumber,invoiceTable:String(target)}));
+     await batch.commit();
+   }
+   document.getElementById('status').textContent='تم رفع الفاتورة وحفظ رابطها بنجاح ✅';
+   alert('تم رفع الفاتورة بنجاح ✅');
+ }catch(e){console.error(e);alert('تعذر رفع الفاتورة: '+(e.message||'خطأ'));document.getElementById('status').textContent='تعذر رفع الفاتورة';}
+ finally{pendingInvoiceUpload=null;}
 }
 
 function printCurrentInvoice(){
@@ -557,6 +652,7 @@ async function issueInvoice(table, invoiceNumber){
      <div id="invoicePaper">${buildInvoiceHtml(table,orders,total,invoiceNumber,true)}</div>
      <div class="invoice-actions">
        <button class="gold" onclick="printCurrentInvoice()">🖨️ طباعة / حفظ PDF</button>
+       <button class="green" onclick="uploadInvoiceFile('table','${esc(table)}','${invoiceNumber}')">📤 رفع الفاتورة</button>
        <button class="primary" onclick="finishInvoice('${esc(table)}')">تم ✓</button>
      </div>
    `;
@@ -608,27 +704,34 @@ listenOrders();
 </head>
 <body>
 <header>
- <h1>KIWI — الكابتن</h1>
- <button class="header-btn" onclick="refresh()">🔄 تحديث</button>
- <button class="header-btn" onclick="toggleReady()">🍽️ الجاهز من المطبخ <span id="readyCount"></span></button>
- <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px">
-   <a class="header-btn" href="index.html?department=grills" style="text-decoration:none;display:inline-block">🔥 المشويات</a>
-   <a class="header-btn" href="index.html?department=kitchen" style="text-decoration:none;display:inline-block">🍽️ المطبخ</a>
-   <a class="header-btn" href="index.html?department=barista" style="text-decoration:none;display:inline-block">☕ الباريستا</a>
-   <a class="header-btn" href="index.html?department=appetizers" style="text-decoration:none;display:inline-block">🥗 المقبلات</a>
-   <a class="header-btn" href="index.html?department=hookah" style="text-decoration:none;display:inline-block">💨 الأراكيل</a>
+ <h1>KIWI — الكاشير</h1>
+ <div class="top-tabs">
+   <button id="hallBtn" class="header-btn activeTab" onclick="showSection('hall')">🪑 الصالة — 42 طاولة</button>
+   <button id="takeBtn" class="header-btn" onclick="showSection('takeaway')">🛍️ السفريات</button>
+   <button class="header-btn" onclick="toggleReady()">🍽️ الجاهز من الأقسام <span id="readyCount"></span></button>
+   <button class="header-btn" onclick="refresh()">🔄 تحديث</button>
  </div>
 </header>
 
 <div id="status">جاري الاتصال...</div>
 
 <main class="wrap">
- <div class="section-title">🪑 الصالة — الطاولات</div>
- <div id="tables" class="tables"></div>
+ <section id="hallSection">
+  <div class="section-title">🪑 الصالة — كل الطاولات 1 إلى 42</div>
+  <div id="tables" class="tables"></div>
+ </section>
+
+ <section id="takeawaySection" style="display:none">
+  <div class="section-title">🛍️ السفريات — الطلبات بدون رقم طاولة</div>
+  <div id="takeawayOrders"></div>
+ </section>
 
  <section id="readySection" class="ready-section" style="display:none">
-   <div class="section-title">🍽️ طلبات جاهزة من المطبخ</div>
-   <div id="readyOrders"></div>
+   <div class="ready-banner">
+     <div class="ready-banner-title">🔔 الطلبات الجاهزة للكاشير <span id="readyCount"></span></div>
+     <div class="ready-banner-sub">تظهر هنا فور ما القسم المختص يضغط «الطلب جاهز» — سفري أو طاولة.</div>
+     <div id="readyOrders" class="ready-grid"></div>
+   </div>
  </section>
 </main>
 
