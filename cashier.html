@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIWI — الكاشير والصالة والسفريات</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4;color:#222}
+header{background:#111;color:#fff;padding:16px;position:sticky;top:0;z-index:10;text-align:center}
+h1{margin:0 0 10px;font-size:24px}
+button{border:0;border-radius:11px;padding:11px 15px;font-size:16px;font-weight:800;cursor:pointer}
+.header-btn{background:#fff;color:#111;margin:3px}.top-tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}.activeTab{background:#c9a45b;color:#111}.takeaway-card{background:#fffdf5;border:2px solid #c9a45b;border-radius:15px;padding:15px;margin:10px 0}
+#status{padding:10px;text-align:center;color:#666;background:#fff}
+.wrap{max-width:900px;margin:auto;padding:14px}
+.section-title{font-size:20px;font-weight:900;margin:8px 0 12px}
+.tables{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}
+.table-card{background:#fff;border:2px solid #ddd;border-radius:16px;padding:18px;text-align:center;box-shadow:0 2px 10px #0001}
+.table-card.has-orders{border-color:#c9a45b}
+.table-num{font-size:24px;font-weight:900}
+.table-total{margin:8px 0;font-size:18px;font-weight:900}
+.table-state{font-size:13px;color:#666;margin-bottom:10px}
+.open-table{background:#111;color:#fff;width:100%}
+.ready-section{margin-top:24px;display:none}.ready-banner{background:#173f2b;color:#fff;border-radius:18px;padding:18px;margin:16px 0;box-shadow:0 6px 20px #0002}.ready-banner .ready-banner-title{font-size:22px;font-weight:1000}.ready-banner .ready-banner-sub{font-size:13px;opacity:.9;margin-top:5px}.ready-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}.ready-card{background:#fffdf5;border:3px solid #c9a45b;border-radius:15px;padding:15px}.ready-card .ready-place{font-size:22px;font-weight:1000}.ready-card .ready-order{font-size:14px;color:#555;margin-top:4px}
+.ready-card{background:#fffdf5;border:2px solid #c9a45b;border-radius:15px;padding:15px;margin:10px 0}
+.new-card{background:#fff;border-right:5px solid #16a34a;border-radius:14px;padding:14px;margin:10px 0;box-shadow:0 2px 10px #0001}
+.items{background:#fafafa;border-radius:10px;padding:10px;line-height:1.9;margin:10px 0}
+.row{display:flex;justify-content:space-between;gap:10px;margin:7px 0}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:13px;font-weight:900;background:#eee}
+.badge.ready{background:#c9a45b;color:#111}
+.badge.served{background:#dfeee2;color:#173f2b}
+.badge.new{background:#dcfce7;color:#166534}
+.primary{background:#111;color:#fff;width:100%;margin-top:8px}
+.green{background:#173f2b;color:#fff;width:100%;margin-top:8px}
+.gold{background:#c9a45b;color:#111;width:100%;margin-top:8px}
+.danger{background:#9b2c2c;color:#fff;width:100%;margin-top:8px}
+.empty{text-align:center;color:#777;padding:35px 10px;background:#fff;border-radius:14px}
+.modal{display:none;position:fixed;inset:0;background:#0009;z-index:100;padding:12px;overflow:auto}
+.modal-box{max-width:760px;margin:20px auto;background:#f4f4f4;border-radius:18px;padding:14px}
+.modal-head{background:#111;color:#fff;border-radius:14px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;position:sticky;top:0;z-index:2}
+.close{background:#fff;color:#111}
+.order-card{background:#fff;border:1px solid #ddd;border-radius:13px;padding:13px;margin:10px 0}
+.total-box{background:#173f2b;color:#fff;border-radius:14px;padding:16px;margin:12px 0;text-align:center}
+.total-box .big{font-size:27px;font-weight:900;margin-top:5px}
+.bill-area{margin-top:12px;padding-top:12px;border-top:2px dashed #ccc}
+.small{font-size:13px;color:#777}
+.file-btn{display:none}
+.invoice-modal{display:none;position:fixed;inset:0;background:#0009;z-index:200;padding:12px;overflow:auto}
+.invoice-box{max-width:620px;margin:20px auto;background:#fff;border-radius:18px;padding:18px}
+.invoice-head{text-align:center;font-size:24px;font-weight:900;padding:8px}
+.invoice-table{text-align:center;font-weight:900;margin-bottom:12px}
+.invoice-line{border-top:1px dashed #bbb;padding:12px 0}
+.invoice-items{background:#f7f7f7;border-radius:9px;padding:8px;line-height:1.8;margin:7px 0}
+.invoice-total{background:#173f2b;color:#fff;border-radius:12px;padding:15px;text-align:center;font-size:22px;font-weight:900;margin-top:12px}
+.invoice-note{padding:10px 0}
+<style>
+.invoice-box{max-width:680px;margin:18px auto;background:#fff;border-radius:22px;padding:0;overflow:hidden;box-shadow:0 18px 60px #0005}
+.invoice-top{background:linear-gradient(135deg,#173f2b,#245c3f);color:#fff;padding:26px 20px;text-align:center}
+.invoice-logo{font-size:34px;font-weight:1000;letter-spacing:1px}
+.invoice-sub{font-size:14px;opacity:.9;margin-top:5px}
+.invoice-meta{display:flex;justify-content:space-between;gap:10px;background:#f6f7f5;padding:14px 18px;font-size:13px;direction:rtl}
+.invoice-meta b{font-size:15px}
+.invoice-body{padding:16px 18px;background:#fff}
+.invoice-line{border-bottom:1px dashed #cfcfcf;padding:14px 0}
+.invoice-line:last-of-type{border-bottom:0}
+.invoice-item-title{font-size:16px;font-weight:900}
+.invoice-item-detail{font-size:13px;color:#555;margin-top:5px;line-height:1.8}
+.invoice-line-total{display:flex;justify-content:space-between;margin-top:8px;font-weight:800}
+.invoice-grand{margin:8px 18px 0;background:#173f2b;color:#fff;border-radius:15px;padding:17px;text-align:center}
+.invoice-grand .label{font-size:13px;opacity:.9}
+.invoice-grand .value{font-size:28px;font-weight:1000;margin-top:3px}
+.invoice-thanks{text-align:center;padding:20px 18px 6px;color:#173f2b;font-weight:800;font-size:16px}
+.invoice-note2{text-align:center;color:#777;font-size:12px;padding:0 18px 18px;line-height:1.8}
+.invoice-actions{display:flex;gap:9px;padding:0 18px 20px}
+.invoice-actions button{flex:1}
+@media print{
+ body>*{display:none!important}
+ #invoiceModal{display:block!important;position:static!important;background:#fff!important;padding:0!important;overflow:visible!important}
+ #invoiceModal .invoice-box{box-shadow:none!important;max-width:none!important;margin:0!important;border-radius:0!important}
+ #invoiceModal .modal-head,#invoiceModal .invoice-actions{display:none!important}
+ @page{size:A4;margin:10mm}
+}
+
+.edit-modal{display:none;position:fixed;inset:0;background:#0009;z-index:220;padding:12px;overflow:auto}
+.edit-box{max-width:700px;margin:20px auto;background:#fff;border-radius:18px;padding:18px}
+.edit-row{display:grid;grid-template-columns:1fr 90px 110px 48px;gap:7px;align-items:center;margin:8px 0}
+.edit-row input{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;font-size:15px}
+.edit-row button{padding:8px;background:#9b2c2c;color:#fff}
+.edit-labels{display:grid;grid-template-columns:1fr 90px 110px 48px;gap:7px;font-size:12px;color:#666;font-weight:800}
+.edit-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.add-item{background:#173f2b;color:#fff}
+.save-edit{background:#c9a45b;color:#111}
+.menu-modal{display:none;position:fixed;inset:0;background:#0009;z-index:260;padding:12px;overflow:auto}
+.menu-box{max-width:760px;margin:18px auto;background:#f4f4f4;border-radius:18px;padding:14px}
+.menu-search{width:100%;padding:13px;border:1px solid #ccc;border-radius:12px;font-size:16px;margin:10px 0}
+.menu-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.menu-item{background:#fff;border:1px solid #ddd;border-radius:14px;padding:13px;text-align:right}
+.menu-item .menu-name{font-weight:900;font-size:16px;line-height:1.5}
+.menu-item .menu-cat{font-size:12px;color:#777;margin-top:3px}
+.menu-item .menu-price{font-weight:900;color:#173f2b;margin:8px 0}
+.menu-item button{width:100%;background:#173f2b;color:#fff}
+.menu-empty{text-align:center;padding:30px;color:#777;background:#fff;border-radius:14px}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script>
+const firebaseConfig={
+apiKey:"AIzaSyAQ9WanobYNjUbozIcWQrhDBCT82-RqMMU4",
+authDomain:"kiwiresturant-30ff4.firebaseapp.com",
+projectId:"kiwiresturant-30ff4",
+storageBucket:"kiwiresturant-30ff4.firebasestorage.app",
+messagingSenderId:"329950339210",
+appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73"
+};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+
+let allOrders=[];
+let stop=null;
+let currentTable=null;
+
+function esc(v){
+ return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function tableOf(o){ return String(o.table ?? o.table_number ?? o.tableNumber ?? '—'); }
+function num(v){ const n=Number(v); return Number.isFinite(n)?n:0; }
+function money(v){ return num(v).toLocaleString('en-US')+' د.ع'; }
+
+function itemList(o){
+ if(Array.isArray(o.items)) return o.items;
+ if(Array.isArray(o.orderItems)) return o.orderItems;
+ return [];
+}
+function orderTotal(o){
+ if(o.total!==undefined && o.total!==null && !isNaN(Number(o.total))) return num(o.total);
+ return itemList(o).reduce((s,x)=>s+num(x.price)*num(x.qty||x.quantity||1),0);
+}
+function itemText(o){
+ const items=itemList(o);
+ if(items.length) return items.map(x=>`${esc(x.name||x.title||'طلب')} × ${esc(x.qty||x.quantity||1)}${x.note?`<div style="font-size:11px;color:#9a7024;margin-top:2px">📝 ${esc(x.note)}</div>`:''}`).join('<br>');
+ return esc(o.order||o.items||'—');
+}
+function statusText(s){
+ return s==='pending'?'🔔 طلب جديد':
+        s==='approved'?'👍 مقبول':
+        s==='preparing'?'🟡 قيد التحضير':
+        s==='ready'?'🍽️ جاهز من المطبخ':
+        s==='served'?'✅ تم الاستلام':'';
+}
+
+/* الطلبات التي تبقى في الصالة:
+   pending = طلب جديد
+   approved/preparing = الطلب مقبول/قيد التحضير
+   ready = وصل من المطبخ
+   served = استلمه الكابتن
+   billed لا يظهر بعد رفع الفاتورة */
+function listenOrders(){
+ if(stop) stop();
+ stop=db.collection('orders')
+   .where('status','in',['pending','approved','preparing','ready','served'])
+   .onSnapshot(snap=>{
+      allOrders=snap.docs.map(d=>({id:d.id,...d.data()}));
+      renderAll();
+      document.getElementById('status').textContent='متصل — آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ');
+   },err=>{
+      console.error(err);
+      document.getElementById('status').textContent='تعذر جلب الطلبات. تأكد من اتصال Firebase.';
+   });
+}
+
+function isTakeaway(o){
+ const t=String(o.table ?? o.table_number ?? o.tableNumber ?? '').trim();
+ return !t || t==='—' || t.toLowerCase()==='takeaway' || t==='سفري';
+}
+function tableNum(o){ const t=String(o.table ?? o.table_number ?? o.tableNumber ?? '').trim(); return t; }
+
+function activeTables(){
+ const map=new Map();
+ allOrders.forEach(o=>{
+   const t=tableOf(o);
+   if(t==='—') return;
+   if(!map.has(t)) map.set(t,[]);
+   map.get(t).push(o);
+ });
+ return map;
+}
+
+function renderAll(){
+ renderTables();
+ renderTakeaways();
+ renderReady();
+ if(currentTable!==null) renderTableModal();
+}
+
+function renderTables(){
+ const box=document.getElementById('tables');
+ const map=activeTables();
+ let html='';
+ for(let n=1;n<=42;n++){
+   const t=String(n);
+   const orders=map.get(t)||[];
+   const total=orders.reduce((sum,o)=>sum+orderTotal(o),0);
+   const ready=orders.filter(o=>o.status==='ready').length;
+   html+=`<div class="table-card ${orders.length?'has-orders':''}">
+      <div class="table-num">🪑 طاولة ${n}</div>
+      <div class="table-total">${orders.length?money(total):'فارغة'}</div>
+      <div class="table-state">${orders.length?`${orders.length} طلب${ready?` • ${ready} جاهز`:''}`:'لا يوجد طلب'}</div>
+      <button class="open-table" onclick="openTable('${n}')">فتح الطاولة</button>
+   </div>`;
+ }
+ box.innerHTML=html;
+}
+
+function renderTakeaways(){
+  const box=document.getElementById('takeawayOrders'); const list=allOrders.filter(isTakeaway);
+  if(!list.length){box.innerHTML='<div class="empty">ماكو طلبات سفري حالياً</div>';return;}
+  box.innerHTML=list.sort((a,b)=>String(b.id).localeCompare(String(a.id))).map(o=>`
+   <div class="new-card">
+    <div class="row"><b>🛍️ سفري — الطلب #${esc(o.id)}</b><span class="badge ${o.status==='ready'?'ready':o.status==='pending'?'new':''}">${o.status==='pending'?'🔔 بانتظار موافقة الكاشير':o.status==='approved'?'👍 تم قبول الطلب':o.status==='preparing'?'🟡 قيد التحضير':o.status==='ready'?'🟢 الطلب كامل جاهز':o.status==='billed'?'🧾 مفوتر':''}</span></div>
+    <div class="items">${itemText(o)}</div>
+    <div class="items" style="background:#eef5ea"><b>👤 الزبون:</b> ${esc(o.customerName||o.customerContact?.name||'—')}<br><b>📞 الهاتف:</b> ${esc(o.customerPhone||o.customerContact?.phone||'—')}<br><b>📍 الموقع:</b> ${esc(o.deliveryLocation||o.customerContact?.location||'—')}<br><b>🧭 أقرب نقطة:</b> ${esc(o.landmark||o.customerContact?.landmark||'—')}${o.deliveryNote?`<br><b>📝 ملاحظة:</b> ${esc(o.deliveryNote)}`:''}</div>
+    ${departmentStatusHtml(o)}
+    <div class="row"><span>حساب الطلب</span><b>${money(orderTotal(o))}</b></div>
+    ${o.status==='pending'?`<button class="primary" onclick="acceptOrder('${esc(o.id)}')">✅ قبول وإرسال للأقسام</button>`:''}
+    ${o.status==='ready'?`<div class="items" style="background:#e9f7e9;color:#245c2f;font-weight:900">✅ كل الأقسام المطلوبة جهزت الطلب — السفري جاهز.</div>`:''}
+    ${o.status!=='billed'?`<button class="primary" onclick="openEditOrder('${esc(o.id)}')">✏️ تعديل / إضافة للطلب</button>`:''}
+    <button class="gold" onclick="showTakeawayInvoice('${esc(o.id)}')">🧾 إصدار / رفع الفاتورة</button>
+   </div>`).join('');
+}
+
+function showSection(section){
+ document.getElementById('hallSection').style.display=section==='hall'?'block':'none';
+ document.getElementById('takeawaySection').style.display=section==='takeaway'?'block':'none';
+ document.getElementById('hallBtn').classList.toggle('activeTab',section==='hall');
+ document.getElementById('takeBtn').classList.toggle('activeTab',section==='takeaway');
+ if(section==='takeaway') renderTakeaways();
+}
+
+let readyOpen=false;
+
+function toggleReady(){
+ const ready=allOrders.filter(o=>o.status==='ready');
+ if(!ready.length){
+   alert('ماكو طلبات جاهزة من الأقسام حالياً.');
+   return;
+ }
+ readyOpen=!readyOpen;
+ document.getElementById('readySection').style.display=readyOpen?'block':'none';
+}
+
+const DEPT_LABELS={
+ kitchen:'🍳 المطبخ',
+ barista:'☕ الباريستا',
+ appetizers:'🥗 المقبلات',
+ grills:'🔥 المشاوي',
+ hookah:'💨 الأراكيل'
+};
+function readyDepartmentRows(){
+ const rows=[];
+ allOrders.forEach(o=>{
+   const ds=o.departmentStatus||{};
+   Object.keys(DEPT_LABELS).forEach(dept=>{
+     if(ds[dept]==='ready') rows.push({o,dept,label:DEPT_LABELS[dept]});
+   });
+ });
+ return rows;
+}
+async function acknowledgeDepartmentReady(id,dept,btn){
+ try{
+   btn.disabled=true; btn.textContent='جاري التأكيد…';
+   await db.collection('orders').doc(id).update({
+     [`cashierReceivedDepartments.${dept}`]:true,
+     [`cashierReceivedAt.${dept}`]:firebase.firestore.FieldValue.serverTimestamp()
+   });
+   btn.textContent='✓ تم استلام إشعار القسم';
+ }catch(e){
+   btn.disabled=false; btn.textContent='استلام إشعار الجاهزية';
+   alert('تعذر تأكيد الجاهزية: '+(e.message||'خطأ'));
+ }
+}
+function renderReady(){
+ const sec=document.getElementById('readySection');
+ const box=document.getElementById('readyOrders');
+ const count=document.getElementById('readyCount');
+ const rows=readyDepartmentRows();
+ count.textContent=rows.length?`(${rows.length})`:'';
+ if(!rows.length){
+   sec.style.display='none';
+   readyOpen=false;
+   box.innerHTML='';
+   return;
+ }
+ sec.style.display=readyOpen?'block':'none';
+ box.innerHTML=rows.map(({o,dept,label})=>{
+   const received=!!(o.cashierReceivedDepartments||{})[dept];
+   const deptItems=itemList(o).filter(x=>departmentForItem(x)===dept);
+   return `
+   <div class="ready-card">
+     <div class="ready-place">${label}</div>
+     <div class="ready-order">${isTakeaway(o)?'🛍️ سفري':'🪑 طاولة '+esc(tableOf(o))} — الطلب <b>#${esc(o.id)}</b></div>
+     <div class="row"><span class="badge ready">🍽️ جاهز من القسم</span><b>${money(deptItems.reduce((s,x)=>s+num(x.price)*num(x.qty||x.quantity||1),0))}</b></div>
+     <div class="items">${deptItems.length?deptItems.map(x=>`${esc(x.name||x.title||'صنف')} × ${esc(x.qty||x.quantity||1)}`).join('<br>'):itemText(o)}</div>
+     ${received?'<button class="green" disabled>✓ تم استلام إشعار الجاهزية</button>':`<button class="green" onclick="acknowledgeDepartmentReady('${esc(o.id)}','${dept}',this)">استلام إشعار الجاهزية</button>`}
+   </div>`;
+ }).join('');
+}
+
+function openTable(t){
+ currentTable=String(t);
+ document.getElementById('tableModal').style.display='block';
+ document.body.style.overflow='hidden';
+ renderTableModal();
+}
+function closeTable(){
+ currentTable=null;
+ document.getElementById('tableModal').style.display='none';
+ document.body.style.overflow='';
+}
+function renderTableModal(){
+ if(currentTable===null)return;
+ const orders=allOrders.filter(o=>tableOf(o)===String(currentTable));
+ const total=orders.reduce((s,o)=>s+orderTotal(o),0);
+ document.getElementById('tableTitle').textContent='🪑 طاولة '+currentTable;
+ document.getElementById('tableBody').innerHTML=orders.length?orders.map(o=>`
+   <div class="order-card">
+     <div class="row"><b>الطلب</b><span class="badge ${o.status==='ready'?'ready':o.status==='served'?'served':o.status==='pending'?'new':''}">${statusText(o.status)}</span></div>
+     <div class="items">${itemText(o)}</div>
+     <div class="row"><span>حساب الطلب</span><b>${money(orderTotal(o))}</b></div>
+     ${o.status==='pending'?`<button class="primary" onclick="acceptOrder('${esc(o.id)}')">قبول الطلب</button>`:''}
+     ${o.status==='ready'?`<button class="green" onclick="takeReady('${esc(o.id)}')">استلام الطلب</button>`:''}
+     ${o.status!=='billed'?`<button class="primary" onclick="openEditOrder('${esc(o.id)}')">✏️ تعديل / إضافة للطلب</button>`:''}
+   </div>
+ `).join(''):'<div class="empty">ماكو طلبات بهالطاولة</div>';
+
+ document.getElementById('tableTotal').innerHTML=`المجموع الكلي للطاولة<div class="big">${money(total)}</div>`;
+ document.getElementById('billArea').innerHTML=orders.length?`
+   <div class="bill-area">
+     <button class="gold" onclick="showInvoice('${esc(currentTable)}')">🧾 إصدار / رفع الفاتورة</button>
+   </div>`:'';
+}
+
+let lastInvoicePrint='';
+
+function buildInvoiceHtml(table, orders, total, invoiceNumber, issued=false){
+ const now=new Date();
+ const date=now.toLocaleDateString('ar-IQ');
+ const time=now.toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'});
+ const body=orders.map((o,i)=>`
+   <div class="invoice-line">
+     <div class="invoice-item-title">طلب ${i+1}</div>
+     <div class="invoice-item-detail">${itemText(o)}</div>
+     <div class="invoice-line-total"><span>حساب الطلب</span><b>${money(orderTotal(o))}</b></div>
+   </div>
+ `).join('');
+ return `
+   <div class="invoice-top">
+     <div class="invoice-logo">🥝 KIWI</div>
+     <div class="invoice-sub">مطعم كيوي — أهلاً وسهلاً بكم</div>
+   </div>
+   <div class="invoice-meta">
+     <div><span>رقم الفاتورة</span><br><b>${esc(invoiceNumber||'غير مصدرة بعد')}</b></div>
+     <div><span>${String(table)==='سفري'?'نوع الطلب':'الطاولة'}</span><br><b>${esc(table)}</b></div>
+     ${String(table)==='سفري' && orders[0] ? `<div><span>الهاتف</span><br><b>${esc(orders[0].customerPhone||orders[0].customerContact?.phone||'—')}</b></div>`:''}
+     <div><span>التاريخ والوقت</span><br><b>${date}<br>${time}</b></div>
+   </div>
+   <div class="invoice-body">${String(table)==='سفري' && orders[0] ? `<div class="invoice-line"><div class="invoice-item-title">📍 بيانات التوصيل</div><div class="invoice-item-detail">الهاتف: ${esc(orders[0].customerPhone||orders[0].customerContact?.phone||'—')}<br>الموقع: ${esc(orders[0].deliveryLocation||orders[0].customerContact?.location||'—')}<br>أقرب نقطة دالة: ${esc(orders[0].landmark||orders[0].customerContact?.landmark||'—')}</div></div>`:''}${body}</div>
+   <div class="invoice-grand">
+     <div class="label">المجموع الكلي</div>
+     <div class="value">${money(total)}</div>
+   </div>
+   <div class="invoice-thanks">شكراً لزيارتكم مطعم كيوي 🥝</div>
+   <div class="invoice-note2">${issued
+     ? 'نتمنى أن تكون تجربتكم جميلة ومميزة، وننتظركم دائماً بكل حب.'
+     : 'راجعوا الحساب، ثم اضغطوا إصدار الفاتورة لإغلاق حساب الطاولة.'}</div>
+ `;
+}
+
+function openEditOrder(id){
+ const o=allOrders.find(x=>x.id===id);
+ if(!o){ alert('الطلب غير موجود.'); return; }
+ const items=itemList(o).map(x=>({
+   name:String(x.name??x.title??''),
+   qty:num(x.qty??x.quantity??1),
+   price:num(x.price)
+ }));
+ if(!items.length){
+   items.push({name:String(o.order??''),qty:1,price:num(o.total)});
+ }
+ document.getElementById('editOrderTitle').textContent='✏️ تعديل الطلب — '+(isTakeaway(o)?'سفري':'طاولة '+tableOf(o));
+ const box=document.getElementById('editItems');
+ box.innerHTML='';
+ items.forEach(it=>addEditRow(it.name,it.qty,it.price));
+ document.getElementById('editOrderModal').dataset.orderId=id;
+ document.getElementById('editOrderModal').style.display='block';
+}
+
+function addEditRow(name='',qty=1,price=0){
+ const box=document.getElementById('editItems');
+ const row=document.createElement('div');
+ row.className='edit-row';
+ row.dataset.menuName=String(name||'').trim();
+ row.innerHTML=`
+   <input class="edit-name" placeholder="اسم الصنف" value="${escAttr(name)}">
+   <input class="edit-qty" type="hidden" value="${Math.max(1,num(qty)||1)}">
+   <div class="qty-view">الكمية: <b>${Math.max(1,num(qty)||1)}</b></div>
+   <input class="edit-price" type="number" min="0" step="1" value="${num(price)}">
+   <button type="button" onclick="this.parentElement.remove()">🗑️</button>
+ `;
+ box.appendChild(row);
+}
+
+function increaseEditRowQty(row){
+ const q=row.querySelector('.edit-qty');
+ const view=row.querySelector('.qty-view b');
+ const next=Math.max(1,num(q?.value)||1)+1;
+ if(q) q.value=next;
+ if(view) view.textContent=next;
+}
+
+function escAttr(v){
+ return String(v??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+let captainMenuItems=[];
+let captainMenuLoaded=false;
+
+async function openCaptainMenu(){
+ const modal=document.getElementById('menuModal');
+ modal.style.display='block';
+ const list=document.getElementById('captainMenuList');
+ list.innerHTML='<div class="menu-empty">جاري فتح المنيو…</div>';
+ try{
+   if(!captainMenuLoaded){
+     const res=await fetch('index.html',{cache:'no-store'});
+     if(!res.ok) throw new Error('تعذر فتح صفحة المنيو');
+     const html=await res.text();
+     const doc=new DOMParser().parseFromString(html,'text/html');
+     const cards=[...doc.querySelectorAll('.dish-item[data-name][data-price]')];
+     captainMenuItems=cards.map((el,i)=>{
+       const section=el.closest('section');
+       const h=section?.querySelector('h2 .heading-ar, h2');
+       return {
+         id:i,
+         name:(el.dataset.name||'').trim(),
+         price:parseMenuPrice(el.dataset.price||''),
+         category:(h?.textContent||'المنيو').trim()
+       };
+     }).filter(x=>x.name);
+     captainMenuLoaded=true;
+   }
+   renderCaptainMenu('');
+ }catch(e){
+   console.error(e);
+   list.innerHTML='<div class="menu-empty">تعذر فتح المنيو. تأكد أن index.html موجود بنفس الموقع.</div>';
+ }
+}
+
+function parseMenuPrice(v){
+ const n=String(v).replace(/[^0-9.]/g,'');
+ return Number(n)||0;
+}
+
+function renderCaptainMenu(q){
+ const list=document.getElementById('captainMenuList');
+ const term=String(q||'').trim().toLowerCase();
+ const items=captainMenuItems.filter(x=>!term || x.name.toLowerCase().includes(term) || x.category.toLowerCase().includes(term));
+ if(!items.length){list.innerHTML='<div class="menu-empty">ماكو صنف مطابق للبحث.</div>';return;}
+ list.innerHTML=items.map(x=>`<div class="menu-item">
+   <div class="menu-name">${esc(x.name)}</div>
+   <div class="menu-cat">${esc(x.category)}</div>
+   <div class="menu-price">${money(x.price)}</div>
+   <button type="button" onclick="addMenuItemToEdit(${x.id})">➕ إضافة للطلب — كل ضغطة تزيد الكمية</button>
+ </div>`).join('');
+}
+
+function addMenuItemToEdit(menuId){
+ const item=captainMenuItems.find(x=>x.id===menuId);
+ if(!item)return;
+ const rows=[...document.querySelectorAll('#editItems .edit-row')];
+ const existing=rows.find(r=>String(r.querySelector('.edit-name')?.value||'').trim()===String(item.name).trim());
+ if(existing){
+   increaseEditRowQty(existing);
+ }else{
+   addEditRow(item.name,1,item.price);
+ }
+ renderCaptainMenu(document.querySelector('.menu-search')?.value||'');
+}
+
+function closeCaptainMenu(){
+ document.getElementById('menuModal').style.display='none';
+}
+
+function filterCaptainMenu(v){renderCaptainMenu(v);}
+
+function closeEditOrder(){
+ document.getElementById('editOrderModal').style.display='none';
+ document.getElementById('editItems').innerHTML='';
+}
+
+async function saveEditOrder(){
+ const id=document.getElementById('editOrderModal').dataset.orderId;
+ const o=allOrders.find(x=>x.id===id);
+ if(!o){ alert('الطلب غير موجود.'); return; }
+
+ const rows=[...document.querySelectorAll('#editItems .edit-row')];
+ const items=rows.map(r=>({
+   name:r.querySelector('.edit-name').value.trim(),
+   qty:Math.max(1, num(r.querySelector('.edit-qty').value)),
+   price:Math.max(0, num(r.querySelector('.edit-price').value))
+ })).filter(x=>x.name);
+
+ if(!items.length){ alert('لازم يبقى صنف واحد على الأقل بالطلب.'); return; }
+
+ const total=items.reduce((sum,x)=>sum+x.price*x.qty,0);
+ const payload={
+   items:items,
+   total:total,
+   captainEdited:true,
+   captainEditedAt:firebase.firestore.FieldValue.serverTimestamp()
+ };
+ if(Array.isArray(o.orderItems) && !Array.isArray(o.items)) delete payload.items, payload.orderItems=items;
+
+ try{
+   await db.collection('orders').doc(id).update(payload);
+   alert('تم تعديل الطلب وإضافة الأصناف بنجاح ✅');
+   closeEditOrder();
+ }catch(e){
+   console.error(e);
+   alert('تعذر حفظ تعديل الطلب: '+(e.message||'خطأ'));
+ }
+}
+
+
+function showTakeawayInvoice(id){
+ const o=allOrders.find(x=>x.id===id);
+ if(!o){alert('الطلب غير موجود.');return;}
+ const total=orderTotal(o);
+ const invoiceNumber='INV-'+Date.now();
+ document.getElementById('invoiceTitle').textContent='🧾 فاتورة سفري — الطلب '+id;
+ document.getElementById('invoiceContent').innerHTML=`
+   <div id="invoicePaper">${buildInvoiceHtml('سفري', [o], total, invoiceNumber, false)}</div>
+   <div class="invoice-actions">
+     <button class="gold" onclick="issueTakeawayInvoice('${esc(id)}','${invoiceNumber}')">✅ إصدار الفاتورة</button>
+     <button class="primary" onclick="printCurrentInvoice()">🖨️ معاينة / طباعة</button>
+     <button class="green" onclick="uploadInvoiceFile('takeaway','${esc(id)}','${invoiceNumber}')">📤 رفع الفاتورة</button>
+   </div>
+   <input id="invoiceFileInput" type="file" accept="application/pdf,image/*" style="display:none" onchange="handleInvoiceFile(event)">`;
+ document.getElementById('invoiceModal').style.display='block';
+}
+
+async function issueTakeawayInvoice(id, invoiceNumber){
+ const o=allOrders.find(x=>x.id===id);
+ if(!o){alert('الطلب غير موجود.');return;}
+ const total=orderTotal(o);
+ if(!confirm('إصدار فاتورة سفري بقيمة '+money(total)+'؟')) return;
+ try{
+  await db.collection('orders').doc(id).update({status:'billed',billUploaded:true,billType:'electronic',invoiceNumber,invoiceTable:'سفري',invoiceTotal:total,invoiceItems:itemList(o),billedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  await db.collection('invoices').doc(invoiceNumber).set({invoiceNumber,table:'سفري',total,customerPhone:o.customerPhone||o.customerContact?.phone||'',deliveryLocation:o.deliveryLocation||o.customerContact?.location||'',landmark:o.landmark||o.customerContact?.landmark||'',orders:[{orderId:o.id,total:orderTotal(o),items:itemList(o),status:o.status,customerPhone:o.customerPhone||'',deliveryLocation:o.deliveryLocation||'',landmark:o.landmark||' '}],createdAt:firebase.firestore.FieldValue.serverTimestamp(),type:'electronic'});
+  document.getElementById('invoiceTitle').textContent='🧾 تم إصدار فاتورة السفري';
+  document.getElementById('invoiceContent').innerHTML=`<div id="invoicePaper">${buildInvoiceHtml('سفري',[o],total,invoiceNumber,true)}</div><div class="invoice-actions"><button class="gold" onclick="printCurrentInvoice()">🖨️ طباعة / حفظ PDF</button><button class="green" onclick="uploadInvoiceFile('takeaway','${esc(id)}','${invoiceNumber}')">📤 رفع الفاتورة</button><button class="primary" onclick="closeInvoice()">تم ✓</button></div>`;
+ }catch(e){alert('تعذر إصدار الفاتورة: '+(e.message||'خطأ'));}
+}
+
+function showInvoice(table){
+ const orders=allOrders.filter(o=>tableOf(o)===String(table));
+ if(!orders.length){ alert('ماكو طلبات بهذه الطاولة.'); return; }
+ const total=orders.reduce((s,o)=>s+orderTotal(o),0);
+ const invoiceNumber='INV-'+Date.now();
+
+ document.getElementById('invoiceTitle').textContent='🧾 فاتورة حساب — طاولة '+table;
+ document.getElementById('invoiceContent').innerHTML=`
+   <div id="invoicePaper">${buildInvoiceHtml(table,orders,total,invoiceNumber,false)}</div>
+   <div class="invoice-actions">
+     <button class="gold" onclick="issueInvoice('${esc(table)}','${invoiceNumber}')">✅ إصدار الفاتورة</button>
+     <button class="primary" onclick="printCurrentInvoice()">🖨️ معاينة / طباعة</button>
+     <button class="green" onclick="uploadInvoiceFile('table','${esc(table)}','${invoiceNumber}')">📤 رفع الفاتورة</button>
+   </div>
+   <input id="invoiceFileInput" type="file" accept="application/pdf,image/*" style="display:none" onchange="handleInvoiceFile(event)">
+ `;
+ document.getElementById('invoiceModal').style.display='block';
+}
+
+let pendingInvoiceUpload=null;
+function uploadInvoiceFile(kind, target, invoiceNumber){
+ const input=document.getElementById('invoiceFileInput');
+ if(!input){alert('تعذر فتح رفع الفاتورة.');return;}
+ pendingInvoiceUpload={kind,target,invoiceNumber};
+ input.value='';
+ input.click();
+}
+async function handleInvoiceFile(event){
+ const file=event.target.files && event.target.files[0];
+ if(!file || !pendingInvoiceUpload)return;
+ if(file.size>10*1024*1024){alert('حجم الفاتورة يجب ألا يتجاوز 10MB.');return;}
+ const {kind,target,invoiceNumber}=pendingInvoiceUpload;
+ try{
+   document.getElementById('status').textContent='جاري رفع الفاتورة...';
+   const safe=String(file.name).replace(/[^a-zA-Z0-9._-]/g,'_');
+   const path=`invoices/${invoiceNumber}/${Date.now()}_${safe}`;
+   const ref=firebase.storage().ref(path);
+   const snap=await ref.put(file,{contentType:file.type||'application/octet-stream'});
+   const url=await snap.ref.getDownloadURL();
+   const uploadedAt=firebase.firestore.FieldValue.serverTimestamp();
+   await db.collection('invoices').doc(invoiceNumber).set({invoiceNumber,uploadUrl:url,uploadedFileName:file.name,uploadedFileType:file.type||'',uploadedAt,uploaded:true},{merge:true});
+   if(kind==='takeaway'){
+     await db.collection('orders').doc(target).update({billUploaded:true,billUrl:url,billFileName:file.name,billFileType:file.type||'',billUploadedAt:uploadedAt,invoiceNumber,invoiceTable:'سفري'});
+   }else{
+     const orders=allOrders.filter(o=>tableOf(o)===String(target));
+     const batch=db.batch();
+     orders.forEach(o=>batch.update(db.collection('orders').doc(o.id),{billUploaded:true,billUrl:url,billFileName:file.name,billFileType:file.type||'',billUploadedAt:uploadedAt,invoiceNumber,invoiceTable:String(target)}));
+     await batch.commit();
+   }
+   document.getElementById('status').textContent='تم رفع الفاتورة وحفظ رابطها بنجاح ✅';
+   alert('تم رفع الفاتورة بنجاح ✅');
+ }catch(e){console.error(e);alert('تعذر رفع الفاتورة: '+(e.message||'خطأ'));document.getElementById('status').textContent='تعذر رفع الفاتورة';}
+ finally{pendingInvoiceUpload=null;}
+}
+
+function printCurrentInvoice(){
+ const paper=document.getElementById('invoicePaper');
+ if(!paper) return;
+ const w=window.open('','_blank','width=760,height=900');
+ if(!w){ alert('المتصفح منع نافذة الطباعة. اسمح بالنوافذ المنبثقة ثم جرّب مرة ثانية.'); return; }
+ w.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>فاتورة كيوي</title>
+ <style>
+ body{font-family:Arial,sans-serif;background:#fff;margin:0;color:#222}
+ .invoice-top{background:#173f2b;color:#fff;padding:26px 20px;text-align:center}
+ .invoice-logo{font-size:34px;font-weight:1000}.invoice-sub{font-size:14px;opacity:.9;margin-top:5px}
+ .invoice-meta{display:flex;justify-content:space-between;gap:10px;background:#f6f7f5;padding:14px 18px;font-size:13px}
+ .invoice-meta b{font-size:15px}.invoice-body{padding:16px 18px}
+ .invoice-line{border-bottom:1px dashed #cfcfcf;padding:14px 0}
+ .invoice-item-title{font-size:16px;font-weight:900}.invoice-item-detail{font-size:13px;color:#555;margin-top:5px;line-height:1.8}
+ .invoice-line-total{display:flex;justify-content:space-between;margin-top:8px;font-weight:800}
+ .invoice-grand{margin:8px 18px 0;background:#173f2b;color:#fff;border-radius:15px;padding:17px;text-align:center}
+ .label{font-size:13px;opacity:.9}.value{font-size:28px;font-weight:1000;margin-top:3px}
+ .invoice-thanks{text-align:center;padding:20px 18px 6px;color:#173f2b;font-weight:800;font-size:16px}
+ .invoice-note2{text-align:center;color:#777;font-size:12px;padding:0 18px 18px;line-height:1.8}
+ @page{size:A4;margin:10mm}
+ </style></head><body data-kiwi-role="cashier">${paper.innerHTML}</body></html>`);
+ w.document.close(); w.focus(); setTimeout(()=>w.print(),350);
+}
+
+async function issueInvoice(table, invoiceNumber){
+ const orders=allOrders.filter(o=>tableOf(o)===String(table));
+ if(!orders.length){ alert('ماكو طلبات بهذه الطاولة.'); return; }
+
+ const total=orders.reduce((s,o)=>s+orderTotal(o),0);
+ if(!confirm('إصدار فاتورة بقيمة '+money(total)+' وإغلاق حساب الطاولة؟')) return;
+
+ try{
+   document.getElementById('status').textContent='جاري إصدار الفاتورة...';
+   const batch=db.batch();
+
+   orders.forEach(o=>{
+     batch.update(db.collection('orders').doc(o.id),{
+       status:'billed',
+       billUploaded:true,
+       billType:'electronic',
+       invoiceNumber:invoiceNumber,
+       invoiceTable:String(table),
+       invoiceTotal:total,
+       invoiceItems:itemList(o),
+       billedAt:firebase.firestore.FieldValue.serverTimestamp()
+     });
+   });
+
+   batch.set(db.collection('invoices').doc(invoiceNumber),{
+     invoiceNumber:invoiceNumber,
+     table:String(table),
+     total:total,
+     orders:orders.map(o=>({
+       orderId:o.id,
+       total:orderTotal(o),
+       items:itemList(o),
+       status:o.status
+     })),
+     createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+     type:'electronic'
+   });
+
+   await batch.commit();
+
+   document.getElementById('invoiceContent').innerHTML=`
+     <div id="invoicePaper">${buildInvoiceHtml(table,orders,total,invoiceNumber,true)}</div>
+     <div class="invoice-actions">
+       <button class="gold" onclick="printCurrentInvoice()">🖨️ طباعة / حفظ PDF</button>
+       <button class="green" onclick="uploadInvoiceFile('table','${esc(table)}','${invoiceNumber}')">📤 رفع الفاتورة</button>
+       <button class="primary" onclick="finishInvoice('${esc(table)}')">تم ✓</button>
+     </div>
+   `;
+   document.getElementById('invoiceModal').style.display='block';
+   document.getElementById('invoiceTitle').textContent='🧾 تم إصدار الفاتورة — طاولة '+table;
+   document.getElementById('status').textContent='تم إصدار الفاتورة وحفظها بنجاح ✅';
+   closeTable();
+ }catch(e){
+   console.error(e);
+   alert('تعذر إصدار الفاتورة: '+(e.message||'خطأ'));
+   document.getElementById('status').textContent='تعذر إصدار الفاتورة';
+ }
+}
+
+function finishInvoice(table){
+ closeInvoice();
+}
+
+function closeInvoice(){
+ document.getElementById('invoiceModal').style.display='none';
+}
+
+function departmentForItem(x){
+ const d=String(x?.department||'').toLowerCase();
+ const s=String(x?.sectionId||'').toLowerCase();
+ if(['grills','kitchen','barista','appetizers','hookah'].includes(d)) return d;
+ if(s==='grills') return 'grills';
+ if(['cold-app','hot-app'].includes(s)) return 'appetizers';
+ if(['fresh','natural','soft','water','mojito','cold','milkshake','ice','hot','coffee','desserts'].includes(s)) return 'barista';
+ if(['hookah','hookah-luxury','hookah-natural'].includes(s)) return 'hookah';
+ return 'kitchen';
+}
+function departmentStatusHtml(o){
+ const labels={kitchen:'🍳 المطبخ',barista:'☕ الباريستا',appetizers:'🥗 المقبلات',grills:'🔥 المشاوي',hookah:'💨 الأراكيل'};
+ const items=itemList(o), ds=o.departmentStatus||{}, deps=[...new Set(items.map(departmentForItem))];
+ if(!deps.length)return '';
+ return '<div class="items" style="background:#f7f2e7"><b>📋 حالة الأقسام</b><br>'+deps.map(d=>{const s=ds[d]||'pending';const t=s==='ready'?'🟢 جاهز':s==='served'?'✅ مستلم':'🟡 قيد التحضير';return labels[d]+' — '+t;}).join('<br>')+'</div>';
+}
+async function acceptOrder(id){
+ try{
+   const ref=db.collection('orders').doc(id);
+   const snap=await ref.get();
+   if(!snap.exists) throw new Error('الطلب غير موجود');
+   const o={id:snap.id,...snap.data()};
+   const sourceItems=itemList(o);
+   const items=sourceItems.map(x=>({...x,department:departmentForItem(x)}));
+   const departments=[...new Set(items.map(x=>x.department).filter(Boolean))];
+   const departmentStatus={...(o.departmentStatus||{})};
+   departments.forEach(d=>{ if(departmentStatus[d]!=='ready' && departmentStatus[d]!=='served') departmentStatus[d]='pending'; });
+   await ref.update({
+     items,
+     departmentStatus,
+     status:'approved',
+     approvedAt:firebase.firestore.FieldValue.serverTimestamp(),
+     routedToDepartmentsAt:firebase.firestore.FieldValue.serverTimestamp(),
+     updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+   });
+ }catch(e){
+   alert('تعذر قبول الطلب: '+(e.message||'خطأ'));
+ }
+}
+
+async function takeReady(id){
+ try{
+   await db.collection('orders').doc(id).update({
+     status:'served',
+     captainReceivedAt:firebase.firestore.FieldValue.serverTimestamp()
+   });
+ }catch(e){
+   alert('تعذر استلام الطلب: '+(e.message||'خطأ'));
+ }
+}
+
+function refresh(){ renderAll(); }
+
+listenOrders();
+</script>
+</head>
+<body>
+<header>
+ <h1>KIWI — الكاشير</h1>
+ <div class="top-tabs">
+   <button id="hallBtn" class="header-btn activeTab" onclick="showSection('hall')">🪑 الصالة — 42 طاولة</button>
+   <button id="takeBtn" class="header-btn" onclick="showSection('takeaway')">🛍️ السفريات</button>
+   <button class="header-btn" onclick="toggleReady()">🍽️ الجاهز من الأقسام <span id="readyCount"></span></button>
+   <button class="header-btn" onclick="refresh()">🔄 تحديث</button>
+ </div>
+</header>
+
+<div id="status">جاري الاتصال...</div>
+
+<main class="wrap">
+ <section id="hallSection">
+  <div class="section-title">🪑 الصالة — كل الطاولات 1 إلى 42</div>
+  <div id="tables" class="tables"></div>
+ </section>
+
+ <section id="takeawaySection" style="display:none">
+  <div class="section-title">🛍️ السفريات — الطلبات بدون رقم طاولة</div>
+  <div id="takeawayOrders"></div>
+ </section>
+
+ <section id="readySection" class="ready-section" style="display:none">
+   <div class="ready-banner">
+     <div class="ready-banner-title">🔔 الطلبات الجاهزة للكاشير <span id="readyCount"></span></div>
+     <div class="ready-banner-sub">تظهر هنا فور ما أي قسم يضغط «الطلب جاهز» — المطبخ، الباريستا، المقبلات، المشاوي أو الأراكيل.</div>
+     <div id="readyOrders" class="ready-grid"></div>
+   </div>
+ </section>
+</main>
+
+<div id="editOrderModal" class="edit-modal" onclick="if(event.target===this)closeEditOrder()">
+ <div class="edit-box">
+   <div class="modal-head">
+     <b id="editOrderTitle">✏️ تعديل الطلب</b>
+     <button class="close" onclick="closeEditOrder()">إغلاق ✕</button>
+   </div>
+   <div class="small">تگدر تعدل الكمية والسعر، أو تضيف صنف جديد للطلب.</div>
+   <div class="edit-labels" style="margin-top:12px"><span>الصنف</span><span>الكمية</span><span>السعر</span><span></span></div>
+   <div id="editItems"></div>
+   <div class="edit-actions">
+     <button class="add-item" onclick="openCaptainMenu()">📖 فتح المنيو وإضافة صنف</button>
+     <button class="save-edit" onclick="saveEditOrder()">💾 حفظ التعديل</button>
+     <button class="primary" onclick="closeEditOrder()">إلغاء</button>
+   </div>
+ </div>
+</div>
+
+<div id="menuModal" class="menu-modal" onclick="if(event.target===this)closeCaptainMenu()">
+ <div class="menu-box">
+   <div class="modal-head">
+     <b>📖 منيو مطعم كيوي — إضافة صنف للطلب</b>
+     <button class="close" onclick="closeCaptainMenu()">إغلاق ✕</button>
+   </div>
+   <input class="menu-search" type="search" placeholder="🔎 ابحث عن الصنف من المنيو..." oninput="filterCaptainMenu(this.value)">
+   <div id="captainMenuList" class="menu-list"></div>
+ </div>
+</div>
+
+<div id="invoiceModal" class="invoice-modal" onclick="if(event.target===this)closeInvoice()">
+ <div class="invoice-box">
+   <div class="modal-head">
+     <b id="invoiceTitle">🧾 فاتورة الحساب</b>
+     <button class="close" onclick="closeInvoice()">إغلاق ✕</button>
+   </div>
+   <div id="invoiceContent"></div>
+ </div>
+</div>
+
+<div id="tableModal" class="modal" onclick="if(event.target===this)closeTable()">
+ <div class="modal-box">
+   <div class="modal-head">
+     <b id="tableTitle">🪑 الطاولة</b>
+     <button class="close" onclick="closeTable()">إغلاق ✕</button>
+   </div>
+   <div id="tableBody"></div>
+   <div id="tableTotal" class="total-box"></div>
+   <div id="billArea"></div>
+ </div>
+</div>
+<script src="kiwi-alerts.js"></script></body>
+</html>
