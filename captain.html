@@ -609,6 +609,23 @@ listenOrders();
 </header>
 
 <div id="status">جاري الاتصال...</div>
+<section class="dept-links" aria-label="روابط الأقسام">
+  <div class="section-title">🏪 أقسام التحضير</div>
+  <div class="dept-grid">
+    <a href="department.html?department=grills" target="_blank">🔥 المشويات</a>
+    <a href="department.html?department=kitchen" target="_blank">🍳 المطبخ</a>
+    <a href="department.html?department=barista" target="_blank">🥤 الباريستا والعصائر</a>
+    <a href="department.html?department=appetizers" target="_blank">🥗 المقبلات</a>
+    <a href="department.html?department=hookah" target="_blank">💨 الأراكيل</a>
+  </div>
+</section>
+<style>
+.dept-links{margin:18px auto;max-width:1100px}
+.dept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.dept-grid a{display:block;text-decoration:none;text-align:center;background:#173f2b;color:#fff;border-radius:14px;padding:14px;font-weight:900}
+.dept-grid a:hover{opacity:.9}
+</style>
+
 
 <main class="wrap">
  <div class="section-title">🪑 الصالة — الطاولات</div>
