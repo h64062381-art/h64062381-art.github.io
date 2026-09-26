@@ -1,0 +1,34 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kiwi | بصمة الدوام</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f5f1e7;margin:0;color:#29321f}.wrap{max-width:520px;margin:auto;padding:24px}.card{background:#fff;border-radius:22px;padding:24px;box-shadow:0 10px 35px #0001;margin-top:25px}h1{margin:0 0 8px}.muted{color:#777}.field{margin:16px 0}label{display:block;margin-bottom:7px;font-weight:700}select,input,button{width:100%;box-sizing:border-box;padding:14px;border-radius:12px;border:1px solid #ddd;font-size:16px}button{border:0;background:#59683b;color:#fff;font-weight:800;margin-top:10px}button.out{background:#a63d32}.status{padding:14px;border-radius:12px;background:#f1f1ec;margin-top:18px;line-height:1.8}.ok{background:#e7f2df}.bad{background:#fbe7e4}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.small{font-size:13px}</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script></head><body><div class="wrap"><div class="card">
+<h1>🕘 بصمة الدوام</h1><div class="muted">Kiwi Restaurant</div>
+<div class="field"><label>اسم الموظف</label><select id="staff"><option value="">جاري التحميل...</option></select></div>
+<div class="field"><label>PIN الموظف</label><input id="pin" type="password" inputmode="numeric" maxlength="8" placeholder="أدخل PIN"></div>
+<div class="row"><button onclick="punch('in')">🟢 بصمة دخول</button><button class="out" onclick="punch('out')">🔴 بصمة خروج</button></div>
+<div id="status" class="status">اختر اسمك وأدخل PIN ثم سجل البصمة.</div>
+</div></div>
+<script>
+const cfg={apiKey:"AIzaSyAQ9WanobYNjUbozIcWQrhDBCT82-RqMMU4",authDomain:"kiwiresturant-30ff4.firebaseapp.com",projectId:"kiwiresturant-30ff4",storageBucket:"kiwiresturant-30ff4.firebasestorage.app",messagingSenderId:"329950339210",appId:"1:329950339210:web:bd072d9d7171a2d6ec4d73"};firebase.initializeApp(cfg);const db=firebase.firestore();
+firebase.auth().signInAnonymously().catch(console.warn);
+let settings={lat:0,lng:0,radius:150}; let staff=[];
+const $=id=>document.getElementById(id), msg=(t,c='')=>{$('status').className='status '+c;$('status').innerHTML=t};
+function today(){let d=new Date();return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Baghdad'}).format(d)}
+function time(){return new Intl.DateTimeFormat('ar-IQ',{timeZone:'Asia/Baghdad',dateStyle:'short',timeStyle:'medium'}).format(new Date())}
+function dist(a,b,c,d){const R=6371000,p=Math.PI/180,x=(c-a)*p,y=(d-b)*p;return 2*R*Math.asin(Math.sqrt(Math.sin(x/2)**2+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)**2))}
+async function load(){try{const s=await db.collection('attendanceSettings').doc('main').get();if(s.exists)settings={...settings,...s.data()};const q=await db.collection('attendanceStaff').where('active','==',true).get();staff=q.docs.map(x=>({id:x.id,...x.data()}));$('staff').innerHTML='<option value="">اختر الموظف</option>'+staff.map(x=>`<option value="${x.id}">${x.name} — ${x.department||''}</option>`).join('')}catch(e){msg('تعذر تحميل بيانات الدوام: '+e.message,'bad')}}
+async function punch(type){const id=$('staff').value,pin=$('pin').value.trim(),s=staff.find(x=>x.id===id);if(!s||pin!==String(s.pin)){msg('اسم الموظف أو PIN غير صحيح.','bad');return}
+if(!navigator.geolocation){msg('المتصفح لا يدعم تحديد الموقع.','bad');return}
+msg('جاري التحقق من موقعك...');navigator.geolocation.getCurrentPosition(async pos=>{try{
+const lat=pos.coords.latitude,lng=pos.coords.longitude,acc=pos.coords.accuracy||0;let meters=null,inside=true;
+if(settings.lat&&settings.lng){meters=Math.round(dist(lat,lng,Number(settings.lat),Number(settings.lng)));inside=meters<=Number(settings.radius||150)}
+if(!inside){msg(`❌ البصمة مرفوضة<br>أنت خارج موقع العمل بحوالي ${meters} متر.<br><span class="small">الدقة التقريبية للجهاز: ${Math.round(acc)}م</span>`,'bad');return}
+const day=today(),ref=db.collection('attendanceRecords').doc(`${day}_${id}`);const old=await ref.get();let data=old.exists?old.data():{date:day,staffId:id,staffName:s.name,department:s.department||'',shiftStart:s.shiftStart||'09:00',createdAt:firebase.firestore.FieldValue.serverTimestamp()};
+if(type==='in'){if(data.clockIn){msg('تم تسجيل بصمة الدخول مسبقًا اليوم.','bad');return}data.clockIn= firebase.firestore.FieldValue.serverTimestamp();data.clockInLat=lat;data.clockInLng=lng;data.clockInAccuracy=acc;data.clockInDistance=meters;data.late=calcLate(s.shiftStart||'09:00',new Date());data.status='inside'}
+else{if(!data.clockIn){msg('لا يمكن تسجيل الخروج قبل تسجيل الدخول.','bad');return}if(data.clockOut){msg('تم تسجيل بصمة الخروج مسبقًا اليوم.','bad');return}data.clockOut=firebase.firestore.FieldValue.serverTimestamp();data.clockOutLat=lat;data.clockOutLng=lng;data.clockOutAccuracy=acc;data.clockOutDistance=meters;data.status='completed'}
+await ref.set(data,{merge:true});msg(`✅ تم تسجيل ${type==='in'?'الدخول':'الخروج'} بنجاح<br>${time()}<br>${meters!==null?'المسافة عن موقع العمل: '+meters+' متر':''}`,'ok')
+}catch(e){msg('حدث خطأ: '+e.message,'bad')}},e=>msg('لم نتمكن من تحديد موقعك. فعّل Location/GPS للمتصفح ثم حاول مرة أخرى.','bad'),{enableHighAccuracy:true,timeout:15000,maximumAge:0})}
+function calcLate(start,now){const [h,m]=start.split(':').map(Number),x=new Date(now);let mins=x.getHours()*60+x.getMinutes()-(h*60+m);return Math.max(0,mins)}
+load();
+</script></body></html>
