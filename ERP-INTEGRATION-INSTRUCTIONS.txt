@@ -1,0 +1,18 @@
+الإضافة الموحدة للـKIWI ERP
+
+استبدل فقط الملفات التالية بالنسخ الموجودة في هذا ZIP:
+- master-data.html
+- purchases-full.html
+- recipes-full.html
+- waste-full.html
+- cashbox-full.html
+- accounting-full.html
+- reports-full.html
+- cashier.html
+
+وأضف فقط:
+- kiwi-erp-unified.js
+
+لا تستبدل index.html أو admin.html أو inventory.html أو expenses.html أو captain.html أو kitchen.html أو أي ملف آخر.
+
+الهدف: توحيد أنظمة ERP الإضافية مع Firestore الحالي للمشروع، وربط المشتريات بالمخزون والوصفات والهدر والصندوق والقيود والتقارير، مع إبقاء نظام الطلبات القديم كما هو.
