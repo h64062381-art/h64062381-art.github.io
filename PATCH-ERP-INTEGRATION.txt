@@ -1,0 +1,31 @@
+KIWI Restaurant ERP - ADDITIONS ONLY
+
+1) انسخ الملفات الجديدة إلى جذر المشروع القديم:
+   kiwi-restaurant-engine.js
+   restaurant-system-full.html
+   master-data.html
+   purchases-full.html
+   recipes-full.html
+   waste-full.html
+   cashbox-full.html
+   accounting-full.html
+   reports-full.html
+   settings-full.html
+
+2) استبدل فقط:
+   restaurant-system.html
+   بالنسخة الموجودة هنا. التعديل الوحيد فيها إضافة زر ERP المتكامل.
+
+3) افتح:
+   restaurant-system-full.html
+
+مهم:
+- الملفات القديمة لا تُحذف ولا تُستبدل.
+- المحرك الجديد يستخدم مساحة localStorage منفصلة باسم KIWI_RESTAURANT_ERP_V2_ حتى لا يصطدم مع بيانات النظام القديم.
+- المشتريات الجديدة تزيد رصيد الصنف وتسجل حركة مخزون وقيد شراء.
+- الهدر ينقص المخزون ويسجل قيمة الهدر.
+- الوصفات تحسب Food Cost من تكلفة المواد.
+- الصندوق والمحاسبة والتقارير تقرأ من نفس محرك ERP الجديد.
+- الأنظمة القديمة مثل الكاشير والكابتن والمطبخ والحضور والحجوزات تبقى كما هي.
+
+هذه إضافة ERP تشغيلية مستقلة. الربط المباشر مع قاعدة بيانات الكاشير/Firebase الحالية يحتاج ربطاً خاصاً إذا أردت أن تصبح كل مبيعات الكاشير القديمة ترحّل تلقائياً إلى محرك ERP الجديد.
