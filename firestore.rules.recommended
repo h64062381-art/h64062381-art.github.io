@@ -1,0 +1,30 @@
+/*
+ KIWI ERP - RECOMMENDED PRODUCTION RULES
+ Do NOT paste this file over the current rules without first enabling Firebase Auth
+ and testing on a staging project. Legacy pages in the original project have their
+ own data access patterns; these rules intentionally scope the new ERP collections.
+*/
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+
+    match /erp_postings/{id} { allow read, write: if signedIn(); }
+    match /stock_movements/{id} { allow read, write: if signedIn(); }
+    match /journal_entries/{id} { allow read, write: if signedIn(); }
+    match /audit_logs/{id} { allow read, write: if signedIn(); }
+    match /erp_roles/{id} { allow read, write: if signedIn(); }
+    match /cash_shifts/{id} { allow read, write: if signedIn(); }
+    match /erp_settings/{id} { allow read, write: if signedIn(); }
+    match /recipes/{id} { allow read, write: if signedIn(); }
+    match /suppliers/{id} { allow read, write: if signedIn(); }
+    match /purchases/{id} { allow read, write: if signedIn(); }
+    match /purchase_items/{id} { allow read, write: if signedIn(); }
+    match /accounts/{id} { allow read, write: if signedIn(); }
+    match /erp_expense_postings/{id} { allow read, write: if signedIn(); }
+    match /erp_purchase_postings/{id} { allow read, write: if signedIn(); }
+
+    /* Existing collections: keep your current production rules here. */
+    match /{document=**} { allow read, write: if false; }
+  }
+}

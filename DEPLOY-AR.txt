@@ -1,0 +1,146 @@
+KIWI ERP — PATCH نهائي من المشروع الأصلي
+=====================================
+
+هذه الحزمة مبنية على ZIP المشروع الأصلي. هي Patch إضافي وليست إعادة بناء للمشروع.
+
+الملفات داخل الحزمة:
+
+1) kiwi-erp-core.js              [جديد]
+2) kiwi-erp-integration.js       [جديد]
+3) kiwi-erp.html                 [جديد]
+4) cashier.html                  [معدل]
+5) admin.html                    [معدل]
+6) attendance-admin.html         [معدل]
+7) inventory.html                [معدل]
+8) expenses.html                 [معدل]
+9) firestore.rules.recommended   [قواعد مقترحة — لا تطبقها مباشرة]
+10) DEPLOY-AR.txt
+
+طريقة الدمج الآمنة:
+-------------------
+
+1. خذ Backup كامل من المشروع القديم وخصوصاً Firebase/Firestore.
+2. لا تحذف أي ملف من المشروع القديم بسبب هذه الحزمة.
+3. أضف الملفات الجديدة:
+   - kiwi-erp-core.js
+   - kiwi-erp-integration.js
+   - kiwi-erp.html
+4. استبدل فقط الملفات المعدلة الموجودة في الحزمة:
+   - cashier.html
+   - admin.html
+   - attendance-admin.html
+   - inventory.html
+   - expenses.html
+5. ارفع firestore.rules.recommended كملف مرجعي فقط.
+   لا تستبدل قواعد Firestore الحالية به مباشرة.
+
+بعد الرفع:
+-----------
+
+افتح:
+  kiwi-erp.html
+
+الصفحة توفر:
+- Dashboard مركزي
+- Sales / COGS / Gross Profit / Net Profit
+- Inventory + SKU + Cost + Reorder Level
+- Recipes + Recipe Consumption
+- Suppliers + Purchases
+- Chart of Accounts + Journal Entries
+- Roles + Permissions storage
+- Cash Shifts
+- Audit Log
+- Backup JSON
+
+ربط الكاشير:
+-------------
+
+cashier.html يبقى يعمل بنفس واجهته القديمة.
+عند إصدار فاتورة:
+
+Legacy Invoice
+   -> ERP Posting
+   -> Recipe lookup
+   -> Stock deduction
+   -> Stock movement
+   -> COGS journal
+   -> Sales journal
+   -> Audit log
+
+إذا كان الإنترنت مقطوعاً، يحاول النظام وضع عملية ERP في IndexedDB queue،
+ثم يعيد مزامنتها عند عودة الاتصال.
+
+مهم جداً:
+---------
+
+- النظام لا يحذف الفاتورة القديمة إذا فشل ERP بعد إصدارها.
+- ERP posting يستخدم invoiceNumber كمفتاح لمنع تكرار خصم المخزون.
+- إذا لم توجد Recipe للطبق، لن يتم تخمين المواد؛ تبقى الفاتورة مسجلة ويكون COGS لذلك الطبق = صفر إلى أن تضيف الوصفة.
+- يجب إضافة الوصفات وربط inventoryId بالمواد الصحيحة قبل الاعتماد على Food Cost.
+- لا تستخدم PIN الإدارة الثابت كحل أمني للإنتاج. الملف يحسن تخزين PIN الموظف الجديد إلى SHA-256، لكن حماية الإدارة الفعلية يجب أن تكون Firebase Authentication + قواعد Firestore مناسبة.
+- الأدوار والصلاحيات الموجودة في ERP تُخزن في Firestore. فرض الصلاحيات على مستوى قاعدة البيانات يحتاج ربط Firebase Auth/Custom Claims قبل الإنتاج.
+
+اختبار إلزامي قبل الإنتاج:
+---------------------------
+
+A) إنشاء صنف مخزني:
+   - اسم: لحم
+   - SKU: MEAT-001
+   - كمية: 100
+   - تكلفة: 3000
+   - حد إعادة الطلب: 10
+
+B) إنشاء Recipe:
+   - الطبق: برگر
+   - لحم: 1
+
+C) إنشاء طلب برگر من الكاشير وإصدار الفاتورة.
+
+D) تحقق:
+   - الفاتورة القديمة موجودة.
+   - erp_postings/{invoiceNumber} موجود.
+   - كمية اللحم أصبحت 99.
+   - stock_movements يحتوي حركة -1.
+   - journal_entries يحتوي قيد المبيعات.
+   - journal_entries يحتوي قيد COGS إذا كانت تكلفة المادة موجودة.
+   - audit_logs يحتوي عملية البيع.
+
+E) أعد تحميل الكاشير أو حاول معالجة نفس invoiceNumber.
+   يجب ألا تنخصم المادة مرة ثانية.
+
+F) جرّب مصروف جديد:
+   يجب أن يظهر في expenses وفي journal_entries.
+
+G) جرّب شراء:
+   يجب أن تزيد كمية المخزون وتظهر حركة شراء وقيد شراء.
+
+H) افتح Cash Shift وأغلقه برصيد فعلي.
+
+I) جرّب Backup JSON.
+
+Firestore rules:
+----------------
+
+الملف firestore.rules.recommended مقصود للدمج بعد تشغيل Firebase Auth.
+لا تستبدل قواعد المشروع الحالي به قبل اختبار Staging، لأن المشروع القديم يحتوي صفحات تستخدم مجموعات Firestore قديمة.
+
+ملاحظة عن المحاسبة:
+--------------------
+
+الحسابات الافتراضية في kiwi-erp-core.js:
+1100 Cash
+1200 Bank
+1300 Inventory
+2100 Payables
+4100 Sales
+5100 COGS
+6000 Expenses
+
+يمكن تغييرها لاحقاً من CFG.accounts في kiwi-erp-core.js أو إنشاء حسابات إضافية من صفحة ERP.
+
+هذه الحزمة لا تحذف أو تعيد تسمية collections القديمة.
+
+
+إصلاح عرض الكود كنص:
+----------------------
+إذا ظهر كود JavaScript على شاشة الكاشير أو إدارة البصمة، استخدم الملفات المعدلة من هذه الحزمة كاملة. تم إصلاح script tags المتداخلة داخل نوافذ الطباعة، وتم فحص توازن وسوم script وفحص JavaScript. لا تعدل هذه الأجزاء يدوياً بعد الدمج.

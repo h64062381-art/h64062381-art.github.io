@@ -1,0 +1,47 @@
+KIWI ERP FINAL PATCH — FILE MAP
+
+NEW:
+- kiwi-erp-core.js
+- kiwi-erp-integration.js
+- kiwi-erp.html
+- firestore.rules.recommended
+- DEPLOY-AR.txt
+- PATCH-MANIFEST.txt
+
+MODIFIED FROM ORIGINAL:
+- cashier.html
+- admin.html
+- attendance-admin.html
+- inventory.html
+- expenses.html
+
+UNTOUCHED:
+- index.html
+- captain.html
+- captain 3.html
+- captain-realtime-final.html
+- kitchen.html
+- grills.html
+- barista.html
+- appetizers.html
+- hookah.html
+- cashbox.html
+- reservations.html
+- waste.html
+- violations.html
+- attendance.html
+- department.html
+- Kiwi_Menu_Dish_Images_Visible.html
+- kiwi-alerts.js
+- kiwi-enhancements.js
+- night-mode.css
+- night-mode.js
+- images/icons/assets
+- embedded legacy ZIP files
+
+
+HOTFIX 2026-09-27:
+- Fixed cashier.html generated invoice print window so ERP script source is never rendered as page text.
+- Fixed attendance-admin.html generated deduction print HTML so script markup cannot break the parent page.
+- Fixed inventory.html and expenses.html nested script-tag issue.
+- Verified HTML script tag balance and inline JavaScript syntax with Node.js --check.
