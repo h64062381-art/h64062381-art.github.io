@@ -1,0 +1,29 @@
+KIWI - RESTAURANT SYSTEM ADDITIONS
+
+These are the new files only. They were not present in the previous project ZIP.
+Copy/upload all files from this folder into the root of the old GitHub Pages project.
+Do not delete or replace the old project files.
+
+Main entry:
+restaurant-system.html
+
+Required supporting files:
+restaurant-system.css
+restaurant-system-core.js
+module-generic.js
+
+Added modules:
+dashboard.html
+employees.html
+reports.html
+suppliers.html
+purchases.html
+costing.html
+audit-log.html
+accounts.html
+users-permissions.html
+tables.html
+settings.html
+notifications.html
+
+No existing old-project files are included in this patch.

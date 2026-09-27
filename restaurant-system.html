@@ -1,0 +1,26 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>سستم المطعم الكامل | KIWI</title><link rel="stylesheet" href="restaurant-system.css"><script src="restaurant-system-core.js"></script></head><body><div class="wrap"><header class="head"><div><h1>🥝 سستم المطعم الكامل</h1><p>مركز إدارة وتشغيل المطعم — كل الأنظمة من لوحة واحدة، مع بقاء المشروع الحالي كما هو.</p></div><div class="actions"><button class="btn gold" onclick="KRS.backup()">💾 نسخة احتياطية</button><a class="btn light" href="index.html">🏠 المنيو</a></div></header><nav class="nav"><a href="kiwi-erp.html">KIWI ERP</a><a href="admin.html">لوحة الإدارة</a><a href="cashier.html">الكاشير</a><a href="captain.html">الكابتن</a><a href="kitchen.html">المطبخ</a></nav><section class="grid"><div class="card stat">إجمالي الأنظمة<b>20</b></div><div class="card stat">بيانات محلية جديدة<b id="records">0</b></div><div class="card stat">سجلات التدقيق<b id="audit">0</b></div><div class="card stat">آخر تحديث<b id="today"></b></div></section><div class="card"><h2>🧩 أنظمة المطعم</h2><div class="modules" id="modules"></div></div><div class="footer">واجهة تشغيل مستقلة مضافة للمشروع بدون تعديل أو حذف الملفات القديمة.</div></div><script>
+const M=[
+['📊','لوحة التحكم','dashboard.html','المبيعات، المصروفات، المخزون، التنبيهات والمؤشرات اليومية.'],
+['🧾','المبيعات والطلبات','cashier.html','الكاشير، الفواتير، الطلبات والسفري.'],
+['📦','المخزون والجرد','inventory.html','المواد، الكميات، الحركات، الحد الأدنى والجرد.'],
+['🛒','المشتريات','purchases.html','فواتير الشراء، الأصناف المشتراة، الكميات والتكلفة.'],
+['🤝','الموردون','suppliers.html','ملفات الموردين، الهاتف، الحسابات والملاحظات.'],
+['💸','المصروفات','expenses.html','المصروفات اليومية والشهرية والتصنيفات.'],
+['♻️','هدر المواد','waste.html','تسجيل الهدر والسبب والقيمة وربطه بالمادة.'],
+['🧪','الوصفات والتكلفة','costing.html','الوصفات، استهلاك المواد وFood Cost.'],
+['💰','صندوق الكاشير','cashbox.html','الشفتات، المقبوضات، المصروفات وإغلاق الصندوق.'],
+['📅','الحجوزات','reservations.html','الحجوزات والطاولات والمواعيد والحالات.'],
+['👥','الموظفون والحضور','employees.html','بيانات الموظفين، الورديات والحضور.'],
+['⚠️','المخالفات والإنذارات','violations.html','تسجيل المخالفات والإنذارات والإجراءات.'],
+['📚','الحسابات والديون','accounts.html','دليل الحسابات، المقبوضات، المدفوعات والديون.'],
+['📈','التقارير','reports.html','تقارير المبيعات والمصروفات والمخزون والهدر.'],
+['🔐','المستخدمون والصلاحيات','users-permissions.html','الأدوار والصلاحيات والوصول لكل قسم.'],
+['🛡️','سجل العمليات','audit-log.html','سجل كل العمليات التي تنفذ من النظام الجديد.'],
+['🔔','التنبيهات','notifications.html','تنبيهات المخزون، الطلبات، المصروفات والحجوزات.'],
+['🪑','إدارة الطاولات','tables.html','42 طاولة، الحالة، الحجز والطلبات المرتبطة.'],
+['⚙️','الإعدادات والنسخ','settings.html','إعدادات النظام والنسخ الاحتياطي والاسترجاع.'],
+['🧑‍🍳','أقسام التشغيل','department.html','المطبخ، المقبلات، المشاوي، البارستا والأراكيل.']
+];
+document.getElementById('modules').innerHTML=M.map(x=>`<a class="module" href="${x[2]}"><div><div class="icon">${x[0]}</div><h3>${x[1]}</h3><p>${x[3]}</p></div><div class="go">فتح النظام ←</div></a>`).join('');
+const s=KRS.state();document.getElementById('records').textContent=Object.values(s).reduce((n,v)=>n+(Array.isArray(v)?v.length:0),0);document.getElementById('audit').textContent=KRS.list('audit').length;document.getElementById('today').textContent=new Date().toLocaleDateString('ar-IQ');
+</script></body></html>
