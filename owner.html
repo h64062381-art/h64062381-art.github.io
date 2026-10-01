@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIWI • Restaurant Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#354326;--green2:#4f6037;--gold:#b69a5c;--gold2:#e7d08f;--cream:#f7f4ec;--paper:#fbfaf6;--ink:#252c20;--muted:#7b8075;--line:#deded5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#faf8f2,#f4f2ea 55%,#fbfaf6);color:var(--ink);font-family:Cairo,Tahoma,Arial,sans-serif}a{color:inherit;text-decoration:none}
+.top{min-height:78vh;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(7,12,8,.15),rgba(7,12,8,.9)),url('hero.jpg') center/cover;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:70px 18px}.top:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(231,208,143,.18),transparent 28%),linear-gradient(90deg,rgba(7,12,8,.65),transparent 50%,rgba(7,12,8,.65))}.top>*{position:relative;z-index:1}.brand{font-family:'Playfair Display',serif;font-size:clamp(65px,14vw,120px);letter-spacing:clamp(7px,2vw,18px);line-height:.95}.eyebrow{font-size:10px;letter-spacing:5px;color:var(--gold2);font-weight:800}.line{width:90px;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);margin:20px auto}.top h1{font-size:clamp(24px,4vw,42px);margin:0;font-weight:900}.top p{max-width:720px;margin:13px auto 0;color:#eee9dd;font-size:13px;line-height:2}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(231,208,143,.7);border-radius:999px;padding:13px 23px;font-weight:900;font-size:12px;cursor:pointer}.btn.gold{margin-top:25px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#15130d}.btn.dark{background:#ffffff12;color:#fff;margin-right:7px}
+.wrap{max-width:1120px;margin:auto;padding:0 16px}.section{padding:55px 0}.section-head{text-align:center;margin-bottom:22px}.kicker{font-size:9px;letter-spacing:3px;color:#8e7642;font-weight:900}.section h2{font-size:30px;margin:5px 0;color:var(--green)}.section-head p{color:var(--muted);font-size:11px;margin:0}
+.video-card{background:#11170f;border:1px solid rgba(182,154,92,.65);border-radius:28px;padding:10px;box-shadow:0 25px 70px rgba(30,38,23,.18)}.video-wrap{position:relative;aspect-ratio:16/9;border-radius:21px;overflow:hidden;background:radial-gradient(circle,#263423,#090d09)}video{width:100%;height:100%;display:block;object-fit:cover;background:#0b100c}.video-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px;color:#f1eadb;background:linear-gradient(180deg,rgba(10,15,10,.25),rgba(10,15,10,.88));pointer-events:none}.video-empty>div{max-width:520px}.video-empty b{font-size:21px}.video-empty p{font-size:11px;color:#c7c2b6;line-height:1.9;margin:7px 0 0}.video-note{text-align:center;color:#9a9b91;font-size:10px;margin:10px 0 0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:20px;padding:20px 16px;box-shadow:0 12px 35px rgba(35,44,27,.06);transition:.22s}.card:hover{transform:translateY(-4px);border-color:#b9a16b}.icon{font-size:28px}.card h3{margin:10px 0 4px;color:var(--green);font-size:16px}.card p{margin:0;color:var(--muted);font-size:10px;line-height:1.9}.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.flow div{padding:17px 8px;text-align:center;border:1px solid #d9d8ce;border-radius:17px;background:#fffdf8;font-size:10px;font-weight:900;color:var(--green)}.flow span{display:block;font-size:22px;margin-bottom:5px}.cta-box{background:linear-gradient(135deg,#354326,#1f2b1b);border:1px solid #b69a5c;border-radius:28px;color:#fff;padding:30px;text-align:center;box-shadow:0 25px 65px rgba(35,45,28,.2)}.cta-box h2{color:#f0d58c;margin:0;font-size:27px}.cta-box p{color:#d9ddcf;font-size:11px;line-height:2}.back{display:inline-block;margin-top:15px;color:#5d6d48;font-weight:900;font-size:11px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(3,1fr)}}@media(max-width:520px){.top{min-height:70vh}.grid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}.section{padding:40px 0}.section h2{font-size:25px}}
+</style>
+</head>
+<body>
+<section class="top">
+  <div>
+    <div class="eyebrow">KIWI • RESTAURANT MANAGEMENT</div>
+    <div class="brand">KIWI</div>
+    <div class="line"></div>
+    <h1>نظام مطعم متكامل من المنيو إلى الحسابات</h1>
+    <p>واجهة تعريفية خاصة بصاحب المطعم، تشرح تجربة KIWI كاملة: المنيو الإلكتروني، الطلبات، الكاشير، المطبخ، المخزون، المشتريات، الموظفين، التقارير والحسابات.</p>
+    <a class="btn gold" href="#demo">▶ شاهد شرح المشروع</a>
+    <a class="btn dark" href="index.html">🥝 افتح منيو الزبون</a>
+  </div>
+</section>
+<section class="section" id="demo"><div class="wrap"><div class="section-head"><div class="kicker">FULL PROJECT DEMO</div><h2>شرح المشروع بالكامل</h2><p>هنا يوضع فيديو العرض الرئيسي — يشرح النظام من البداية للنهاية مع التجارب والأمثلة.</p></div>
+  <div class="video-card"><div class="video-wrap"><video controls playsinline preload="metadata" poster="hero.jpg"><source src="kiwi-owner-demo.mp4" type="video/mp4"></video><div class="video-empty"><div><b>🎬 فيديو عرض KIWI</b><p>أضف ملف الفيديو باسم <strong>kiwi-owner-demo.mp4</strong> بجانب هذه الصفحة، وسيظهر هنا مباشرة. يفضل أن يكون الفيديو 2–5 دقائق ويعرض تجربة النظام كاملة.</p></div></div></div><div class="video-note">الفيديو مخصص لصاحب المطعم ويشرح الفكرة، التشغيل، وتجارب الاستخدام.</div></div>
+</div></section>
+<section class="section"><div class="wrap"><div class="section-head"><div class="kicker">ONE SYSTEM</div><h2>منظومة واحدة لإدارة المطعم</h2><p>المشتري يشوف قيمة المشروع من أول نظرة.</p></div><div class="grid">
+<div class="card"><div class="icon">📱</div><h3>المنيو الإلكتروني</h3><p>منيو فاخر، بحث، أقسام، صور، تفاصيل الأطباق، سلة وطلبات.</p></div>
+<div class="card"><div class="icon">💵</div><h3>الكاشير</h3><p>إدارة الطلبات، الفواتير، الحسابات والصندوق ضمن سير عمل واضح.</p></div>
+<div class="card"><div class="icon">👨‍🍳</div><h3>المطبخ والبار</h3><p>توجيه الطلبات ومتابعة حالة التجهيز بين الأقسام.</p></div>
+<div class="card"><div class="icon">📦</div><h3>المخزون والمشتريات</h3><p>مواد، وصفات، تكلفة، موردون، مشتريات، هدر ومتابعة حركة المخزون.</p></div>
+<div class="card"><div class="icon">👥</div><h3>الموظفين</h3><p>حضور، صلاحيات، أقسام، مخالفات وإدارة المستخدمين.</p></div>
+<div class="card"><div class="icon">📊</div><h3>التقارير</h3><p>تقارير تشغيلية ومالية تساعد الإدارة على متابعة أداء المطعم.</p></div>
+<div class="card"><div class="icon">📅</div><h3>الحجوزات والطاولات</h3><p>تنظيم الطاولات والحجوزات وتجربة الطلب داخل المطعم.</p></div>
+<div class="card"><div class="icon">🔐</div><h3>الصلاحيات والإعدادات</h3><p>إدارة الوصول والإعدادات بطريقة مناسبة لتشغيل النظام.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap"><div class="section-head"><div class="kicker">THE WORKFLOW</div><h2>كيف يمشي الطلب؟</h2><p>من لحظة دخول الزبون إلى نهاية العملية.</p></div><div class="flow"><div><span>🥝</span>الزبون</div><div><span>🛒</span>الطلب</div><div><span>💵</span>الكاشير</div><div><span>👨‍🍳</span>المطبخ</div><div><span>🍹</span>البار</div><div><span>📊</span>التقارير</div></div></div></section>
+<section class="section"><div class="wrap"><div class="cta-box"><h2>KIWI — كل التفاصيل بمكان واحد</h2><p>صفحة العرض هذه مصممة حتى يقدر صاحب المطعم يشاهد الفكرة كاملة قبل الدخول إلى تفاصيل النظام.</p><a class="btn gold" href="index.html">افتح تجربة الزبون 🥝</a></div><a class="back" href="index.html">← العودة إلى منيو KIWI</a></div></section>
+<script>
+(function(){
+  const v=document.querySelector('video'); const empty=document.querySelector('.video-empty');
+  if(!v||!empty)return;
+  v.addEventListener('canplay',()=>empty.style.display='none');
+  v.addEventListener('error',()=>empty.style.display='flex');
+})();
+</script>
+</body></html>
