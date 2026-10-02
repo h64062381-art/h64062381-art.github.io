@@ -1,0 +1,20 @@
+KIWI SPEED PACK v1
+
+استبدل الملفات التالية داخل مشروعك القديم:
+
+1) kiwi-speed.js
+2) cashier.html
+3) captain.html
+4) captain-realtime-final.html
+5) kitchen.html
+6) department.html
+7) grills.html
+8) barista.html
+9) appetizers.html
+10) hookah.html
+
+مهم:
+- ارفع kiwi-speed.js بنفس مجلد ملفات HTML.
+- لا تحذف أي ملفات أخرى.
+- هذه النسخة لا تغيّر حالات الطلب أو بنية الطلبات؛ تضيف Firestore offline cache/persistence وتمنع إعادة تحميل الصفحة عند تحويل الطاولة في cashier.
+- إذا كان مشروعك القديم يستخدم ملفًا مختلفًا لدور معين، استبدل فقط الملف الذي يحمل نفس الاسم.
